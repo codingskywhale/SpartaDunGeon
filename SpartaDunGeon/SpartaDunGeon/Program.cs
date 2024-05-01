@@ -111,9 +111,10 @@ public class GameManager
         Console.WriteLine("2. 장비창");
         Console.WriteLine("3. 상점");
         Console.WriteLine("4. 전투 시작");
+        Console.WriteLine("5. 회복 아이템");
 
         //선택지 검증
-        int Choise = ConsoleUtility.ChoiceMenu(1, 4);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 5);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -129,6 +130,9 @@ public class GameManager
                 break;
             case 4:
                 Console.WriteLine("전투 시작");
+                break;
+            case 5:
+                PotionMenu();
                 break;
         }
     }
@@ -345,6 +349,42 @@ public class GameManager
                 Item Sell = inventory[keyInput - 1];
                 inventory.Remove(Sell);
                 SellMenu();
+                break;
+        }
+    }
+    private void PotionMenu()
+    {
+        Console.Clear();
+        Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
+        Console.WriteLine($" (남은 포션 : {potionInventory.Count} )\n");
+        Console.WriteLine("[현재 체력]");
+        Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
+        Console.WriteLine("1. 사용하기");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+        int choice = ConsoleUtility.ChoiceMenu(0, 1);
+        switch (choice)
+        {
+            case 0:
+                MainMenu();
+                break;
+            case 1:
+                if (potionInventory.Count == 0)
+                {
+                    ConsoleUtility.PrintColoredText(Color.Red, "포션이 부족합니다.");
+                    Thread.Sleep(500);
+                    PotionMenu();
+                    break;
+                }
+                Item Use = potionInventory[choice - 1];
+                potionInventory.Remove(Use);
+                player.Hp += 30;
+                if (player.Hp >= player.MaxHp)
+                {
+                    player.Hp = player.MaxHp;
+                }
+                ConsoleUtility.PrintColoredText(Color.Green, "회복을 완료했습니다.");
+                Thread.Sleep(500);
+                PotionMenu();
                 break;
         }
     }

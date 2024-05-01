@@ -87,7 +87,7 @@
 
             if (IsPurchased)
             {
-                Console.WriteLine("구매완료");
+                ConsoleUtility.PrintColoredText(Color.Yellow, "구매완료\n");
             }
             else
             {
