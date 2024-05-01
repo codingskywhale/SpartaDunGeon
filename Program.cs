@@ -24,6 +24,8 @@
                 Console.WriteLine("전투 시작");
                 break;
         }
+
+        Console.WriteLine("Hello World");
     }
 }
 
