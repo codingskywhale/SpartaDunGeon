@@ -75,6 +75,7 @@
     private void StateMenu()
     {
         Console.Clear();
+
         consoleUtility.PrintColoredText(Color.Yellow,"# 상태 보기 #\n");
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
@@ -82,16 +83,34 @@
         Console.WriteLine($"공격력 : {player.Atk}");
         Console.WriteLine($"방어력 : {player.Def}");
         Console.WriteLine($"체  력 : {player.Hp}");
+        Console.WriteLine($"Gold : {player.Gold}");
+
+        Console.WriteLine("\n0. 나가기\n");
+
+        int Choise = consoleUtility.ChoiceMenu(0, 0);
+
+        switch (Choise)
+        {
+            case 0:
+                MainMenu();
+                break;
+        }
     }
 
     private void InventoryMenu()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        consoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
+        Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
     }
 
     private void StoreMenu()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        consoleUtility.PrintColoredText(Color.Yellow, "# 상  점 #\n");
+        Console.WriteLine("구매 가능한 아이템이 표기됩니다.\n");
     }
 
     internal class Program
