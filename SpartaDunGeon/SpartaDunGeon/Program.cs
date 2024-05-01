@@ -119,7 +119,7 @@ public class GameManager
         Console.WriteLine($"{player.Name} ({player.Job})");
         Console.WriteLine($"공격력 : {player.Atk}");
         Console.WriteLine($"방어력 : {player.Def}");
-        Console.WriteLine($"체  력 : {player.Hp}");
+        Console.WriteLine($"체  력 : {player.Hp}/{player.MaxHp}");
         Console.WriteLine($"Gold : {player.Gold}");
 
         Console.WriteLine("\n0. 나가기\n");
