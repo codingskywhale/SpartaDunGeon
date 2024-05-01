@@ -51,7 +51,7 @@ public class GameManager
             if (jobChoise == "1")
             {
                 Console.WriteLine("전사를 선택하셨습니다.");
-                player = new Player(name, "전사", 1, 10, 7, 70, 700);
+                player = new Player(name, "전사", 1, 10, 7, 70, 70, 700);
                 Thread.Sleep(1000);
                 MainMenu();
                 break;
@@ -59,7 +59,7 @@ public class GameManager
             else if (jobChoise == "2")
             {
                 Console.WriteLine("마법사를 선택하셨습니다.");
-                player = new Player(name, "마법사", 1, 5, 5, 50, 500);
+                player = new Player(name, "마법사", 1, 5, 5, 50, 50, 500);
                 Thread.Sleep(1000);
                 MainMenu();
                 break;
