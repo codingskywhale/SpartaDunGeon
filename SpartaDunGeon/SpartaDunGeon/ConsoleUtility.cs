@@ -6,17 +6,18 @@
     Yellow
 }
 
-public class consoleUtility
+public class ConsoleUtility
 {
     public static int ChoiceMenu(int min, int max)
     {
         Console.WriteLine("원하시는 행동을 입력해주세요.");
 
         while (true)
-        {            
+        {
             PrintColoredText(Color.Yellow, ">> ");
-                        
-            if(int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max)
+            //dkddkkdkdkddfsfafd;;;;
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max)
             {
                 return choice;
             }
@@ -48,6 +49,6 @@ public class consoleUtility
                 Console.Write(text);
                 Console.ResetColor();
                 break;
-        }   
+        }
     }
 }
