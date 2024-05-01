@@ -45,18 +45,19 @@
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("E");
                 Console.ResetColor();
-                Console.Write("] ");
-                Console.Write(Name);
+                Console.Write("]");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(ConsoleUtility.PadRight(Name, 16));
             }
-            else Console.Write(Name);
+            else Console.Write(ConsoleUtility.PadRight(Name, 19));
             Console.Write(" | ");
-            if (Atk != 0) Console.Write($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ");
-            if (Def != 0) Console.Write($"방어력 {(Def >= 0 ? "+" : "")}{Def} ");
-            if (Hp != 0) Console.Write($"체  력 {(Hp >= 0 ? "+" : "")}{Hp} ");
+            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
+            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.WriteLine(Desc);
+            Console.WriteLine(ConsoleUtility.PadRight(Desc, 50));
+            Console.ResetColor();
         }
         internal void toggleEquipStatus()
         {
@@ -70,18 +71,29 @@
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write($"{idx} ");
                 Console.ResetColor();
+                if (IsPurchased)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+                Console.Write(ConsoleUtility.PadRight(Name, 17));
             }
-            Console.Write(Name);
+            else
+            {
+                if (IsPurchased)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                }
+                Console.Write(ConsoleUtility.PadRight(Name, 19));
+            }
 
             Console.Write(" | ");
 
-            if (Atk != 0) Console.Write($"공격력 {(Atk >= 0 ? "+" : "")}{Atk}");
-            if (Def != 0) Console.Write($"방어력 {(Def >= 0 ? "+" : "")}{Def}");
-            if (Hp != 0) Console.Write($"체  력 {(Hp >= 0 ? "+" : "")}{Hp}");
+            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
+            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.Write(Desc);
+            Console.Write(ConsoleUtility.PadRight(Desc, 50));
 
             Console.Write(" | ");
 
@@ -109,22 +121,23 @@
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.Write("E");
                 Console.ResetColor();
-                Console.Write("] ");
-                Console.Write(Name);
+                Console.Write("]");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(ConsoleUtility.PadRight(Name, 16));
             }
-            else Console.Write(Name);
+            else Console.Write(ConsoleUtility.PadRight(Name, 19));
             Console.Write(" | ");
-            if (Atk != 0) Console.Write($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ");
-            if (Def != 0) Console.Write($"방어력 {(Def >= 0 ? "+" : "")}{Def} ");
-            if (Hp != 0) Console.Write($"체  력 {(Hp >= 0 ? "+" : "")}{Hp} ");
+            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
+            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.Write(Desc);
+            Console.Write(ConsoleUtility.PadRight(Desc, 50));
 
             Console.Write(" | ");
 
             Console.WriteLine($"{Math.Round(Price * 0.85)} G");
+            Console.ResetColor();
         }
         internal void Buy()
         {
