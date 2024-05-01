@@ -1,10 +1,35 @@
-﻿using System.Xml.Linq;
+﻿using SpartaDunGeon;
+using System.Xml.Linq;
 
 public class GameManager
 {
     public Player player;
+    private List<Item> inventory;
+    private List<Item> storeInventory;
+    private List<Item> potionInventory;
+    public GameManager()//생성자 없어서 추가했습니다.
+    {
+        InitializeGame();
+    }
+
+    private void InitializeGame()
+    {
+        inventory = new List<Item>();
+        storeInventory = new List<Item>();
+        storeInventory.Add(new Item("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", ItemType.ARMOR, 0, 5, 0, 1000));
+        storeInventory.Add(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", ItemType.ARMOR, 0, 9, 0, 2000));
+        storeInventory.Add(new Item("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", ItemType.ARMOR, 0, 15, 0, 3500));
+        storeInventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 600));
+        storeInventory.Add(new Item("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", ItemType.WEAPON, 5, 0, 0, 1500));
+        storeInventory.Add(new Item("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", ItemType.WEAPON, 7, 0, 0, 3000));
+        potionInventory = new List<Item>();
+        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+    }
 
     //게임 시작
+
     public void StartGame()
     {
         NameChoise();
@@ -138,47 +163,68 @@ public class GameManager
     private void InventoryMenu()
     {
         Console.Clear();
-
-        ConsoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
-        Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
-
-
-
-        Console.WriteLine("\n0. 나가기");
-        Console.WriteLine("1. 장비 장착\n");
-
-        int Choise = ConsoleUtility.ChoiceMenu(0, 1);
-
-        switch (Choise)
+        Console.WriteLine("인벤토리");
+        Console.WriteLine("");
+        Console.WriteLine("[아이템 목록]");
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            inventory[i].InventoryItemList();
+        }
+        Console.WriteLine("");
+        Console.WriteLine("1. 장착관리");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+        Console.WriteLine("");
+        switch (ConsoleUtility.ChoiceMenu(0, 1))
         {
             case 0:
                 MainMenu();
                 break;
             case 1:
-                EquipItem();
+                EquipMenu();
                 break;
         }
     }
 
     //장비 장착
-    private void EquipItem()
+    private void EquipMenu()
     {
         Console.Clear();
 
-        ConsoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
-        Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
+        Console.WriteLine("인벤토리 - 장착관리");
+        Console.WriteLine("");
+        Console.WriteLine("[아이템 목록]");
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            inventory[i].InventoryItemList(true, i + 1);
+        }
+        Console.WriteLine("");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
 
+        int keyInput = ConsoleUtility.ChoiceMenu(0, inventory.Count);
 
-
-
-        Console.WriteLine("\n0. 나가기\n");
-
-        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
-
-        switch (Choise)
+        switch (keyInput)
         {
             case 0:
-                MainMenu();
+                InventoryMenu();
+                break;
+            default:
+                if (inventory[keyInput - 1].IsEquipped == false)
+                {
+                    foreach (Item item in inventory)
+                    {
+                        if (item.IsEquipped == true && item.Type == inventory[keyInput - 1].Type)
+                        {
+                            item.toggleEquipStatus();
+                            break;
+                        }
+                    }
+                    inventory[keyInput - 1].toggleEquipStatus();
+                }
+                else
+                {
+                    inventory[keyInput - 1].toggleEquipStatus();
+                }
+                EquipMenu();
                 break;
         }
     }
@@ -188,19 +234,117 @@ public class GameManager
     {
         Console.Clear();
 
-        ConsoleUtility.PrintColoredText(Color.Yellow, "# 상  점 #\n");
-        Console.WriteLine("구매 가능한 아이템이 표기됩니다.\n");
-
-
-
-        Console.WriteLine("\n0. 나가기\n");
-
-        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
-
-        switch (Choise)
+        Console.WriteLine("상점");
+        Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+        Console.WriteLine("");
+        Console.WriteLine("[보유골드]");
+        Console.WriteLine($"{player.Gold} G");
+        Console.WriteLine("");
+        Console.WriteLine("[아이템 목록]");
+        for (int i = 0; i < storeInventory.Count; i++)
+        {
+            storeInventory[i].StoreItemList();
+        }
+        Console.WriteLine("");
+        Console.WriteLine("1. 아이템 구매");
+        Console.WriteLine("2. 아이템 판매");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+        Console.WriteLine("");
+        switch (ConsoleUtility.ChoiceMenu(0, 2))
         {
             case 0:
                 MainMenu();
+                break;
+            case 1:
+                BuyMenu();
+                break;
+            case 2:
+                SellMenu();
+                break;
+        }
+    }
+    //상점 - 구매
+    private void BuyMenu()
+    {
+        Console.Clear();
+
+        Console.WriteLine("상점 - 구매");
+        Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+        Console.WriteLine("");
+        Console.WriteLine("[보유골드]");
+        Console.WriteLine($"{player.Gold} G");
+        Console.WriteLine("");
+        Console.WriteLine("[아이템 목록]");
+        for (int i = 0; i < storeInventory.Count; i++)
+        {
+            storeInventory[i].StoreItemList(true, i + 1);
+        }
+        Console.WriteLine("");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+        Console.WriteLine("");
+
+        int keyInput = ConsoleUtility.ChoiceMenu(0, storeInventory.Count);
+
+        switch (keyInput)
+        {
+            case 0:
+                StoreMenu();
+                break;
+            default:
+                if (storeInventory[keyInput - 1].IsPurchased)
+                {
+                    ConsoleUtility.PrintColoredText(Color.Red, "이미 구매한 아이템입니다.");
+                    Thread.Sleep(500);
+                    BuyMenu();
+                }
+                else if (player.Gold >= storeInventory[keyInput - 1].Price)
+                {
+                    player.Gold -= storeInventory[keyInput - 1].Price;
+                    storeInventory[keyInput - 1].Buy();
+                    inventory.Add(storeInventory[keyInput - 1]);
+                    BuyMenu();
+                }
+                else
+                {
+                    ConsoleUtility.PrintColoredText(Color.Red, "Gold가 부족합니다.");
+                    Thread.Sleep(500);
+                    BuyMenu();
+                }
+                break;
+        }
+    }
+    //상점 - 판매
+    private void SellMenu()
+    {
+        Console.Clear();
+
+        Console.WriteLine("상점 - 판매");
+        Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+        Console.WriteLine("");
+        Console.WriteLine("[보유골드]");
+        Console.WriteLine($"{player.Gold} G");
+        Console.WriteLine("");
+        Console.WriteLine("[아이템 목록]");
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            inventory[i].StoreItemSellList(true, i + 1);
+        }
+        Console.WriteLine("");
+        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+
+        int keyInput = ConsoleUtility.ChoiceMenu(0, inventory.Count);
+
+        switch (keyInput)
+        {
+            case 0:
+                StoreMenu();
+                break;
+            default:
+                inventory[keyInput - 1].Sell();
+                player.Gold += (int)Math.Round(inventory[keyInput - 1].Price * 0.85);
+                Item Sell = inventory[keyInput - 1];
+                inventory.Remove(Sell);
+                SellMenu();
                 break;
         }
     }
