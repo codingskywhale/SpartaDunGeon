@@ -16,11 +16,11 @@ public class GameManager
     {
         inventory = new List<Item>();
         storeInventory = new List<Item>();
-        storeInventory.Add(new Item("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", ItemType.ARMOR, 0, 5, 0, 1000));
-        storeInventory.Add(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", ItemType.ARMOR, 0, 9, 0, 2000));
+        storeInventory.Add(new Item("수련자 갑옷", "수련에 도움을 주는 갑옷입니다.", ItemType.ARMOR, 0, 5, 0, 100));
+        storeInventory.Add(new Item("무쇠갑옷", "무쇠로 만들어져 튼튼한 갑옷입니다.", ItemType.ARMOR, 0, 9, 0, 200));
         storeInventory.Add(new Item("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", ItemType.ARMOR, 0, 15, 0, 3500));
-        storeInventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 600));
-        storeInventory.Add(new Item("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", ItemType.WEAPON, 5, 0, 0, 1500));
+        storeInventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
+        storeInventory.Add(new Item("청동 도끼", "어디선가 사용됐던거 같은 도끼입니다.", ItemType.WEAPON, 5, 0, 0, 200));
         storeInventory.Add(new Item("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", ItemType.WEAPON, 7, 0, 0, 3000));
         potionInventory = new List<Item>();
         potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
@@ -146,8 +146,12 @@ public class GameManager
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
         Console.WriteLine($"{player.Name} ({player.Job})");
-        Console.WriteLine($"공격력 : {player.Atk}");
-        Console.WriteLine($"방어력 : {player.Def}");
+        int bonusAtk = inventory.Select(item => item.IsEquipped ? item.Atk : 0).Sum();
+        Console.Write($"공격력 : {player.Atk + bonusAtk}");
+        Console.WriteLine(bonusAtk > 0 ? $" (+{bonusAtk})" : "");
+        int bonusDef = inventory.Select(item => item.IsEquipped ? item.Def : 0).Sum();
+        Console.Write($"방어력 : {player.Def + bonusDef}");
+        Console.WriteLine(bonusDef > 0 ? $" (+{bonusDef})" : "");
         Console.WriteLine($"체  력 : {player.Hp}/{player.MaxHp}");
         Console.WriteLine($"Gold : {player.Gold}");
 
