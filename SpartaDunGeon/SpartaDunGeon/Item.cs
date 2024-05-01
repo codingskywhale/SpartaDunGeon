@@ -35,7 +35,7 @@
             Console.Write("- ");
             if (withNumber)
             {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write($"{idx} ");
                 Console.ResetColor();
             }
@@ -67,7 +67,7 @@
             Console.Write("- ");
             if (withNumber)
             {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write($"{idx} ");
                 Console.ResetColor();
             }
@@ -99,7 +99,7 @@
             Console.Write("- ");
             if (withNumber)
             {
-                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write($"{idx} ");
                 Console.ResetColor();
             }
