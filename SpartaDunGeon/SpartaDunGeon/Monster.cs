@@ -23,7 +23,7 @@
         Gold = gold;
         IsDead = isDead;
     }
-
+    /*
     public void monsterList()
     {
         monsters = new List<Monster>();
@@ -33,5 +33,5 @@
         monsters.Add(new Monster("코볼트",2 , 3, 7, 3, 10, 30));
         monsters.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
         monsters.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
-    }
+    }*/
 }

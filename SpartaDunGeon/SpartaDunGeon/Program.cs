@@ -1,4 +1,5 @@
-﻿using SpartaDunGeon;
+﻿using Spartadungeon;
+using SpartaDunGeon;
 using System.Xml.Linq;
 
 public class GameManager
@@ -129,7 +130,8 @@ public class GameManager
                 StoreMenu();
                 break;
             case 4:
-                Console.WriteLine("전투 시작");
+                Dungeon dungeon = new Dungeon();
+                dungeon.DungeonScene(player);
                 break;
             case 5:
                 PotionMenu();
