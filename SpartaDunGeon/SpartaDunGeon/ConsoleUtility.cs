@@ -6,7 +6,7 @@
     Yellow
 }
 
-public class consoleUtility
+public class ConsoleUtility
 {
     public static int ChoiceMenu(int min, int max)
     {
