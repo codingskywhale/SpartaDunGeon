@@ -20,7 +20,7 @@ public class GameManager
         Console.WriteLine("1. 예");
         Console.WriteLine("2. 아니오\n");
 
-        int Choise = consoleUtility.ChoiceMenu(1, 2);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 2);
 
         switch (Choise)
         {
@@ -84,7 +84,7 @@ public class GameManager
         Console.WriteLine("4. 전투 시작");
 
         //선택지 검증
-        int Choise = consoleUtility.ChoiceMenu(1, 4);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -108,7 +108,7 @@ public class GameManager
     {
         Console.Clear();
 
-        consoleUtility.PrintColoredText(Color.Yellow,"# 상태 보기 #\n");
+        ConsoleUtility.PrintColoredText(Color.Yellow,"# 상태 보기 #\n");
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
         Console.WriteLine($"{player.Name} ({player.Job})");
@@ -119,7 +119,7 @@ public class GameManager
 
         Console.WriteLine("\n0. 나가기\n");
 
-        int Choise = consoleUtility.ChoiceMenu(0, 0);
+        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
         switch (Choise)
         {
@@ -133,12 +133,12 @@ public class GameManager
     {
         Console.Clear();
 
-        consoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
+        ConsoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
         Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
 
 
 
-        int Choise = consoleUtility.ChoiceMenu(0, 1);
+        int Choise = ConsoleUtility.ChoiceMenu(0, 1);
 
         switch (Choise)
         {
@@ -155,12 +155,12 @@ public class GameManager
     {
         Console.Clear();
 
-        consoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
+        ConsoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
         Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
 
 
 
-        int Choise = consoleUtility.ChoiceMenu(0, 0);
+        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
         switch (Choise)
         {
@@ -174,13 +174,13 @@ public class GameManager
     {
         Console.Clear();
 
-        consoleUtility.PrintColoredText(Color.Yellow, "# 상  점 #\n");
+        ConsoleUtility.PrintColoredText(Color.Yellow, "# 상  점 #\n");
         Console.WriteLine("구매 가능한 아이템이 표기됩니다.\n");
 
 
 
 
-        int Choise = consoleUtility.ChoiceMenu(0, 0);
+        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
         switch (Choise)
         {
