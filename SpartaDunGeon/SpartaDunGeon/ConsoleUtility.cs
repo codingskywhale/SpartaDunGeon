@@ -1,14 +1,54 @@
-﻿internal class ConsoleUtility
+﻿public enum Color
 {
-    public static int PromptMenuChoise(int min, int max)
+    Red,
+    Green,
+    Blue,
+    Yellow
+}
+
+public class consoleUtility
+{
+    public static int ChoiceMenu(int min, int max)
     {
+        Console.WriteLine("원하시는 행동을 입력해주세요.");
+
         while (true)
         {
-            if (int.TryParse(Console.ReadLine(), out int input) && input >= min && input <= max)
+            PrintColoredText(Color.Yellow, ">> ");
+            //dkddkkdkdkddfsfafd;;;;
+
+            if (int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max)
             {
-                return input;
+                return choice;
             }
-            Console.Write("잘못 입력하셨습니다. 원하시는 선택지의 숫자를 입력해 주세요: ");
+            Console.WriteLine("잘못된 입력입니다.");
+        }
+    }
+
+    public static void PrintColoredText(Color color, string text)
+    {
+        switch (color)
+        {
+            case Color.Red:
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write(text);
+                Console.ResetColor();
+                break;
+            case Color.Blue:
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(text);
+                Console.ResetColor();
+                break;
+            case Color.Yellow:
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write(text);
+                Console.ResetColor();
+                break;
+            case Color.Green:
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(text);
+                Console.ResetColor();
+                break;
         }
     }
 }
