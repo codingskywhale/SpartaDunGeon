@@ -1,11 +1,41 @@
-﻿public class GameManager
+﻿using System.Xml.Linq;
+
+public class GameManager
 {
     public Player player;
 
     public void StartGame()
     {
+        NameChoise();
+    }
+
+    private void NameChoise()
+    {
+        Console.Clear();
+
         Console.Write("이름을 입력해 주세요: ");
         string name = Console.ReadLine();
+
+        Console.WriteLine($"입력하신 이름은 '{name}' 입니다.");
+        Console.WriteLine("1. 예");
+        Console.WriteLine("2. 아니오\n");
+
+        int Choise = consoleUtility.ChoiceMenu(1, 2);
+
+        switch (Choise)
+        {
+            case 1:
+                JobChoise(name);
+                break;
+            case 2:
+                NameChoise();
+                break;
+        }
+    }
+
+    private void JobChoise(string name)
+    {
+        Console.Clear ();
 
         Console.WriteLine("직업을 선택해 주세요.");
         Console.WriteLine("1. 전사");
@@ -19,15 +49,17 @@
             {
                 Console.WriteLine("전사를 선택하셨습니다.");
                 player = new Player(name, "전사", 1, 10, 7, 70, 700);
+                Thread.Sleep(1000);
                 MainMenu();
-                return;
+                break;
             }
             else if (jobChoise == "2")
             {
                 Console.WriteLine("마법사를 선택하셨습니다.");
                 player = new Player(name, "마법사", 1, 5, 5, 50, 500);
+                Thread.Sleep(1000);
                 MainMenu();
-                return;
+                break;
             }
             else
             {
@@ -103,6 +135,39 @@
 
         consoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
         Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
+
+
+
+        int Choise = consoleUtility.ChoiceMenu(0, 1);
+
+        switch (Choise)
+        {
+            case 0:
+                MainMenu();
+                break;
+            case 1:
+                EquipItem();
+                break;
+        }
+    }
+
+    private void EquipItem()
+    {
+        Console.Clear();
+
+        consoleUtility.PrintColoredText(Color.Yellow, "# 인벤토리 #\n");
+        Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
+
+
+
+        int Choise = consoleUtility.ChoiceMenu(0, 0);
+
+        switch (Choise)
+        {
+            case 0:
+                MainMenu();
+                break;
+        }
     }
 
     private void StoreMenu()
@@ -111,14 +176,26 @@
 
         consoleUtility.PrintColoredText(Color.Yellow, "# 상  점 #\n");
         Console.WriteLine("구매 가능한 아이템이 표기됩니다.\n");
-    }
 
-    internal class Program
+
+
+
+        int Choise = consoleUtility.ChoiceMenu(0, 0);
+
+        switch (Choise)
+        {
+            case 0:
+                MainMenu();
+                break;
+        }
+    }
+}
+
+internal class Program
 {
     static void Main(string[] args)
-        {
-            GameManager gameManager = new GameManager();
-            gameManager.StartGame();
-        }
+    {
+        GameManager gameManager = new GameManager();
+        gameManager.StartGame();
     }
 }
