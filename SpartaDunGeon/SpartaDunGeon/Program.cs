@@ -4,11 +4,13 @@ public class GameManager
 {
     public Player player;
 
+    //게임 시작
     public void StartGame()
     {
         NameChoise();
     }
 
+    //이름 입력
     private void NameChoise()
     {
         Console.Clear();
@@ -33,6 +35,7 @@ public class GameManager
         }
     }
 
+    //직업 선택
     private void JobChoise(string name)
     {
         Console.Clear ();
@@ -68,6 +71,7 @@ public class GameManager
         }
     }
 
+    //메인 메뉴
     private void MainMenu()
     {
         Console.Clear();
@@ -104,6 +108,7 @@ public class GameManager
         }
     }
 
+    //상태창
     private void StateMenu()
     {
         Console.Clear();
@@ -129,6 +134,7 @@ public class GameManager
         }
     }
 
+    //인벤토리
     private void InventoryMenu()
     {
         Console.Clear();
@@ -137,6 +143,9 @@ public class GameManager
         Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
 
 
+
+        Console.WriteLine("\n0. 나가기");
+        Console.WriteLine("1. 장비 장착\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(0, 1);
 
@@ -151,6 +160,7 @@ public class GameManager
         }
     }
 
+    //장비 장착
     private void EquipItem()
     {
         Console.Clear();
@@ -159,6 +169,9 @@ public class GameManager
         Console.WriteLine("캐릭터가 보유한 아이템이 표기됩니다.\n");
 
 
+
+
+        Console.WriteLine("\n0. 나가기\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -170,6 +183,7 @@ public class GameManager
         }
     }
 
+    //상점
     private void StoreMenu()
     {
         Console.Clear();
@@ -179,6 +193,7 @@ public class GameManager
 
 
 
+        Console.WriteLine("\n0. 나가기\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
