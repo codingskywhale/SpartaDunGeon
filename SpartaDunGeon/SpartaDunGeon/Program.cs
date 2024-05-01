@@ -267,6 +267,7 @@ public class GameManager
                 break;
         }
     }
+
     //상점 - 구매
     private void BuyMenu()
     {
@@ -317,6 +318,7 @@ public class GameManager
                 break;
         }
     }
+
     //상점 - 판매
     private void SellMenu()
     {
@@ -352,6 +354,8 @@ public class GameManager
                 break;
         }
     }
+
+    //회복 아이템
     private void PotionMenu()
     {
         Console.Clear();
