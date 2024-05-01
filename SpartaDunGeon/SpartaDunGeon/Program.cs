@@ -1,6 +1,6 @@
 ﻿public class GameManager
 {
-    public Player Player;
+    public Player player;
 
     public void StartGame()
     {
@@ -18,12 +18,15 @@
             if (jobChoise == "1")
             {
                 Console.WriteLine("전사를 선택하셨습니다.");
+                player = new Player(name, "전사", 1, 10, 7, 70, 700);
                 MainMenu();
                 return;
             }
             else if (jobChoise == "2")
             {
                 Console.WriteLine("마법사를 선택하셨습니다.");
+                player = new Player(name, "마법사", 1, 5, 5, 50, 500);
+                MainMenu();
                 return;
             }
             else
@@ -47,10 +50,9 @@
         Console.WriteLine("2. 장비창");
         Console.WriteLine("3. 상점");
         Console.WriteLine("4. 전투 시작");
-        Console.Write("\n원하는 선택지를 고르세요: ");
 
         //선택지 검증
-        int Choise = ConsoleUtility.PromptMenuChoise(1, 4);
+        int Choise = consoleUtility.ChoiceMenu(1, 4);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -72,7 +74,14 @@
 
     private void StateMenu()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        consoleUtility.PrintColoredText(Color.Yellow,"# 상태 보기 #\n");
+        Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
+
+        Console.WriteLine($"{player.Name} ({player.Job})");
+        Console.WriteLine($"공격력 : {player.Atk}");
+        Console.WriteLine($"방어력 : {player.Def}");
+        Console.WriteLine($"체  력 : {player.Hp}");
     }
 
     private void InventoryMenu()
