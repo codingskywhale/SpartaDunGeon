@@ -99,7 +99,7 @@
 
             if (item.IsPurchased)
             {
-                ConsoleUtility.PrintColoredText(Color.Yellow, "구매완료\n");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "구매완료\n");
             }
             else
             {
