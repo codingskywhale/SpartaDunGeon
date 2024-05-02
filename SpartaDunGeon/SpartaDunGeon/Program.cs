@@ -8,6 +8,7 @@ public class GameManager
     private List<Item> inventory;
     private List<Item> storeInventory;
     private List<Item> potionInventory;
+
     public GameManager()//생성자 없어서 추가했습니다.
     {
         InitializeGame();
@@ -29,15 +30,9 @@ public class GameManager
         potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
     }
 
-    //게임 시작
-
-    public void StartGame()
-    {
-        NameChoise();
-    }
 
     //이름 입력
-    private void NameChoise()
+    public void NameChoise()
     {
         Console.Clear();
 
@@ -46,7 +41,7 @@ public class GameManager
 
         Console.Clear();
 
-        ConsoleUtility.PrintTextHighlight(Color.Yellow,"입력하신 이름은 '",name,"' 입니다.\n");
+        ConsoleUtility.PrintTextHighlight(Color.Yellow, "입력하신 이름은 '", name, "' 입니다.\n");
         Console.WriteLine("1. 예");
         Console.WriteLine("2. 아니오\n");
 
@@ -64,9 +59,9 @@ public class GameManager
     }
 
     //직업 선택
-    private void JobChoise(string name)
+    public void JobChoise(string name)
     {
-        Console.Clear ();
+        Console.Clear();
 
         Console.WriteLine("직업을 선택해 주세요.\n");
         Console.WriteLine("1. 전사");
@@ -78,9 +73,9 @@ public class GameManager
             string jobChoise = Console.ReadLine();
             if (jobChoise == "1")
             {
-                Console.Clear() ;
-                ConsoleUtility.PrintTextHighlight(Color.Red,"당신은 용맹한 ","전사","를 선택하셨습니다.");
-                player = new Player(name, "전사", 1, 10, 7, 70, 70, 700);
+                Console.Clear();
+                ConsoleUtility.PrintTextHighlight(Color.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
+                player = new Player(name, "전사", 1, 0, 20, 10, 7, 70, 20, 70, 20, 700) ;
                 Thread.Sleep(2000);
                 MainMenu();
                 break;
@@ -88,8 +83,8 @@ public class GameManager
             else if (jobChoise == "2")
             {
                 Console.Clear();
-                ConsoleUtility.PrintTextHighlight(Color.Blue,"당신은 현명한 ","마법사", "를 선택하셨습니다.");
-                player = new Player(name, "마법사", 1, 5, 5, 50, 50, 500);
+                ConsoleUtility.PrintTextHighlight(Color.Blue, "당신은 현명한 ", "마법사", "를 선택하셨습니다.");
+                player = new Player(name, "마법사", 1, 0, 20, 5, 5, 50, 70, 50, 70, 500);
                 Thread.Sleep(1500);
                 MainMenu();
                 break;
@@ -101,8 +96,14 @@ public class GameManager
         }
     }
 
+    //게임 시작
+    public void StartGame()
+    {
+        NameChoise();
+    }
+
     //메인 메뉴
-    private void MainMenu()
+    public void MainMenu()
     {
         Console.Clear();
         //인트로
@@ -119,7 +120,7 @@ public class GameManager
         Console.WriteLine("5. 회복 아이템");
 
         //선택지 검증
-        int Choise = ConsoleUtility.ChoiceMenu(1, 5);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 6);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -140,6 +141,10 @@ public class GameManager
             case 5:
                 PotionMenu();
                 break;
+            case 6:
+                player.ExpAdd(10);
+                StateMenu();
+                break;
         }
     }
 
@@ -152,6 +157,8 @@ public class GameManager
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
         Console.WriteLine($"{player.Name} ({player.Job})");
+        Console.WriteLine($"Lv. {player.Lv}");
+        Console.WriteLine($"{player.Exp}/{player.MaxExp}");
         int bonusAtk = inventory.Select(item => item.IsEquipped ? item.Atk : 0).Sum();
         Console.Write($"공격력 : {player.Atk + bonusAtk}");
         Console.WriteLine(bonusAtk > 0 ? $" (+{bonusAtk})" : "");
