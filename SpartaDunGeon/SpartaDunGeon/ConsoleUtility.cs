@@ -1,14 +1,5 @@
 ﻿using static System.Net.Mime.MediaTypeNames;
 
-public enum Color
-{
-    Red,
-    Green,
-    Blue,
-    Yellow
-}
-
-
 public class ConsoleUtility
 {
     public static int ChoiceMenu(int min, int max)
@@ -17,7 +8,7 @@ public class ConsoleUtility
 
         while (true)
         {
-            PrintColoredText(Color.Yellow, ">> ");
+            PrintColoredText(ConsoleColor.DarkYellow, ">> ");
 
             if (int.TryParse(Console.ReadLine(), out int choice) && choice >= min && choice <= max)
             {
@@ -27,69 +18,22 @@ public class ConsoleUtility
         }
     }
 
-
     // 텍스트 전체 색상 변경(줄바꿈X)
-        public static void PrintColoredText(Color color, string text)
+    public static void PrintColoredText(ConsoleColor color, string text)
     {
-        switch (color)
-        {
-            case Color.Red:
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write(text);
-                Console.ResetColor();
-                break;
-            case Color.Blue:
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(text);
-                Console.ResetColor();
-                break;
-            case Color.Yellow:
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(text);
-                Console.ResetColor();
-                break;
-            case Color.Green:
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(text);
-                Console.ResetColor();
-                break;
-        }
+        Console.ForegroundColor = (ConsoleColor)color;
+        Console.WriteLine(text);
+        Console.ResetColor();       
     }
 
     // 텍스트 색상 변경(하이라이트, 줄바꿈O)
-    public static void PrintTextHighlight(Color color, string str1, string str2, string str3 = "")
+    public static void PrintTextHighlight(ConsoleColor color, string str1, string str2, string str3 = "")
     {
-        switch (color)
-        {
-            case Color.Red:
-                Console.Write(str1);
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write(str2);
-                Console.ResetColor();
-                Console.WriteLine(str3);
-                break;
-            case Color.Blue:
-                Console.Write(str1);
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(str2);
-                Console.ResetColor();
-                Console.WriteLine(str3);
-                break;
-            case Color.Yellow:
-                Console.Write(str1);
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write(str2);
-                Console.ResetColor();
-                Console.WriteLine(str3);
-                break;
-            case Color.Green:
-                Console.Write(str1);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write(str2);
-                Console.ResetColor();
-                Console.WriteLine(str3);
-                break;
-        }
+        Console.Write(str1);
+        Console.ForegroundColor = (ConsoleColor)color;
+        Console.Write(str2);
+        Console.ResetColor();
+        Console.WriteLine(str3);       
     }
 
     //문자열 길이 계산
