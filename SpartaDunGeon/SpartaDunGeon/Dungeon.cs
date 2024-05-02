@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -269,7 +270,10 @@ namespace Spartadungeon
             PlayerTurn(player);
         }
 
-        
+        public void Attack(Player player, Monster enemy)
+        {
+
+        }
 
         public void Win(Player player)
         {
