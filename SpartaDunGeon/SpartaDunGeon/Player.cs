@@ -14,8 +14,10 @@ public class Player
     public int MaxHp { get; set; }
     public int MaxMp { get; set; }
     public int Gold { get; set; }
+    public int BonusAtk { get; set; }
+    public int BonusDef { get; set; }
 
-    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold)
+    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0)
     {
         Name = name;
         Job = job;
@@ -29,6 +31,8 @@ public class Player
         MaxHp = maxHp;
         MaxMp = maxMp;
         Gold = gold;
+        BonusAtk = bonusAtk;
+        BonusDef = bonusDef;
     }
 
     public void ExpAdd(int AddExp)
