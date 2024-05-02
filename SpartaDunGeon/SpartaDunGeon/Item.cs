@@ -30,7 +30,7 @@
             IsEquipped = isEquipped;
             IsPurchased = isPurchased;
         }
-        internal void InventoryItemList(bool withNumber = false, int idx = 0)
+        internal static void InventoryItemList(Item item, bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
             if (withNumber)
@@ -39,7 +39,7 @@
                 Console.Write($"{idx} ");
                 Console.ResetColor();
             }
-            if (IsEquipped)
+            if (item.IsEquipped)
             {
                 Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -47,23 +47,23 @@
                 Console.ResetColor();
                 Console.Write("]");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(ConsoleUtility.PadRight(Name, 16));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 16));
             }
-            else Console.Write(ConsoleUtility.PadRight(Name, 19));
+            else Console.Write(ConsoleUtility.PadRight(item.Name, 19));
             Console.Write(" | ");
-            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
-            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
+            if (item.Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(item.Atk >= 0 ? "+" : "")}{item.Atk} ", 11));
+            if (item.Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(item.Def >= 0 ? "+" : "")}{item.Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.WriteLine(ConsoleUtility.PadRight(Desc, 50));
+            Console.WriteLine(ConsoleUtility.PadRight(item.Desc, 50));
             Console.ResetColor();
         }
-        internal void toggleEquipStatus()
+        internal static void toggleEquipStatus(Item item)
         {
-            IsEquipped = !IsEquipped;
+            item.IsEquipped = !item.IsEquipped;
         }
-        public void StoreItemList(bool withNumber = false, int idx = 0)
+        public static void StoreItemList(Item item, bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
             if (withNumber)
@@ -71,42 +71,42 @@
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.Write($"{idx} ");
                 Console.ResetColor();
-                if (IsPurchased)
+                if (item.IsPurchased)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-                Console.Write(ConsoleUtility.PadRight(Name, 17));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 17));
             }
             else
             {
-                if (IsPurchased)
+                if (item.IsPurchased)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-                Console.Write(ConsoleUtility.PadRight(Name, 19));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 19));
             }
 
             Console.Write(" | ");
 
-            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
-            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
+            if (item.Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(item.Atk >= 0 ? "+" : "")}{item.Atk} ", 11));
+            if (item.Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(item.Def >= 0 ? "+" : "")}{item.Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.Write(ConsoleUtility.PadRight(Desc, 50));
+            Console.Write(ConsoleUtility.PadRight(item.Desc, 50));
 
             Console.Write(" | ");
 
-            if (IsPurchased)
+            if (item.IsPurchased)
             {
                 ConsoleUtility.PrintColoredText(Color.Yellow, "구매완료\n");
             }
             else
             {
-                Console.WriteLine($"{Price} G");
+                Console.WriteLine($"{item.Price} G");
             }
         }
-        internal void StoreItemSellList(bool withNumber = false, int idx = 0)
+        public static void StoreItemSellList(Item item, bool withNumber = false, int idx = 0)
         {
             Console.Write("- ");
             if (withNumber)
@@ -115,7 +115,7 @@
                 Console.Write($"{idx} ");
                 Console.ResetColor();
             }
-            if (IsEquipped)
+            if (item.IsEquipped)
             {
                 Console.Write("[");
                 Console.ForegroundColor = ConsoleColor.Cyan;
@@ -123,33 +123,33 @@
                 Console.ResetColor();
                 Console.Write("]");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(ConsoleUtility.PadRight(Name, 16));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 16));
             }
-            else Console.Write(ConsoleUtility.PadRight(Name, 19));
+            else Console.Write(ConsoleUtility.PadRight(item.Name, 19));
             Console.Write(" | ");
-            if (Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(Atk >= 0 ? "+" : "")}{Atk} ", 11));
-            if (Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(Def >= 0 ? "+" : "")}{Def} ", 11));
-
-            Console.Write(" | ");
-
-            Console.Write(ConsoleUtility.PadRight(Desc, 50));
+            if (item.Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(item.Atk >= 0 ? "+" : "")}{item.Atk} ", 11));
+            if (item.Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(item.Def >= 0 ? "+" : "")}{item.Def} ", 11));
 
             Console.Write(" | ");
 
-            Console.WriteLine($"{Math.Round(Price * 0.85)} G");
+            Console.Write(ConsoleUtility.PadRight(item.Desc, 50));
+
+            Console.Write(" | ");
+
+            Console.WriteLine($"{Math.Round(item.Price * 0.85)} G");
             Console.ResetColor();
         }
-        internal void Buy()
+        internal static void Buy(Item item)
         {
-            IsPurchased = !IsPurchased;
+            item.IsPurchased = !item.IsPurchased;
         }
-        internal void Sell()
+        internal static void Sell(Item item)
         {
-            if (IsEquipped)
+            if (item.IsEquipped)
             {
-                IsEquipped = false;
+                item.IsEquipped = false;
             }
-            IsPurchased = false;
+            item.IsPurchased = false;
         }
     }
 }
