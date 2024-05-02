@@ -25,7 +25,7 @@ namespace SpartaDunGeon
             }
             Console.WriteLine("");
             Console.WriteLine("1. 장착관리");
-            ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
             switch (ConsoleUtility.ChoiceMenu(0, 1))
             {
@@ -51,7 +51,7 @@ namespace SpartaDunGeon
                 Item.InventoryItemList(inventory[i], true, i + 1);
             }
             Console.WriteLine("");
-            ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
 
             int keyInput = ConsoleUtility.ChoiceMenu(0, inventory.Count);
 

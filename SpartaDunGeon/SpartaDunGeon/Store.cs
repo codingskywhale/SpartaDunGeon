@@ -38,7 +38,7 @@ namespace SpartaDunGeon
             Console.WriteLine("");
             Console.WriteLine("1. 아이템 구매");
             Console.WriteLine("2. 아이템 판매");
-            ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
             switch (ConsoleUtility.ChoiceMenu(0, 2))
             {
@@ -71,7 +71,7 @@ namespace SpartaDunGeon
                 Item.StoreItemList(storeInventory[i], true, i + 1);
             }
             Console.WriteLine("");
-            ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
 
             int keyInput = ConsoleUtility.ChoiceMenu(0, storeInventory.Count);
@@ -84,7 +84,7 @@ namespace SpartaDunGeon
                 default:
                     if (storeInventory[keyInput - 1].IsPurchased)
                     {
-                        ConsoleUtility.PrintColoredText(Color.Red, "이미 구매한 아이템입니다.");
+                        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "이미 구매한 아이템입니다.");
                         Thread.Sleep(500);
                         BuyMenu(player);
                     }
@@ -93,13 +93,13 @@ namespace SpartaDunGeon
                         player.Gold -= storeInventory[keyInput - 1].Price;
                         Item.Buy(storeInventory[keyInput - 1]);
                         Inventory.inventory.Add(storeInventory[keyInput - 1]);
-                        ConsoleUtility.PrintColoredText(Color.Blue, "아이템을 구매했습니다");
+                        ConsoleUtility.PrintColoredText(ConsoleColor.Blue, "아이템을 구매했습니다");
                         Thread.Sleep(500);
                         BuyMenu(player);
                     }
                     else
                     {
-                        ConsoleUtility.PrintColoredText(Color.Red, "Gold가 부족합니다.");
+                        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Gold가 부족합니다.");
                         Thread.Sleep(500);
                         BuyMenu(player);
                     }
@@ -124,7 +124,7 @@ namespace SpartaDunGeon
                 Item.StoreItemSellList(Inventory.inventory[i], true, i + 1);
             }
             Console.WriteLine("");
-            ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
 
             int keyInput = ConsoleUtility.ChoiceMenu(0, Inventory.inventory.Count);
 
