@@ -98,7 +98,7 @@ public class GameManager
     }
 
     //메인 메뉴
-    private void MainMenu()
+    public void MainMenu() //던전cs에서 불러오기 위해 public으로 수정했습니다.
     {
         Console.Clear();
         //인트로
@@ -130,7 +130,7 @@ public class GameManager
                 StoreMenu();
                 break;
             case 4:
-                Dungeon dungeon = new Dungeon();
+                Dungeon dungeon = new Dungeon(this);
                 dungeon.DungeonScene(player);
                 break;
             case 5:

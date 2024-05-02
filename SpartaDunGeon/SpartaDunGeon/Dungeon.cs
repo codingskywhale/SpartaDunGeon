@@ -5,17 +5,20 @@ using System.Numerics;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Spartadungeon
 {
     internal class Dungeon
     {
         private List<Monster> spawnList;
+        GameManager gameManager;
         //Monster monster;
 
-        public Dungeon()
+        public Dungeon(GameManager manager)
         {
             spawnList = new List<Monster>();
+            gameManager = manager;
         }
 
         public void DungeonScene(Player player)
@@ -90,8 +93,6 @@ namespace Spartadungeon
             Console.WriteLine();
 
             int index = 1;
-
-
             
             foreach (Monster monster in spawnList)
             {
@@ -131,25 +132,75 @@ namespace Spartadungeon
                 ConsoleUtility.PrintColoredText(Color.Red, "Battle!!\n");
                 Console.WriteLine();
                 Console.WriteLine($"{player.Name}의 공격!");
-                Console.WriteLine($"{selectMonster.Name} 을(를) 맞췄습니다. [데미지 : {player.Atk}]\n");
 
-                if (selectMonster.Hp <= 0)
+                Random critical = new Random();
+                Random avoid = new Random();
+
+                double criticalDamage;
+                int sumDamage;
+                bool isCritical = false;
+
+                if (avoid.Next(0, 100) <= 10)
                 {
-                    Console.WriteLine($"HP {selectMonster.Hp} -> Dead");
+                    Console.WriteLine($"{selectMonster.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+
+                    Console.WriteLine("0. 다음\n");
+
+                    ConsoleUtility.ChoiceMenu(0, 0);
+
+                    Enemyturn(player);
                 }
 
-                else if (selectMonster.Hp > 0)
+                if (critical.Next(0, 100) <= 15)
                 {
-                    int damagedHp = selectMonster.Hp - player.Atk;
+                    criticalDamage = player.Atk * 1.6;
+                    criticalDamage = Math.Round(criticalDamage);
+                    sumDamage = (int)criticalDamage;
+                    isCritical = true;
+                }
 
+                else
+                {
+                    sumDamage = player.Atk;
+
+                }
+
+                int damagedHp = selectMonster.Hp - sumDamage;
+
+                Console.WriteLine($"{selectMonster.Name} 을(를) 맞췄습니다. [데미지 : {sumDamage}]\n");
+
+                
+
+                if (isCritical == false)
+                {
                     if (damagedHp < 0)
                     {
-                        damagedHp = 0;
+                        Console.WriteLine($"HP {selectMonster.Hp} -> Dead");
                     }
-                    Console.WriteLine($"HP {selectMonster.Hp} -> {damagedHp}\n");
 
-                    selectMonster.Hp -= player.Atk;
+                    else
+                    {
+                        Console.WriteLine($"HP {selectMonster.Hp} -> {damagedHp}\n");
+                    }
                 }
+
+                else
+                {
+                    if (damagedHp < 0)
+                    {
+                        Console.WriteLine($"HP {selectMonster.Hp} -> Dead");
+                    }
+
+                    else
+                    {
+                        Console.WriteLine($"HP {selectMonster.Hp} -> {damagedHp} - 치명타 공격!!\n");
+                    }
+
+                    isCritical = false;
+                }
+
+
+                selectMonster.Hp -= sumDamage;
             }
 
             Console.WriteLine("0. 다음\n");
@@ -162,7 +213,6 @@ namespace Spartadungeon
         public void Enemyturn(Player player)
         {
             bool allMonsterDead = true;
-            bool dead = false;
 
             foreach (Monster monster in spawnList)
             {
@@ -195,10 +245,16 @@ namespace Spartadungeon
                     continue;
                 }
 
+                int damage = monster.Atk - player.Def;
+                if( damage < 0)
+                {
+                    damage = 0;
+                }
+
                 Console.WriteLine($"Lv.{monster.Lv} {monster.Name} 의 공격!");
-                Console.WriteLine($"{player.Name} 을(를) 맞췄습니다.  [데미지 : {monster.Atk}\n");
+                Console.WriteLine($"{player.Name} 을(를) 맞췄습니다.  [데미지 : {damage}]\n");
                 Console.WriteLine($"Lv {player.Lv} {player.Name}");
-                Console.WriteLine($"HP {player.Hp} -> {player.Hp -= monster.Atk}\n");
+                Console.WriteLine($"HP {player.Hp} -> {player.Hp -= damage}\n");
 
                 if (player.Hp <= 0)
                 {
@@ -209,8 +265,6 @@ namespace Spartadungeon
                 Console.WriteLine("0. 다음\n");
                 ConsoleUtility.ChoiceMenu(0, 0);
             }
-
-            
 
             PlayerTurn(player);
         }
@@ -229,11 +283,24 @@ namespace Spartadungeon
             Console.WriteLine($"Lv {player.Lv} {player.Name}");
             Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
 
+            Console.WriteLine("[획득 아이템]");
+            int totalGold = 0;
+
+            foreach(Monster monster in spawnList)
+            {
+                totalGold += monster.Gold;
+            }
+
+            Console.WriteLine($"{totalGold} Gold");
+            Random potionDrop = new Random();
+
+
             Console.WriteLine("0. 다음\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
             //메인 화면 불러오기
+            gameManager.MainMenu();
         }
 
         public void Lose(Player player)
@@ -251,7 +318,8 @@ namespace Spartadungeon
             Console.WriteLine("0. 다음\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
-            //게임오버 후 어떻게 할지
+
+            gameManager.MainMenu();
         }
     }
 }
