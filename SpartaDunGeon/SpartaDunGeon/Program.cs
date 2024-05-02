@@ -117,7 +117,7 @@ public class GameManager
         Console.WriteLine("2. 장비창");
         Console.WriteLine("3. 상점");
         Console.WriteLine("4. 전투 시작");
-        Console.WriteLine("5. 회복 아이템");
+        Console.WriteLine("5. 회복 아이템\n");
 
         //선택지 검증
         int Choise = ConsoleUtility.ChoiceMenu(1, 6);
