@@ -17,6 +17,7 @@ namespace Spartadungeon
 
         public Dungeon(GameManager manager)
         {
+            Console.WriteLine("df");
             spawnList = new List<Monster>();
         }
 
@@ -46,7 +47,7 @@ namespace Spartadungeon
                 PlayerTurn(player);
             }
         }
-
+        
         public void MonsterSpawn()
         {
             Random randomNum = new Random();
