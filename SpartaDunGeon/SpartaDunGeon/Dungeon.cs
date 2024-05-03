@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SpartaDunGeon;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,7 +17,7 @@ namespace Spartadungeon
     {
         private List<Monster> spawnList;
 
-        public Dungeon(GameManager manager)
+        public Dungeon()
         {
             spawnList = new List<Monster>();
         }
@@ -23,13 +25,21 @@ namespace Spartadungeon
         public void DungeonScene(Player player)
         {
             Console.Clear();
-            MonsterSpawn();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
             foreach (Monster monster in spawnList)
             {
-                Console.WriteLine($"Lv. {monster.Lv} {monster.Name}  HP {monster.Hp}");
+                if(monster.Hp < 0)
+                {
+                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name}  Dead");
+                }
+
+                else
+                {
+                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name}  HP {monster.Hp}");
+                }
+                
             }
 
             Console.WriteLine();
@@ -78,7 +88,7 @@ namespace Spartadungeon
             }
         }
 
-        public void MonsterSpawn()
+        public void MonsterSpawn(Player player)
         {
             Random randomNum = new Random();
             Random randomSpawn = new Random();
@@ -112,8 +122,9 @@ namespace Spartadungeon
                         spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
                         break;
                 }
-                
             }
+
+            DungeonScene(player);
         }
 
         public void PlayerTurn(Player player)
@@ -217,7 +228,7 @@ namespace Spartadungeon
                 ConsoleUtility.ChoiceMenu(0, 0);
             }
 
-            PlayerTurn(player);
+            DungeonScene(player);
         }
 
         public void Attack(Character attacker, Character target)
@@ -320,8 +331,12 @@ namespace Spartadungeon
             Console.WriteLine($"{totalGold} Gold\n");
 
             player.Gold += totalGold;
-            Random potionDrop = new Random();
 
+            Random potionDrop = new Random();
+            if(potionDrop.Next(0, 100) <= 90)
+            {
+                GameManager.potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+            }
 
             Console.WriteLine("0. 다음\n");
 

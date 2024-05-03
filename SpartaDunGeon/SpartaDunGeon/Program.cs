@@ -5,9 +5,10 @@ using System.Xml.Linq;
 public class GameManager
 {
     public Player player;
-    private static List<Item> potionInventory;
+    public static List<Item> potionInventory { get; private set; }
     private static Inventory inventory;
     private static Store store;
+    private static Dungeon dungeon;
 
     public GameManager()//생성자 없어서 추가했습니다.
     {
@@ -16,6 +17,7 @@ public class GameManager
 
     private void InitializeGame()
     {
+        dungeon = new Dungeon();
         inventory = new Inventory();
         store = new Store();
         potionInventory = new List<Item>();
@@ -129,9 +131,7 @@ public class GameManager
                 store.StoreMenu(player);
                 break;
             case 4:
-                GameManager gameManager = new GameManager();
-                Dungeon dungeon = new Dungeon(gameManager);
-                dungeon.DungeonScene(player);
+                dungeon.MonsterSpawn(player);
                 break;
             case 5:
                 PotionMenu(player);
