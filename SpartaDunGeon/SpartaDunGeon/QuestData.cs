@@ -178,7 +178,7 @@ namespace SpartaDunGeon
     // 레벨 달성 퀘스트
     public class Quest4 : Quest
     {
-        int targetLevel = 2;
+        int targetLevel = 5;
         
         public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 200, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
         {
@@ -201,21 +201,21 @@ namespace SpartaDunGeon
         {
             int tmpLevel = player.Lv;
 
-            Console.Write($"\n {targetLevel}레벨 달성하기\n");
+            Console.Write($"\n {targetLevel}레벨 달성하기 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpLevel} / {targetLevel})\n");
         }
 
         public override void PrintRewards()
         {
             Console.WriteLine();
-            //ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 낡은 검 x ", "1", "\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, "레벨업 테스트 x ", "1", "\n");
             Console.WriteLine($" {RewardGold} Gold");
         }
 
         public override void GetQuestRewards(Player player)
         {
             player.Gold += RewardGold;
-            Inventory.inventory.Add(new Item("레벨업 테스트용 검", "테스트", ItemType.WEAPON, 2, 0, 0, 100));
+            Inventory.inventory.Add(new Item("레벨업 테스트", "테스트", ItemType.WEAPON, 2, 0, 0, 100));
             IsCompleted = true;
 
             QuestManager.PrintQuestList(player);

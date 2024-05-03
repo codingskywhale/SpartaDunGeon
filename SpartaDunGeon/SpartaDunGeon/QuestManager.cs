@@ -27,8 +27,8 @@ namespace SpartaDunGeon
             questList = new List<Quest>();
             questList.Add(new Quest1(1, "초보 모험가를 위한 슬라임 처치", " 이봐! 마을 근처에 슬라임들이 너무 많아졌다고 생각하지 않나?\n 마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\n 모험가인 자네가 좀 처치해주게!", 1));
             questList.Add(new Quest2(2, "마을을 위협하는 고블린 무리 소탕", " 최근 고블린들의 행동이 심상치 않네!\n 무리를 지어 마을을 습격해 피해가 이만저만이 아니지... \n 고블린 소굴을 찾아 전부 소탕해주겠나? ", 2));
-            questList.Add(new Quest3(3, "강력한 장비를 장착해보자", "3번 내용입니다"));
-            questList.Add(new Quest4(4, "더욱 더 강해지기!", "4번 내용입니다"));
+            questList.Add(new Quest3(3, "강력한 장비를 장착해보자", " 새로운 장비를 얻었다면 장착해보게나.\n 장비를 장착하면 여러 가지 능력을 추가로 얻을 수 있다네! "));
+            questList.Add(new Quest4(4, "더욱 더 강해지기!", " 레벨은 곧 국력이지!\n 몬스터를 쓰러뜨려 경험치를 얻고 레벨을 올려보게나.\n 5레벨을 달성하면 자네에게 어울리는 선물을 주겠네."));
         }
 
         // 퀘스트 목록 출력
@@ -47,7 +47,7 @@ namespace SpartaDunGeon
                     {
                         if (questList[i].CanCompleted)
                         {
-                            ConsoleUtility.PrintColoredText(ConsoleColor.Green, " [완료 가능]");
+                            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, " [완료 가능]");
                         }
                         else
                         {
@@ -61,8 +61,8 @@ namespace SpartaDunGeon
                 }
                 Console.WriteLine();
             }
-
-            Console.WriteLine();
+            
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "\n", $"0", ". 나가기\n\n");
 
             int number = ConsoleUtility.ChoiceMenu(0, questList.Count);
             switch (number)
