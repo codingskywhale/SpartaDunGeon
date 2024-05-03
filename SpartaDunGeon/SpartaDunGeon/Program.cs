@@ -129,7 +129,8 @@ public class GameManager
                 store.StoreMenu(player);
                 break;
             case 4:
-                Dungeon dungeon = new Dungeon();
+                GameManager gameManager = new GameManager();
+                Dungeon dungeon = new Dungeon(gameManager);
                 dungeon.DungeonScene(player);
                 break;
             case 5:

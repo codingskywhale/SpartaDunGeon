@@ -1,15 +1,11 @@
-﻿using System.Numerics;
+﻿using SpartaDunGeon;
+using System.Numerics;
 
-public class Player
+public class Player : Character
 {
-    public string Name { get; set; }
     public string Job { get; }
-    public int Lv { get; set; }
     public int Exp { get; set;}
     public int MaxExp { get; set; }
-    public int Atk { get; set;}
-    public int Def { get; set; }
-    public int Hp { get; set; }
     public int Mp { get; set; }
     public int MaxHp { get; set; }
     public int MaxMp { get; set; }
@@ -17,16 +13,11 @@ public class Player
     public int BonusAtk { get; set; }
     public int BonusDef { get; set; }
 
-    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0)
+    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0) : base(name, lv, atk, def, hp)
     {
-        Name = name;
         Job = job;
-        Lv = lv;
         Exp = exp;
         MaxExp = maxExp;
-        Atk = atk;
-        Def = def;
-        Hp = hp;
         Mp = mp;
         MaxHp = maxHp;
         MaxMp = maxMp;
