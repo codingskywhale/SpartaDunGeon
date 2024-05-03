@@ -1,25 +1,14 @@
-﻿public class Monster
+﻿public class Monster : Character
 {
     public List<Monster> monsters;
-    public string Name { get; set; }
     public int Idx { get; }
-    public int Lv { get; }
-    public int Atk { get; }
-    public int Def { get; }
-    public int Hp { get; set; }
     public int Gold { get; set; }
 
     public bool IsDead { get; set; }
 
-    public Monster( string name, int idx, int lv, int atk, int def, int hp, int gold, bool isDead = false)
+    public Monster(string name, int idx, int lv, int atk, int def, int hp, int gold, bool isDead = false) : base(name, lv, atk, def, hp)
     {
-
-        Name = name;
         Idx = idx;
-        Lv = lv;
-        Atk = atk;
-        Def = def;
-        Hp = hp;
         Gold = gold;
         IsDead = isDead;
     }
