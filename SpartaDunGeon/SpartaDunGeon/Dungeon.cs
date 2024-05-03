@@ -31,12 +31,12 @@ namespace Spartadungeon
             Console.Clear();
             Console.WriteLine("■ 스테이지를 선택해주세요 ■\n");
             Console.WriteLine(" 1. 스테이지 1");
-            if(stage == 2)
+            if(stage >= 2)
             {
                 Console.WriteLine(" 2. 스테이지 2");
             }
             
-            else if(stage == 3)
+            if(stage >= 3)
             {
                 ConsoleUtility.PrintColoredText(ConsoleColor.Red, " 3. 스테이지 3 - BOSS");
             }
@@ -149,7 +149,7 @@ namespace Spartadungeon
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
-
+            Console.WriteLine("공격할 몬스터 번호를 입력해주세요.");
             int selectMonsterindex = ConsoleUtility.ChoiceMenu(1, spawnList.Count) - 1;
 
             Monster selectMonster = spawnList[selectMonsterindex];
@@ -344,7 +344,17 @@ namespace Spartadungeon
 
             ItemDrop();
             spawnList.Clear();
-            stage++;
+
+            if(stage == 1 && stageSelect == 1)
+            {
+                stage = 2;
+            }
+
+            else if(stage == 2 && stageSelect == 2)
+            {
+                stage = 3;
+            }
+            
 
             if(stage > 3)
             {
@@ -406,6 +416,7 @@ namespace Spartadungeon
 
                 else if (stage == 3 && stageSelect == 3)
                 {
+                    spawnConunt = 1;
                     minMonster = 4;
                     maxMonster = 4;
                 }
