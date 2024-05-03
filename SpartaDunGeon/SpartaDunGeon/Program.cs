@@ -159,6 +159,8 @@ public class GameManager
         Console.Write($"방어력 : {player.Def + player.BonusDef}");
         Console.WriteLine(player.BonusDef > 0 ? $" (+{player.BonusDef})" : "");
         Console.WriteLine($"체  력 : {player.Hp}/{player.MaxHp}");
+        Console.WriteLine($"마  력 : {player.Mp}/{player.MaxMp}");
+
         Console.WriteLine($"Gold : {player.Gold}");
 
         Console.WriteLine("\n0. 나가기\n");

@@ -6,7 +6,7 @@
 
     public bool IsDead { get; set; }
 
-    public Monster(string name, int idx, int lv, int atk, int def, int hp, int gold, bool isDead = false) : base(name, lv, atk, def, hp)
+    public Monster(string name, int idx, int lv, int exp, int atk, int def, int hp, int gold, bool isDead = false) : base(name, lv, exp, atk, def, hp)
     {
         Idx = idx;
         Gold = gold;

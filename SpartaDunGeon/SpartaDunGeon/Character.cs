@@ -9,17 +9,19 @@ public class Character
 {
     public string Name { get; set; }
     public int Lv { get; set; }
+    public int Exp { get; }
     public int Atk { get; set; }
     public int Def { get; set; }
     public int Hp { get; set; }
 
-    public Character(string name, int lv, int atk, int def, int hp)
+    public Character(string name, int lv, int exp, int atk, int def, int hp)
     {
         Name = name;
         Lv = lv;
         Atk = atk;
         Def = def;
         Hp = hp;
+        Exp = exp;
     }
 
 }

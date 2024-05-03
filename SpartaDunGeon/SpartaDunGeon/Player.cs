@@ -13,10 +13,9 @@ public class Player : Character
     public int BonusAtk { get; set; }
     public int BonusDef { get; set; }
 
-    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0) : base(name, lv, atk, def, hp)
+    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0) : base(name, lv, exp, atk, def, hp)
     {
         Job = job;
-        Exp = exp;
         MaxExp = maxExp;
         Mp = mp;
         MaxHp = maxHp;

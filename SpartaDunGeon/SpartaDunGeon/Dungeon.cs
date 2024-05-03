@@ -17,6 +17,8 @@ namespace Spartadungeon
     {
         private List<Monster> spawnList;
 
+        public bool IsSkillUse = false;
+
         public Dungeon()
         {
             spawnList = new List<Monster>();
@@ -46,7 +48,8 @@ namespace Spartadungeon
 
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
-            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
+            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}");
+            Console.WriteLine($"MP {player.Mp}/{player.MaxMp}\n");
 
             Console.WriteLine("1. 공격");
             Console.WriteLine("2. 스킬 사용\n");
@@ -58,12 +61,25 @@ namespace Spartadungeon
                     PlayerTurn(player);
                     break;
                 case 2:
-                    Skill(player);
+                    SkillUse(player);
                     break;
             }
         }
 
-        public void Skill(Player player)
+        public void SkillUse(Player player)
+        {
+            IsSkillUse = true;
+            if (player.Job == "전사")
+            {
+                WarriorSkill(player);
+            }
+            if (player.Job == "마법사")
+            {
+                WizardSkill(player);
+            }
+        }
+
+        public void WarriorSkill(Player player)
         {
             Console.WriteLine("사용할 스킬을 선택하세요.\n");
 
@@ -74,18 +90,91 @@ namespace Spartadungeon
             switch (Choise)
             {
                 case 1:
-                    player.Atk *= 2;
-                    PlayerTurn(player);
-                    break;
-                case 2:
-                    player.Hp += player.Atk;
-                    if (player.Hp >= player.MaxHp)
+                    if (player.Mp >= 10)
                     {
-                        player.Hp = player.MaxHp;
+                        player.Mp -= 20;
+                        player.Atk *= 2;
+                        PlayerTurn(player);
+                        break;
                     }
-                    PlayerTurn(player);
-                    break;
+                    else
+                    {
+                        Console.WriteLine("마나가 부족합니다.");
+                        Thread.Sleep(1000);
+                        DungeonScene(player);
+                        break;
+                    }
+                case 2:
+                    if (player.Mp >= 20)
+                    {
+                        player.Hp += player.Atk;
+                        if (player.Hp >= player.MaxHp)
+                        {
+                            player.Hp = player.MaxHp;
+                        }
+                        PlayerTurn(player);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("마나가 부족합니다.");
+                        Thread.Sleep(1000);
+                        DungeonScene(player);
+                        break;
+                    }
             }
+        }
+
+        public void WizardSkill(Player player)
+        {
+            Console.WriteLine("사용할 스킬을 선택하세요.\n");
+
+            Console.WriteLine("1. 파이어\t2. 힐\n");
+
+            int Choise = ConsoleUtility.ChoiceMenu(1, 4);
+
+            switch (Choise)
+            {
+                case 1:
+                    if (player.Mp >= 10)
+                    {
+                        player.Mp -= 10;
+                        player.Atk *= 2;
+                        PlayerTurn(player);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("마나가 부족합니다.");
+                        Thread.Sleep(1000);
+                        DungeonScene(player);
+                        break;
+                    }
+                case 2:
+                    if (player.Mp >= 20)
+                    {
+                        player.Hp += player.Atk;
+                        if (player.Hp >= player.MaxHp)
+                        {
+                            player.Hp = player.MaxHp;
+                        }
+                        PlayerTurn(player);
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("마나가 부족합니다.");
+                        Thread.Sleep(1000);
+                        DungeonScene(player);
+                        break;
+                    }
+            }
+        }
+
+        public void ResetSkill()
+        {
+            IsSkillUse = false;
+
         }
 
         public void MonsterSpawn(Player player)
@@ -107,19 +196,19 @@ namespace Spartadungeon
                 switch (randomNum.Next(0, 5))
                 {
                     case 0:
-                        spawnList.Add(new Monster("슬라임",0 , 1, 1, 1, 3, 5));
+                        spawnList.Add(new Monster("슬라임",0 , 1, 3, 1, 1, 3, 5));
                         break;
                     case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
+                        spawnList.Add(new Monster("고블린", 1, 2, 5, 2, 1, 5, 10));
                         break;
                     case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
+                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 7, 3, 10, 30));
                         break;
                     case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
+                        spawnList.Add(new Monster("오크", 3, 5, 10, 10, 5, 20, 50));
                         break;
                     case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
+                        spawnList.Add(new Monster("드래곤", 4, 20, 40, 20, 20, 100, 200));
                         break;
                 }
             }
@@ -155,7 +244,8 @@ namespace Spartadungeon
 
             Console.WriteLine("[내정보]");
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
-            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
+            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}");
+            Console.WriteLine($"MP {player.Mp}/{player.MaxMp}");
 
             int selectMonsterindex = ConsoleUtility.ChoiceMenu(1, spawnList.Count) - 1;
 
@@ -326,6 +416,7 @@ namespace Spartadungeon
             foreach(Monster monster in spawnList)
             {
                 totalGold += monster.Gold;
+                player.Exp += monster.Exp;
             }
 
             Console.WriteLine($"{totalGold} Gold\n");
