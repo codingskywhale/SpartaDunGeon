@@ -14,6 +14,7 @@ public class Character
     public int Atk { get; set; }
     public int Def { get; set; }
     public int Hp { get; set; }
+    public int BaseAtk { get; set; }
 
     public Character(string name, int lv, int exp, int atk, int def, int hp, int id)
     {
@@ -24,6 +25,7 @@ public class Character
         Hp = hp;
         Exp = exp;
         Id = id;
+        BaseAtk = atk;
     }
 
 }

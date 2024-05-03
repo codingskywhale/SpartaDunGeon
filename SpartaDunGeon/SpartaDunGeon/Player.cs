@@ -1,8 +1,11 @@
-﻿using SpartaDunGeon;
+﻿using Spartadungeon;
+using SpartaDunGeon;
 using System.Numerics;
 
 public class Player : Character
 {
+    public bool IsSkillUse = false;
+
     public string Job { get; }
     public int Exp { get; set;}
     public int MaxExp { get; set; }
@@ -30,8 +33,6 @@ public class Player : Character
     {
         Exp += AddExp;
 
-        Console.WriteLine($"{AddExp}의 경험치를 획득했습니다.");
-
         if ( Exp >= MaxExp )
         {
             Lv++;
@@ -57,5 +58,119 @@ public class Player : Character
                 Def += 1;
             }
         }
+    }
+
+    public void SkillUse()
+    {
+        IsSkillUse = true;
+        if (Job == "전사")
+        {
+            WarriorSkill();
+        }
+        if (Job == "마법사")
+        {
+            WizardSkill();
+        }
+    }
+
+    public void WarriorSkill()
+    {
+        Console.WriteLine("사용할 스킬을 선택하세요.\n");
+
+        Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n");
+
+        int Choise = ConsoleUtility.ChoiceMenu(1, 4);
+
+        switch (Choise)
+        {
+            
+
+            case 1:
+                if (Mp >= 10)
+                {
+                    Mp -= 20;
+                    BaseAtk *= 2;
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+            case 2:
+                if (Mp >= 20)
+                {
+                    Hp += Atk;
+                    if (Hp >= MaxHp)
+                    {
+                        Hp = MaxHp;
+                    }
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+        }
+    }
+
+    public void WizardSkill()
+    {
+        Console.WriteLine("사용할 스킬을 선택하세요.\n");
+
+        Console.WriteLine("1. 파이어\t2. 힐\n");
+
+        int Choise = ConsoleUtility.ChoiceMenu(1, 4);
+
+        switch (Choise)
+        {
+            case 1:
+                if (Mp >= 10)
+                {
+                    Mp -= 10;
+                    BaseAtk *= 2;
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+            case 2:
+                if (Mp >= 20)
+                {
+                    Hp += Atk;
+                    if (Hp >= MaxHp)
+                    {
+                        Hp = MaxHp;
+                    }
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+        }
+    }
+
+    public void ResetSkill()
+    {
+        IsSkillUse = false;
+
+        BaseAtk = Atk;
     }
 }

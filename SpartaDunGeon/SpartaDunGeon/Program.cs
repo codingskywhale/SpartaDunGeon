@@ -8,14 +8,14 @@ public class GameManager
     public static List<Item> potionInventory { get; private set; }
     private static Inventory inventory;
     private static Store store;
-    private static Dungeon dungeon;
+    public static Dungeon dungeon;
 
     public GameManager()//생성자 없어서 추가했습니다.
     {
         InitializeGame();
     }
 
-    private void InitializeGame()
+    public void InitializeGame()
     {
         dungeon = new Dungeon();
         inventory = new Inventory();
@@ -71,7 +71,7 @@ public class GameManager
             {
                 Console.Clear();
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
-                player = new Player(name, "전사", 1, 0, 20, 10000, 7, 7000, 1, 20, 70, 20, 700) ;
+                player = new Player(name, "전사", 1, 0, 20, 10, 7, 70, 1, 20, 70, 20, 700) ;
                 //Thread.Sleep(2000);
                 MainMenu(player);
                 break;

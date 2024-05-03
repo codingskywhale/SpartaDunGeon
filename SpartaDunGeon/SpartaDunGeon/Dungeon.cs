@@ -14,14 +14,12 @@ using System.Xml.Schema;
 
 namespace Spartadungeon
 {
-    internal class Dungeon
+    public class Dungeon
     {
         public int stage = 1;
         public int stageSelect;
 
         private List<Monster> spawnList;
-
-        public bool IsSkillUse = false;
 
         public Dungeon()
         {            
@@ -93,120 +91,9 @@ namespace Spartadungeon
                     PlayerTurn(player);
                     break;
                 case 2:
-                    SkillUse(player);
+                    player.SkillUse();
                     break;
             }
-        }
-
-        public void SkillUse(Player player)
-        {
-            IsSkillUse = true;
-            if (player.Job == "전사")
-            {
-                WarriorSkill(player);
-            }
-            if (player.Job == "마법사")
-            {
-                WizardSkill(player);
-            }
-        }
-
-        public void WarriorSkill(Player player)
-        {
-            Console.WriteLine("사용할 스킬을 선택하세요.\n");
-
-            Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n");
-
-            int Choise = ConsoleUtility.ChoiceMenu(1, 4);
-
-            switch (Choise)
-            {
-                case 1:
-                    if (player.Mp >= 10)
-                    {
-                        player.Mp -= 20;
-                        player.Atk *= 2;
-                        PlayerTurn(player);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("마나가 부족합니다.");
-                        Thread.Sleep(1000);
-                        DungeonScene(player);
-                        break;
-                    }
-                case 2:
-                    if (player.Mp >= 20)
-                    {
-                        player.Hp += player.Atk;
-                        if (player.Hp >= player.MaxHp)
-                        {
-                            player.Hp = player.MaxHp;
-                        }
-                        PlayerTurn(player);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("마나가 부족합니다.");
-                        Thread.Sleep(1000);
-                        DungeonScene(player);
-                        break;
-                    }
-            }
-        }
-
-        public void WizardSkill(Player player)
-        {
-            Console.WriteLine("사용할 스킬을 선택하세요.\n");
-
-            Console.WriteLine("1. 파이어\t2. 힐\n");
-
-            int Choise = ConsoleUtility.ChoiceMenu(1, 4);
-
-            switch (Choise)
-            {
-                case 1:
-                    if (player.Mp >= 10)
-                    {
-                        player.Mp -= 10;
-                        player.Atk *= 2;
-                        PlayerTurn(player);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("마나가 부족합니다.");
-                        Thread.Sleep(1000);
-                        DungeonScene(player);
-                        break;
-                    }
-                case 2:
-                    if (player.Mp >= 20)
-                    {
-                        player.Hp += player.Atk;
-                        if (player.Hp >= player.MaxHp)
-                        {
-                            player.Hp = player.MaxHp;
-                        }
-                        PlayerTurn(player);
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("마나가 부족합니다.");
-                        Thread.Sleep(1000);
-                        DungeonScene(player);
-                        break;
-                    }
-            }
-        }
-
-        public void ResetSkill()
-        {
-            IsSkillUse = false;
-
         }
 
         public void MonsterSpawn(Player player)
@@ -228,19 +115,19 @@ namespace Spartadungeon
                 switch (randomNum.Next(0, 5))
                 {
                     case 0:
-                        spawnList.Add(new Monster("슬라임",0 , 1, 3, 1, 1, 3, 5));
+                        spawnList.Add(new Monster("슬라임",0 , 1, 3, 1, 1, 3, 5, 1000));
                         break;
                     case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 5, 2, 1, 5, 10));
+                        spawnList.Add(new Monster("고블린", 1, 2, 5, 2, 1, 5, 10, 1001));
                         break;
                     case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 7, 3, 10, 30));
+                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 7, 3, 10, 30, 1002));
                         break;
                     case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 10, 5, 20, 50));
+                        spawnList.Add(new Monster("오크", 3, 5, 10, 10, 5, 20, 50, 1003));
                         break;
                     case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 40, 20, 20, 100, 200));
+                        spawnList.Add(new Monster("드래곤", 4, 20, 40, 20, 20, 100, 200, 1004));
                         break;
                 }
             }
@@ -293,6 +180,8 @@ namespace Spartadungeon
             {
                 Attack(player, selectMonster, player);
             }
+
+            player.ResetSkill();
 
             Console.WriteLine("0. 다음\n");
 
@@ -376,7 +265,7 @@ namespace Spartadungeon
 
             if (critical.Next(0, 100) <= 15)
             {
-                criticalDamage = attacker.Atk * 1.6;
+                criticalDamage = attacker.BaseAtk * 1.6;
                 criticalDamage = Math.Round(criticalDamage);
                 sumDamage = (int)criticalDamage - target.Def;
                 isCritical = true;
@@ -384,7 +273,7 @@ namespace Spartadungeon
 
             else
             {
-                sumDamage = attacker.Atk - target.Def;
+                sumDamage = attacker.BaseAtk - target.Def;
             }
 
             if(sumDamage < 0)
@@ -460,13 +349,18 @@ namespace Spartadungeon
             Console.WriteLine($"Lv {player.Lv} {player.Name}");
             Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
 
-            Console.WriteLine("[획득 아이템]"); int totalGold = 0;
+            int totalGold = 0;
+            int totalExp = 0;
 
             foreach(Monster monster in spawnList)
             {
                 totalGold += monster.Gold;
-                player.Exp += monster.Exp;
+                totalExp += monster.Exp;
+                player.ExpAdd(monster.Exp);
             }
+
+            Console.WriteLine($"[획득 경험치]\nExp: {totalExp}");
+            Console.WriteLine("[획득 아이템]");
 
             Console.WriteLine($"{totalGold} Gold\n");
 
@@ -543,19 +437,19 @@ namespace Spartadungeon
                 switch (randomNum.Next(minMonster, maxMonster))
                 {
                     case 0:
-                        spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5, 1000));
+                        spawnList.Add(new Monster("슬라임", 0, 1, 3, 1, 1, 3, 5, 1000));
                         break;
                     case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10, 1001));
+                        spawnList.Add(new Monster("고블린", 1, 2, 5, 2, 1, 5, 10, 1001));
                         break;
                     case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30, 1002));
+                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 7, 3, 10, 30, 1002));
                         break;
                     case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50, 1003));
+                        spawnList.Add(new Monster("오크", 3, 5, 10, 10, 5, 20, 50, 1003));
                         break;
                     case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200, 1004));
+                        spawnList.Add(new Monster("드래곤", 4, 20, 40, 20, 20, 100, 200, 1004));
                         break;
                 }
             }
