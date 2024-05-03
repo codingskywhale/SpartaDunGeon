@@ -22,7 +22,7 @@ namespace Spartadungeon
         private List<Monster> spawnList;
 
         public Dungeon()
-        {
+        {            
             spawnList = new List<Monster>();
         }
 
@@ -64,7 +64,7 @@ namespace Spartadungeon
             {
                 if(monster.Hp < 0)
                 {
-                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"Lv. {monster.Lv} {monster.Name}  Dead");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"Lv. {monster.Lv} {monster.Name}  Dead\n");
                 }
 
                 else
@@ -77,6 +77,7 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
+            Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
 
             Console.WriteLine("1. 공격");
@@ -119,8 +120,6 @@ namespace Spartadungeon
             }
         }
 
-        
-
         public void PlayerTurn(Player player)
         {
             Console.Clear();
@@ -134,7 +133,7 @@ namespace Spartadungeon
                 if (monster.Hp <= 0)
                 {
                     monster.IsDead = true;
-                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"{index} - Lv. {monster.Lv} {monster.Name}  Dead");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"{index} - Lv. {monster.Lv} {monster.Name}  Dead\n");
                 }
 
                 else if (monster.IsDead == false)
@@ -163,7 +162,7 @@ namespace Spartadungeon
 
             else if (selectMonster.IsDead == false)
             {
-                Attack(player, selectMonster);
+                Attack(player, selectMonster, player);
             }
 
             Console.WriteLine("0. 다음\n");
@@ -208,7 +207,7 @@ namespace Spartadungeon
                     continue;
                 }
 
-                Attack(monster, player);
+                Attack(monster, player, player);
 
                 Console.WriteLine($"Lv {player.Lv} {player.Name}");
 
@@ -225,7 +224,7 @@ namespace Spartadungeon
             DungeonScene(player);
         }
 
-        public void Attack(Character attacker, Character target)
+        public void Attack(Character attacker, Character target, Player player)
         {
             Random avoid = new Random();
             Random critical = new Random();
@@ -243,7 +242,6 @@ namespace Spartadungeon
             if (avoid.Next(0, 100) <= 10)
             {
                 Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
-
                 return;
             }
 
@@ -269,12 +267,21 @@ namespace Spartadungeon
 
             Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {sumDamage}]\n");
 
-
             if (isCritical == false)
             {
                 if (damagedHp < 0)
                 {
                     Console.WriteLine($"HP {target.Hp} -> Dead");
+                    // 슬라임
+                    if (target.Id == 1000)
+                    {
+                        QuestManager.questList[0].UpdateQuestProgress(player);
+                    }
+                    // 고블린
+                    if (target.Id == 1001)
+                    {
+                        QuestManager.questList[1].UpdateQuestProgress(player);
+                    }
                 }
 
                 else
@@ -288,6 +295,16 @@ namespace Spartadungeon
                 if (damagedHp < 0)
                 {
                     Console.WriteLine($"HP {target.Hp} -> Dead");
+                    // 슬라임
+                    if (target.Id == 1000)
+                    {
+                        QuestManager.questList[0].UpdateQuestProgress(player);
+                    }
+                    // 고블린
+                    if (target.Id == 1001)
+                    {
+                        QuestManager.questList[1].UpdateQuestProgress(player);
+                    }
                 }
 
                 else
@@ -314,8 +331,7 @@ namespace Spartadungeon
             Console.WriteLine($"Lv {player.Lv} {player.Name}");
             Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
 
-            Console.WriteLine("[획득 아이템]");
-            int totalGold = 0;
+            Console.WriteLine("[획득 아이템]"); int totalGold = 0;
 
             foreach(Monster monster in spawnList)
             {
@@ -396,6 +412,7 @@ namespace Spartadungeon
 
                 switch (randomNum.Next(minMonster, maxMonster))
                 {
+<<<<<<< HEAD
                     case 0:
                         spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5));
                         break;
@@ -411,6 +428,26 @@ namespace Spartadungeon
                     case 4:
                         spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
                         break;
+=======
+                    switch (randomNum.Next(minMonster, maxMonster))
+                    {
+                        case 0:
+                            spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5, 1000));
+                            break;
+                        case 1:
+                            spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10, 1001));
+                            break;
+                        case 2:
+                            spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30, 1002));
+                            break;
+                        case 3:
+                            spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50, 1003));
+                            break;
+                        case 4:
+                            spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200, 1004));
+                            break;
+                    }
+>>>>>>> DEV
                 }
             }
 

@@ -13,7 +13,7 @@ public class Player : Character
     public int BonusAtk { get; set; }
     public int BonusDef { get; set; }
 
-    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0) : base(name, lv, atk, def, hp)
+    public Player(string name, string job, int lv, int exp, int maxExp, int atk, int def, int hp, int id, int mp, int maxHp, int maxMp, int gold, int bonusAtk = 0, int bonusDef = 0) : base(name, lv, atk, def, hp, id)
     {
         Job = job;
         Exp = exp;
@@ -24,6 +24,7 @@ public class Player : Character
         Gold = gold;
         BonusAtk = bonusAtk;
         BonusDef = bonusDef;
+        Id = id;
     }
 
     public void ExpAdd(int AddExp)
