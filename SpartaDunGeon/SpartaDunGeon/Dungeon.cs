@@ -24,7 +24,7 @@ namespace Spartadungeon
         {
             Console.Clear();
             MonsterSpawn();
-            ConsoleUtility.PrintColoredText(Color.Red, "Battle!!\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
             foreach (Monster monster in spawnList)
@@ -88,7 +88,7 @@ namespace Spartadungeon
         public void PlayerTurn(Player player)
         {
             Console.Clear();
-            ConsoleUtility.PrintColoredText(Color.Red, "Battle!!\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
             int index = 1;
@@ -164,7 +164,7 @@ namespace Spartadungeon
             foreach (Monster monster in spawnList)
             {
                 Console.Clear();
-                ConsoleUtility.PrintColoredText(Color.Red, "Battle!!\n");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
                 Console.WriteLine();
                 
                 if(monster.Hp <= 0)
@@ -199,7 +199,7 @@ namespace Spartadungeon
             bool isCritical = false;
 
             Console.Clear();
-            ConsoleUtility.PrintColoredText(Color.Red, "Battle!!\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
             Console.WriteLine($"Lv.{attacker.Lv} {attacker.Name} 의 공격!");
@@ -267,10 +267,10 @@ namespace Spartadungeon
         public void Win(Player player)
         {
             Console.Clear();
-            ConsoleUtility.PrintColoredText(Color.Red, "Battle!! - Result\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
             Console.WriteLine();
 
-            ConsoleUtility.PrintColoredText(Color.Green, "Victory\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Green, "Victory\n");
             Console.WriteLine();
 
             Console.WriteLine($"던전에서 몬스터 {spawnList.Count}마리를 잡았습니다.");
@@ -303,10 +303,10 @@ namespace Spartadungeon
         public void Lose(Player player)
         {
             Console.Clear();
-            ConsoleUtility.PrintColoredText(Color.Red, "Battle!! - Result\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
             Console.WriteLine();
 
-            ConsoleUtility.PrintColoredText(Color.Red, "You Lose\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "You Lose\n");
             Console.WriteLine();
 
             Console.WriteLine($"Lv {player.Lv} {player.Name}");

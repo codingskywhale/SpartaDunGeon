@@ -35,7 +35,7 @@ public class GameManager
 
         Console.Clear();
 
-        ConsoleUtility.PrintTextHighlight(Color.Yellow, "입력하신 이름은 '", name, "' 입니다.\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "입력하신 이름은 '", name, "' 입니다.\n");
         Console.WriteLine("1. 예");
         Console.WriteLine("2. 아니오\n");
 
@@ -68,7 +68,7 @@ public class GameManager
             if (jobChoise == "1")
             {
                 Console.Clear();
-                ConsoleUtility.PrintTextHighlight(Color.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
                 player = new Player(name, "전사", 1, 0, 20, 10, 7, 70, 20, 70, 20, 700) ;
                 Thread.Sleep(2000);
                 MainMenu(player);
@@ -77,7 +77,7 @@ public class GameManager
             else if (jobChoise == "2")
             {
                 Console.Clear();
-                ConsoleUtility.PrintTextHighlight(Color.Blue, "당신은 현명한 ", "마법사", "를 선택하셨습니다.");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Blue, "당신은 현명한 ", "마법사", "를 선택하셨습니다.");
                 player = new Player(name, "마법사", 1, 0, 20, 5, 5, 50, 70, 50, 70, 500);
                 Thread.Sleep(1500);
                 MainMenu(player);
@@ -148,7 +148,7 @@ public class GameManager
     {
         Console.Clear();
 
-        ConsoleUtility.PrintColoredText(Color.Yellow,"# 상태 보기 #\n");
+        ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"# 상태 보기 #\n");
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
         Console.WriteLine($"{player.Name} ({player.Job})");
@@ -182,7 +182,7 @@ public class GameManager
         Console.WriteLine("[현재 체력]");
         Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
         Console.WriteLine("1. 사용하기");
-        ConsoleUtility.PrintColoredText(Color.Red, "0. 나가기\n");
+        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
         int choice = ConsoleUtility.ChoiceMenu(0, 1);
         switch (choice)
         {
@@ -192,7 +192,7 @@ public class GameManager
             case 1:
                 if (potionInventory.Count == 0)
                 {
-                    ConsoleUtility.PrintColoredText(Color.Red, "포션이 부족합니다.");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
                     Thread.Sleep(500);
                     PotionMenu(player);
                     break;
@@ -204,7 +204,7 @@ public class GameManager
                 {
                     player.Hp = player.MaxHp;
                 }
-                ConsoleUtility.PrintColoredText(Color.Green, "회복을 완료했습니다.");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
                 Thread.Sleep(500);
                 PotionMenu(player);
                 break;
