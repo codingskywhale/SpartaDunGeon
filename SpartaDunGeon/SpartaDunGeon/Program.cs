@@ -131,7 +131,7 @@ public class GameManager
                 store.StoreMenu(player);
                 break;
             case 4:
-                dungeon.MonsterSpawn(player);
+                dungeon.StageScene(player);
                 break;
             case 5:
                 PotionMenu(player);

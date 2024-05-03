@@ -1,6 +1,7 @@
 ﻿using SpartaDunGeon;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -15,11 +16,42 @@ namespace Spartadungeon
 {
     internal class Dungeon
     {
+        public int stage = 1;
+        public int stageSelect;
+
         private List<Monster> spawnList;
 
         public Dungeon()
         {
             spawnList = new List<Monster>();
+        }
+
+        public void StageScene(Player player)
+        {
+            Console.Clear();
+            Console.WriteLine("스테이지를 선택해주세요\n");
+            Console.WriteLine("1. 스테이지 1");
+            if(stage == 2)
+            {
+                Console.WriteLine("2. 스테이지 2");
+            }
+            
+            else if(stage == 3)
+            {
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "3. 스테이지 3 - BOSS");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("0. 이전\n");
+
+            stageSelect = ConsoleUtility.ChoiceMenu(0, 3);
+
+            if(stageSelect == 0)
+            {
+                GameManager.MainMenu(player);
+            }
+            
+            MonsterSpawn(player, stageSelect);
         }
 
         public void DungeonScene(Player player)
@@ -32,7 +64,7 @@ namespace Spartadungeon
             {
                 if(monster.Hp < 0)
                 {
-                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name}  Dead");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"Lv. {monster.Lv} {monster.Name}  Dead");
                 }
 
                 else
@@ -45,7 +77,6 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
 
             Console.WriteLine("1. 공격");
@@ -88,44 +119,7 @@ namespace Spartadungeon
             }
         }
 
-        public void MonsterSpawn(Player player)
-        {
-            Random randomNum = new Random();
-            Random randomSpawn = new Random();
-
-            int spawnConunt = randomSpawn.Next(1, 5);
-
-            for (int i = 0; i < spawnConunt; i++)
-            {
-                /*
-                int randomIndex = randomNum.Next(0, monster.monsters.Count);
-
-                Monster randomMonster = monster.monsters[randomIndex];
-                spawnList.Add(new Monster(randomMonster.Name, randomMonster.Idx, randomMonster.Lv, randomMonster.Atk, randomMonster.Def, randomMonster.Hp, randomMonster.Gold));
-                */
-                
-                switch (randomNum.Next(0, 5))
-                {
-                    case 0:
-                        spawnList.Add(new Monster("슬라임",0 , 1, 1, 1, 3, 5));
-                        break;
-                    case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
-                        break;
-                    case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
-                        break;
-                    case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
-                        break;
-                    case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
-                        break;
-                }
-            }
-
-            DungeonScene(player);
-        }
+        
 
         public void PlayerTurn(Player player)
         {
@@ -140,7 +134,7 @@ namespace Spartadungeon
                 if (monster.Hp <= 0)
                 {
                     monster.IsDead = true;
-                    Console.WriteLine($" {index} - Lv. {monster.Lv} {monster.Name}  Dead");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"{index} - Lv. {monster.Lv} {monster.Name}  Dead");
                 }
 
                 else if (monster.IsDead == false)
@@ -308,8 +302,6 @@ namespace Spartadungeon
 
         public void Win(Player player)
         {
-            
-
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
             Console.WriteLine();
@@ -336,6 +328,12 @@ namespace Spartadungeon
 
             ItemDrop();
             spawnList.Clear();
+            stage++;
+
+            if(stage > 3)
+            {
+                stage = 3;
+            }
 
             Console.WriteLine("0. 다음\n");
 
@@ -343,6 +341,84 @@ namespace Spartadungeon
 
             //메인 화면 불러오기
             GameManager.MainMenu(player);
+        }
+
+        public void Lose(Player player)
+        {
+            Console.Clear();
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
+            Console.WriteLine();
+
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "You Lose\n");
+            Console.WriteLine();
+
+            Console.WriteLine($"Lv {player.Lv} {player.Name}");
+            Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
+
+            spawnList.Clear();
+
+            Console.WriteLine("0. 다음\n");
+
+            ConsoleUtility.ChoiceMenu(0, 0);
+
+            GameManager.MainMenu(player);
+        }
+
+        public void MonsterSpawn(Player player, int StageSelect)
+        {
+            Random randomNum = new Random();
+            Random randomSpawn = new Random();
+
+            int spawnConunt = randomSpawn.Next(1, 5);
+
+            for (int i = 0; i < spawnConunt; i++)
+            {
+                int minMonster = 0;
+                int maxMonster = 0;
+
+                if (stage == 1 && StageSelect == 1)
+                {
+                    minMonster = 0;
+                    maxMonster = 2;
+                }
+
+                else if ( stage == 2 && stageSelect == 2)
+                {
+                    minMonster = 1;
+                    maxMonster = 3;
+                }
+
+                else if (stage == 3 && stageSelect == 3)
+                {
+                    minMonster = 4;
+                    maxMonster = 4;
+                }
+
+                if(stage == 1)
+                {
+                    switch (randomNum.Next(minMonster, maxMonster))
+                    {
+                        case 0:
+                            spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5));
+                            break;
+                        case 1:
+                            spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
+                            break;
+                        case 2:
+                            spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
+                            break;
+                        case 3:
+                            spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
+                            break;
+                        case 4:
+                            spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
+                            break;
+                    }
+                }
+                
+            }
+
+            DungeonScene(player);
         }
 
         public void ItemDrop()
@@ -391,29 +467,6 @@ namespace Spartadungeon
                 Inventory.inventory.Add(new Item("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", ItemType.ARMOR, 0, 15, 0, 3500));
                 Console.WriteLine("스파르타의 갑옷 - 1");
             }
-        }
-
-        public void Lose(Player player)
-        {
-            
-
-            Console.Clear();
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
-            Console.WriteLine();
-
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "You Lose\n");
-            Console.WriteLine();
-
-            Console.WriteLine($"Lv {player.Lv} {player.Name}");
-            Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
-
-            spawnList.Clear();
-
-            Console.WriteLine("0. 다음\n");
-
-            ConsoleUtility.ChoiceMenu(0, 0);
-
-            GameManager.MainMenu(player);
         }
     }
 }
