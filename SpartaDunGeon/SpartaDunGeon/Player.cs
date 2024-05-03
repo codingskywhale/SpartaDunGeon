@@ -83,7 +83,7 @@ public class Player : Character
     {
         Console.WriteLine("사용할 스킬을 선택하세요.\n");
 
-        Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n");
+        Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n3. 급소공격\t4. 하늘가르기");
 
         int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 
@@ -124,6 +124,36 @@ public class Player : Character
                     GameManager.dungeon.DungeonScene(this);
                     break;
                 }
+            case 3:
+                if (Mp >= 30)
+                {
+                    Mp -= 30;
+                    BaseAtk *= 3;
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+            case 4:
+                if (Mp >= 50)
+                {
+                    Mp -= 50;
+                    BaseAtk *= 5;
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
         }
     }
 
@@ -131,7 +161,7 @@ public class Player : Character
     {
         Console.WriteLine("사용할 스킬을 선택하세요.\n");
 
-        Console.WriteLine("1. 파이어\t2. 힐\n");
+        Console.WriteLine("1. 파이어\t2. 힐\n3. 다크홀\n 4.빅뱅\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 
@@ -160,6 +190,36 @@ public class Player : Character
                     {
                         Hp = MaxHp;
                     }
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+            case 3:
+                if (Mp >= 30)
+                {
+                    Mp -= 30;
+                    BaseAtk *= 3;
+                    GameManager.dungeon.PlayerTurn(this);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("마나가 부족합니다.");
+                    Thread.Sleep(1000);
+                    GameManager.dungeon.DungeonScene(this);
+                    break;
+                }
+            case 4:
+                if (Mp >= 50)
+                {
+                    Mp -= 50;
+                    BaseAtk *= 5;
                     GameManager.dungeon.PlayerTurn(this);
                     break;
                 }

@@ -1,5 +1,6 @@
 ﻿using Spartadungeon;
 using SpartaDunGeon;
+using System.Drawing;
 using System.Xml.Linq;
 
 public class GameManager
@@ -72,7 +73,7 @@ public class GameManager
                 Console.Clear();
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
                 player = new Player(name, "전사", 1, 0, 20, 10, 7, 70, 1, 20, 70, 20, 700) ;
-                //Thread.Sleep(2000);
+                Thread.Sleep(1500);
                 MainMenu(player);
                 break;
             }
@@ -117,7 +118,7 @@ public class GameManager
         Console.WriteLine("7. 퀘스트\n");
 
         //선택지 검증
-        int Choise = ConsoleUtility.ChoiceMenu(1, 7);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 6);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -138,10 +139,6 @@ public class GameManager
                 PotionMenu(player);
                 break;
             case 6:
-                player.ExpAdd(10);
-                StateMenu(player);
-                break;
-            case 7:
                 QuestManager.PrintQuestList(player);
                 break;
         }
@@ -155,15 +152,15 @@ public class GameManager
         ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"# 상태 보기 #\n");
         Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
-        Console.WriteLine($"{player.Name} ({player.Job})");
-        Console.WriteLine($"Lv. {player.Lv}");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow,"",$"{player.Name} ({player.Job})");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"Lv. {player.Lv}\n");
         Console.WriteLine($"{player.Exp}/{player.MaxExp}");
-        Console.Write($"공격력 : {player.Atk + player.BonusAtk}");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"공격력 : {player.Atk + player.BonusAtk}");
         Console.WriteLine(player.BonusAtk > 0 ? $" (+{player.BonusAtk})" : "");
-        Console.Write($"방어력 : {player.Def + player.BonusDef}");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"방어력 : {player.Def + player.BonusDef}");
         Console.WriteLine(player.BonusDef > 0 ? $" (+{player.BonusDef})" : "");
-        Console.WriteLine($"체  력 : {player.Hp}/{player.MaxHp}");
-        Console.WriteLine($"마  력 : {player.Mp}/{player.MaxMp}");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"체  력 : {player.Hp}/{player.MaxHp}\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"마  력 : {player.Mp}/{player.MaxMp}\n");
 
         Console.WriteLine($"Gold : {player.Gold}");
 
