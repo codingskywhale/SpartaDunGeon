@@ -76,6 +76,13 @@ namespace SpartaDunGeon
                         Item.toggleEquipStatus(inventory[keyInput - 1]);
                         if (inventory[keyInput - 1].Atk != 0) player.BonusAtk += inventory[keyInput - 1].Atk;
                         if (inventory[keyInput - 1].Def != 0) player.BonusDef += inventory[keyInput - 1].Def;
+
+                        // 장비 장착 퀘스트
+                        if (QuestManager.questList[2].IsProceeding)
+                        {
+                            QuestManager.questList[2].UpdateQuestProgress(player);
+                        }
+
                     }
                     else
                     {

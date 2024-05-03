@@ -26,19 +26,10 @@ namespace SpartaDunGeon
         }
 
         // 퀘스트 진행 상황 체크 및 업데이트
-        public virtual void UpdateQuestProgress(Player player)
-        {
-
-        }
-
-        // 퀘스트 완료 여부 판단
-        public bool isComplete(int questId)
-        {
-            return false;
-        }
-
+        public virtual void UpdateQuestProgress(Player player) { }
+        
         // 퀘스트 목표 출력
-        public virtual void PrintGoal() { }
+        public virtual void PrintGoal(Player player) { }
 
         // 퀘스트 보상 출력
         public virtual void PrintRewards() { }
@@ -53,9 +44,9 @@ namespace SpartaDunGeon
     // 슬라임 처치 퀘스트
     public class Quest1 : Quest
     {
-        int goal = 3;
-        int tmpKill;
-
+        int goal = 3; // 퀘스트 목표
+        int tmpKill; // 진행도 카운트
+        
         public Quest1(int id, string name, string description, int targetIndex, int rewardGold = 100, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
         {
             QuestId = id;
@@ -75,7 +66,7 @@ namespace SpartaDunGeon
             }
         }
 
-        public override void PrintGoal()
+        public override void PrintGoal(Player player)
         {
             Console.Write("\n 슬라임 처치 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");
@@ -95,10 +86,10 @@ namespace SpartaDunGeon
             QuestManager.PrintQuestList(player);
         }
     }
-
+    // 고블린 처치 퀘스트
     public class Quest2 : Quest
     {
-        int goal = 5;
+        int goal = 1;
         int tmpKill;
 
         public Quest2(int id, string name, string description, int targetIndex, int rewardGold = 200, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
@@ -106,6 +97,7 @@ namespace SpartaDunGeon
             QuestId = id;
             QuestName = name;
             Description = description;
+            RewardGold = rewardGold;
             IsProceeding = isProceeding;
             CanCompleted = canCompleted;
         }
@@ -119,7 +111,7 @@ namespace SpartaDunGeon
             }
         }
 
-        public override void PrintGoal()
+        public override void PrintGoal(Player player)
         {
             Console.Write("\n 고블린 처치 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");            
@@ -135,6 +127,7 @@ namespace SpartaDunGeon
         public override void GetQuestRewards(Player player)
         {
             player.Gold += RewardGold;
+            Inventory.inventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
             IsCompleted = true;
 
             QuestManager.PrintQuestList(player);
@@ -145,12 +138,87 @@ namespace SpartaDunGeon
     {
         bool isEquipped;
 
-        public Quest3(int id, string name, string description, bool isEquipped = false, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
+        public Quest3(int id, string name, string description, bool isEquipped = false, int rewardGold = 150, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
         {
             QuestId = id;
             QuestName = name;
             Description = description;
+            RewardGold = rewardGold;
             this.isEquipped = isEquipped;
+        }
+
+        public override void UpdateQuestProgress(Player player)
+        {
+            CanCompleted = true;
+        }
+
+        public override void PrintGoal(Player player)
+        {
+            Console.Write("\n 새로운 장비를 장착해보기\n");
+            //ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");
+        }
+
+        public override void PrintRewards()
+        {
+            Console.WriteLine();
+            //ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 낡은 검 x ", "1", "\n");
+            Console.WriteLine($" {RewardGold} Gold");
+        }
+
+        public override void GetQuestRewards(Player player)
+        {
+            player.Gold += RewardGold;
+            //Inventory.inventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
+            IsCompleted = true;
+
+            QuestManager.PrintQuestList(player);
+        }
+    }
+
+    // 레벨 달성 퀘스트
+    public class Quest4 : Quest
+    {
+        int targetLevel = 2;
+        
+        public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 200, bool isProceeding = false, bool canCompleted = false) : base(id, name, description)
+        {
+            QuestId = id;
+            QuestName = name;
+            Description = description;
+            RewardGold = rewardGold;
+            RewardGold = rewardGold;            
+        }
+
+        public override void UpdateQuestProgress(Player player)
+        {
+            if(player.Lv == targetLevel)
+            {
+                CanCompleted = true;
+            }
+        }
+
+        public override void PrintGoal(Player player)
+        {
+            int tmpLevel = player.Lv;
+
+            Console.Write($"\n {targetLevel}레벨 달성하기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpLevel} / {targetLevel})\n");
+        }
+
+        public override void PrintRewards()
+        {
+            Console.WriteLine();
+            //ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 낡은 검 x ", "1", "\n");
+            Console.WriteLine($" {RewardGold} Gold");
+        }
+
+        public override void GetQuestRewards(Player player)
+        {
+            player.Gold += RewardGold;
+            Inventory.inventory.Add(new Item("레벨업 테스트용 검", "테스트", ItemType.WEAPON, 2, 0, 0, 100));
+            IsCompleted = true;
+
+            QuestManager.PrintQuestList(player);
         }
     }
 
