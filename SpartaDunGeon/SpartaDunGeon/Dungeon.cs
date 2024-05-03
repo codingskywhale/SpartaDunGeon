@@ -39,12 +39,43 @@ namespace Spartadungeon
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
 
-            Console.WriteLine("1. 공격\n"); ;
+            Console.WriteLine("1. 공격");
+            Console.WriteLine("2. 스킬 사용\n");
 
-            int input = ConsoleUtility.ChoiceMenu(1, 1);
-            if(input == 1)
+            int input = ConsoleUtility.ChoiceMenu(1, 2);
+            switch(input)
             {
-                PlayerTurn(player);
+                case 1:
+                    PlayerTurn(player);
+                    break;
+                case 2:
+                    Skill(player);
+                    break;
+            }
+        }
+
+        public void Skill(Player player)
+        {
+            Console.WriteLine("사용할 스킬을 선택하세요.\n");
+
+            Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n");
+
+            int Choise = ConsoleUtility.ChoiceMenu(1, 4);
+
+            switch (Choise)
+            {
+                case 1:
+                    player.Atk *= 2;
+                    PlayerTurn(player);
+                    break;
+                case 2:
+                    player.Hp += player.Atk;
+                    if (player.Hp >= player.MaxHp)
+                    {
+                        player.Hp = player.MaxHp;
+                    }
+                    PlayerTurn(player);
+                    break;
             }
         }
         
