@@ -412,42 +412,21 @@ namespace Spartadungeon
 
                 switch (randomNum.Next(minMonster, maxMonster))
                 {
-<<<<<<< HEAD
                     case 0:
-                        spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5));
+                        spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5, 1000));
                         break;
                     case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
+                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10, 1001));
                         break;
                     case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
+                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30, 1002));
                         break;
                     case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
+                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50, 1003));
                         break;
                     case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
+                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200, 1004));
                         break;
-=======
-                    switch (randomNum.Next(minMonster, maxMonster))
-                    {
-                        case 0:
-                            spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5, 1000));
-                            break;
-                        case 1:
-                            spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10, 1001));
-                            break;
-                        case 2:
-                            spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30, 1002));
-                            break;
-                        case 3:
-                            spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50, 1003));
-                            break;
-                        case 4:
-                            spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200, 1004));
-                            break;
-                    }
->>>>>>> DEV
                 }
             }
 
