@@ -1,6 +1,4 @@
-﻿using System.Numerics;
-
-public class Player
+﻿public class Player
 {
     public string Name { get; set; }
     public string Job { get; }
