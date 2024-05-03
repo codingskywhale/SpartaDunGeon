@@ -103,11 +103,8 @@ public class GameManager
     public static void MainMenu(Player player)
     {
         Console.Clear();
-        //인트로
-        Console.WriteLine("##############################");
-        Console.WriteLine("스파르타 게임을 시작한다");
-        Console.WriteLine("원하는 행동을 고르세요.");
-        Console.WriteLine("##############################\n");
+        //인트로       
+        ConsoleUtility.PrintGameHeader();
 
         //선택지
         Console.WriteLine("1. 상태창");
@@ -146,84 +143,84 @@ public class GameManager
 
     //상태창
     private static void StateMenu(Player player)
-    {
-        Console.Clear();
+{
+Console.Clear();
 
-        ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"# 상태 보기 #\n");
-        Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
+ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"# 상태 보기 #\n");
+Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow,"",$"{player.Name} ({player.Job})");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"Lv. {player.Lv}\n");
-        Console.WriteLine($"{player.Exp}/{player.MaxExp}");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"공격력 : {player.Atk + player.BonusAtk}");
-        Console.WriteLine(player.BonusAtk > 0 ? $" (+{player.BonusAtk})" : "");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"방어력 : {player.Def + player.BonusDef}");
-        Console.WriteLine(player.BonusDef > 0 ? $" (+{player.BonusDef})" : "");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"체  력 : {player.Hp}/{player.MaxHp}\n");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"마  력 : {player.Mp}/{player.MaxMp}\n");
+Console.WriteLine($"{player.Name} ({player.Job})");
+Console.WriteLine($"Lv. {player.Lv}");
+Console.WriteLine($"{player.Exp}/{player.MaxExp}");
+Console.Write($"공격력 : {player.Atk + player.BonusAtk}");
+Console.WriteLine(player.BonusAtk > 0 ? $" (+{player.BonusAtk})" : "");
+Console.Write($"방어력 : {player.Def + player.BonusDef}");
+Console.WriteLine(player.BonusDef > 0 ? $" (+{player.BonusDef})" : "");
+Console.WriteLine($"체  력 : {player.Hp}/{player.MaxHp}");
+Console.WriteLine($"마  력 : {player.Mp}/{player.MaxMp}");
 
-        Console.WriteLine($"Gold : {player.Gold}");
+Console.WriteLine($"Gold : {player.Gold}");
 
-        Console.WriteLine("\n0. 나가기\n");
+Console.WriteLine("\n0. 나가기\n");
 
-        int Choise = ConsoleUtility.ChoiceMenu(0, 0);
+int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
-        switch (Choise)
+switch (Choise)
+{
+    case 0:
+        MainMenu(player);
+        break;
+}
+}
+
+//회복 아이템
+private static void PotionMenu(Player player)
+{
+Console.Clear();
+Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
+Console.WriteLine($" (남은 포션 : {potionInventory.Count} )\n");
+Console.WriteLine("[현재 체력]");
+Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
+Console.WriteLine("1. 사용하기");
+ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
+int choice = ConsoleUtility.ChoiceMenu(0, 1);
+switch (choice)
+{
+    case 0:
+        MainMenu(player);
+        break;
+    case 1:
+        if (potionInventory.Count == 0)
         {
-            case 0:
-                MainMenu(player);
-                break;
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
+            Thread.Sleep(500);
+            PotionMenu(player);
+            break;
         }
-    }
-
-    //회복 아이템
-    private static void PotionMenu(Player player)
-    {
-        Console.Clear();
-        Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
-        Console.WriteLine($" (남은 포션 : {potionInventory.Count} )\n");
-        Console.WriteLine("[현재 체력]");
-        Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
-        Console.WriteLine("1. 사용하기");
-        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
-        int choice = ConsoleUtility.ChoiceMenu(0, 1);
-        switch (choice)
+        Item Use = potionInventory[choice - 1];
+        potionInventory.Remove(Use);
+        player.Hp += 30;
+        if (player.Hp >= player.MaxHp)
         {
-            case 0:
-                MainMenu(player);
-                break;
-            case 1:
-                if (potionInventory.Count == 0)
-                {
-                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
-                    Thread.Sleep(500);
-                    PotionMenu(player);
-                    break;
-                }
-                Item Use = potionInventory[choice - 1];
-                potionInventory.Remove(Use);
-                player.Hp += 30;
-                if (player.Hp >= player.MaxHp)
-                {
-                    player.Hp = player.MaxHp;
-                }
-                ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
-                Thread.Sleep(500);
-                PotionMenu(player);
-                break;
+            player.Hp = player.MaxHp;
         }
-    }
+        ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
+        Thread.Sleep(500);
+        PotionMenu(player);
+        break;
+}
+}
 }
 
 internal class Program
 {
-    static void Main(string[] args)
-    {
-        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "");
+static void Main(string[] args)
+{
+ConsoleUtility.PrintColoredText(ConsoleColor.Red, "");
 
-        GameManager gameManager = new GameManager();
-        QuestManager questManager = QuestManager.Instance();
-               
-        gameManager.StartGame();
-    }
+GameManager gameManager = new GameManager();
+QuestManager questManager = QuestManager.Instance();
+
+gameManager.StartGame();
+}
 }

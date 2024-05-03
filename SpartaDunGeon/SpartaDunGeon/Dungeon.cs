@@ -34,7 +34,7 @@ namespace Spartadungeon
             Console.WriteLine();
             if(stage >= 2)
             {
-                ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", "2. ", "스테이지 1");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 2. ", "스테이지 2");
                 Console.WriteLine();
             }
             
@@ -82,15 +82,7 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
-            Console.Write("Hp ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
-            Console.Write("Mp ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxMp}\n");
+            PrintPlayerInfo(player);
             Console.WriteLine();
 
             Console.WriteLine("1. 공격");
@@ -177,15 +169,7 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
-            Console.Write("Hp ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
-            Console.Write("Mp ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxMp}\n");
+            PrintPlayerInfo(player);
             Console.WriteLine();
 
             Console.WriteLine("공격할 몬스터 번호를 입력해주세요.");
@@ -250,7 +234,11 @@ namespace Spartadungeon
 
                 Attack(monster, player, player);
 
-                Console.WriteLine($"Lv {player.Lv} {player.Name}");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}", $"{player.Name} ({player.Job})\n");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "HP ", $"{player.Hp}");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+                Console.WriteLine();
 
                 if (player.Hp <= 0)
                 {
@@ -288,7 +276,7 @@ namespace Spartadungeon
                 return;
             }
 
-            if (critical.Next(0, 100) <= 100)
+            if (critical.Next(0, 100) <= 15)
             {
                 criticalDamage = attacker.BaseAtk * 1.6;
                 criticalDamage = Math.Round(criticalDamage);
@@ -309,7 +297,7 @@ namespace Spartadungeon
             int damagedHp = target.Hp - sumDamage;
 
             ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{target.Lv} ", "");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"{target.Name}", " 을(를) 맞췄습니다.\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"{target.Name}", $" 을(를) 맞췄습니다. [데미지 : {sumDamage}]\n");
             Console.WriteLine();
 
             if (isCritical == false)
@@ -557,6 +545,29 @@ namespace Spartadungeon
                 Inventory.inventory.Add(new Item("스파르타의 갑옷", "스파르타의 전사들이 사용했다는 전설의 갑옷입니다.", ItemType.ARMOR, 0, 15, 0, 3500));
                 Console.WriteLine("스파르타의 갑옷 - 1");
             }
+        }
+
+        private void PrintPlayerInfo(Player player)
+        {
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
+            PrintHpInfo(player);
+            PrintMpInfo(player);
+        }
+
+        private void PrintHpInfo(Player player)
+        {
+            Console.Write("Hp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+        }
+
+        private void PrintMpInfo(Player player)
+        {
+            Console.Write("Mp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxMp}\n");
         }
     }
 }
