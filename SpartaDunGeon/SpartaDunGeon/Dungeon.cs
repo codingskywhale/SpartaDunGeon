@@ -336,6 +336,14 @@ namespace Spartadungeon
             if(potionDrop.Next(0, 100) <= 90)
             {
                 GameManager.potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+                Console.WriteLine("포션 - 1");
+            }
+
+            Random equipItemDrop = new Random();
+            if(equipItemDrop.Next(0, 100) <= 100)
+            {
+                Inventory.inventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
+                Console.WriteLine("낡은 검 - 1");
             }
 
             Console.WriteLine("0. 다음\n");
