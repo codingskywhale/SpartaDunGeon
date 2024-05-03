@@ -19,7 +19,7 @@ public class ConsoleUtility
         }
     }
 
-    // 텍스트 전체 색상 변경(줄바꿈X)
+    // 텍스트 전체 색상 변경(줄바꿈 없음)
     public static void PrintColoredText(ConsoleColor color, string text)
     {
         Console.ForegroundColor = (ConsoleColor)color;
@@ -27,7 +27,7 @@ public class ConsoleUtility
         Console.ResetColor();
     }
 
-    // 텍스트 색상 일부만 변경(하이라이트, 줄바꿈X)
+    // 텍스트 색상 일부만 변경(하이라이트, 줄바꿈 없음)
     public static void PrintTextHighlight(ConsoleColor color, string str1, string str2, string str3 = "")
     {
         Console.Write(str1);
