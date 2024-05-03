@@ -30,15 +30,18 @@ namespace Spartadungeon
         {
             Console.Clear();
             Console.WriteLine("■ 스테이지를 선택해주세요 ■\n");
-            Console.WriteLine(" 1. 스테이지 1");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 1. ", "스테이지 1");
+            Console.WriteLine();
             if(stage >= 2)
             {
-                Console.WriteLine(" 2. 스테이지 2");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", "2. ", "스테이지 1");
+                Console.WriteLine();
             }
             
             if(stage >= 3)
             {
-                ConsoleUtility.PrintColoredText(ConsoleColor.Red, " 3. 스테이지 3 - BOSS");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " 3. ");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "스테이지 3 - BOSS");
             }
 
             Console.WriteLine();
@@ -64,12 +67,14 @@ namespace Spartadungeon
             {
                 if(monster.Hp < 0)
                 {
-                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $"Lv. {monster.Lv} {monster.Name}  Dead\n");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, $" Lv. {monster.Lv} {monster.Name}  Dead\n");
                 }
 
                 else
                 {
-                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name} HP {monster.Hp}");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, " Lv.", $"{monster.Lv} ", $"{monster.Name}");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "  Hp", $" {monster.Hp}");
+                    Console.WriteLine();
                 }
                 
             }
@@ -77,8 +82,12 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
-            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
+            Console.Write("Hp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+            Console.WriteLine();
 
             Console.WriteLine("1. 공격");
             Console.WriteLine("2. 스킬 사용\n");
@@ -138,7 +147,10 @@ namespace Spartadungeon
 
                 else if (monster.IsDead == false)
                 {
-                    Console.WriteLine($" {index} - Lv. {monster.Lv} {monster.Name}  HP {monster.Hp}");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, $" {index} ");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "- Lv.", $"{monster.Lv}", $" {monster.Name} ");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, " HP ", $"{monster.Hp}");
+                    Console.WriteLine();
                 }
 
                 index++;
@@ -147,8 +159,13 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("[내정보]");
-            Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
-            Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
+            Console.Write("Hp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+            Console.WriteLine();
+
             Console.WriteLine("공격할 몬스터 번호를 입력해주세요.");
             int selectMonsterindex = ConsoleUtility.ChoiceMenu(1, spawnList.Count) - 1;
 
@@ -237,15 +254,17 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
-            Console.WriteLine($"Lv.{attacker.Lv} {attacker.Name} 의 공격!");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{attacker.Lv} ", $"{attacker.Name}");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, " 의 ", "공격!\n");
 
             if (avoid.Next(0, 100) <= 10)
             {
-                Console.WriteLine($"{target.Name} 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"{target.Name}", " 을(를) 공격했지만 아무일도 일어나지 않았습니다.\n");
+                Console.WriteLine();
                 return;
             }
 
-            if (critical.Next(0, 100) <= 15)
+            if (critical.Next(0, 100) <= 100)
             {
                 criticalDamage = attacker.Atk * 1.6;
                 criticalDamage = Math.Round(criticalDamage);
@@ -265,13 +284,19 @@ namespace Spartadungeon
 
             int damagedHp = target.Hp - sumDamage;
 
-            Console.WriteLine($"{target.Name} 을(를) 맞췄습니다. [데미지 : {sumDamage}]\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{target.Lv} ", "");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", $"{target.Name}", " 을(를) 맞췄습니다.\n");
+            Console.WriteLine();
 
             if (isCritical == false)
             {
                 if (damagedHp < 0)
                 {
-                    Console.WriteLine($"HP {target.Hp} -> Dead");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "HP ", $"{target.Hp} ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "-> ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, "Dead\n");
+                    Console.WriteLine();
+
                     // 슬라임
                     if (target.Id == 1000)
                     {
@@ -286,7 +311,10 @@ namespace Spartadungeon
 
                 else
                 {
-                    Console.WriteLine($"HP {target.Hp} -> {damagedHp}\n");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "HP ", $"{target.Hp} ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "-> ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{damagedHp}\n");
+                    Console.WriteLine();
                 }
             }
 
@@ -294,7 +322,12 @@ namespace Spartadungeon
             {
                 if (damagedHp < 0)
                 {
-                    Console.WriteLine($"HP {target.Hp} -> Dead");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "HP ", $"{target.Hp} ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "-> ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, "Dead");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, " - 치명타 공격!!\n");
+                    Console.WriteLine();
+
                     // 슬라임
                     if (target.Id == 1000)
                     {
@@ -309,7 +342,11 @@ namespace Spartadungeon
 
                 else
                 {
-                    Console.WriteLine($"HP {target.Hp} -> {damagedHp} - 치명타 공격!!\n");
+                    ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "HP ", $"{target.Hp} ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "-> ");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{damagedHp}");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, " - 치명타 공격!!\n");
+                    Console.WriteLine();
                 }
 
                 isCritical = false;
