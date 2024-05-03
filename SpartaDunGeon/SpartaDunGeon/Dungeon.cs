@@ -87,6 +87,10 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
             ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+            Console.Write("Mp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxMp}\n");
             Console.WriteLine();
 
             Console.WriteLine("1. 공격");
@@ -178,6 +182,10 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
             ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
+            Console.Write("Mp ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " / ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxMp}\n");
             Console.WriteLine();
 
             Console.WriteLine("공격할 몬스터 번호를 입력해주세요.");
