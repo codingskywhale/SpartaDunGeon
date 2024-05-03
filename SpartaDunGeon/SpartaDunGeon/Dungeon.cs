@@ -1,3 +1,4 @@
+using SpartaDunGeon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,7 @@ namespace Spartadungeon
         private List<Monster> spawnList;
 
         public Dungeon(GameManager manager)
-        {
-            Console.WriteLine("df");
+        {            
             spawnList = new List<Monster>();
         }
 
@@ -35,12 +35,12 @@ namespace Spartadungeon
 
             Console.WriteLine();
 
-            Console.WriteLine("[?¥Ï†ïÎ≥?");
+            Console.WriteLine("[≥ª¡§∫∏]");
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
 
-            Console.WriteLine("1. Í≥µÍ≤©");
-            Console.WriteLine("2. Ïä§ÌÇ¨ ÏÇ¨Ïö©\n");
+            Console.WriteLine("1. ∞¯∞›");
+            Console.WriteLine("2. Ω∫≈≥ ªÁøÎ\n");
 
             int input = ConsoleUtility.ChoiceMenu(1, 2);
             switch(input)
@@ -56,9 +56,9 @@ namespace Spartadungeon
 
         public void Skill(Player player)
         {
-            Console.WriteLine("ÏÇ¨Ïö©Ìï† Ïä§ÌÇ¨ÏùÑ ÏÑ†ÌÉùÌïòÏÑ∏Ïöî.\n");
+            Console.WriteLine("ªÁøÎ«“ Ω∫≈≥¿ª º±≈√«œººø‰.\n");
 
-            Console.WriteLine("1. ÌûòÍªèÏπòÍ∏∞\t2. Ìú¥ÏãùÌïòÍ∏∞\n");
+            Console.WriteLine("1. »˚≤Øƒ°±‚\t2. »ﬁΩƒ«œ±‚\n");
 
             int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 
@@ -98,19 +98,19 @@ namespace Spartadungeon
                 switch (randomNum.Next(0, 5))
                 {
                     case 0:
-                        spawnList.Add(new Monster("ΩΩ∂Û¿”", 0 , 1, 1, 1, 3, 5));
+                        spawnList.Add(new Monster("ΩΩ∂Û¿”", 0 , 1, 1, 1, 3, 5, 1000));
                         break;
                     case 1:
-                        spawnList.Add(new Monster("∞Ì∫Ì∏∞", 1, 2, 2, 1, 5, 10));
+                        spawnList.Add(new Monster("∞Ì∫Ì∏∞", 1, 2, 2, 1, 5, 10, 1001));
                         break;
                     case 2:
-                        spawnList.Add(new Monster("ƒ⁄∫º∆Æ", 2, 3, 7, 3, 10, 30));
+                        spawnList.Add(new Monster("ƒ⁄∫º∆Æ", 2, 3, 7, 3, 10, 30, 1002));
                         break;
                     case 3:
-                        spawnList.Add(new Monster("ø¿≈©", 3, 5, 10, 5, 20, 50));
+                        spawnList.Add(new Monster("ø¿≈©", 3, 5, 10, 5, 20, 50, 1003));
                         break;
                     case 4:
-                        spawnList.Add(new Monster("µÂ∑°∞Ô", 4, 20, 20, 20, 100, 200));
+                        spawnList.Add(new Monster("µÂ∑°∞Ô", 4, 20, 20, 20, 100, 200, 1004));
                         break;
                 }
                 
@@ -130,7 +130,7 @@ namespace Spartadungeon
                 if (monster.Hp <= 0)
                 {
                     monster.IsDead = true;
-                    Console.WriteLine($" {index} - Lv. {monster.Lv} {monster.Name}  Dead");
+                    Console.WriteLine($" {index} - Lv. {monster.Lv} {monster.Name}  Dead");                    
                 }
 
                 else if (monster.IsDead == false)
@@ -143,7 +143,7 @@ namespace Spartadungeon
 
             Console.WriteLine();
 
-            Console.WriteLine("[?¥Ï†ïÎ≥?");
+            Console.WriteLine("[≥ª¡§∫∏]");
             Console.WriteLine($"Lv.{player.Lv}  {player.Name} ({player.Job})");
             Console.WriteLine($"HP {player.Hp}/{player.MaxHp}\n");
 
@@ -153,16 +153,16 @@ namespace Spartadungeon
 
             if (selectMonster.IsDead == true)
             {
-                Console.WriteLine("?òÎ™ª???ÖÎ†•?ÖÎãà??\n");
+                Console.WriteLine("¿ﬂ∏¯µ» ¿‘∑¬¿‘¥œ¥Ÿ.\n");
                 PlayerTurn(player);
             }
 
             else if (selectMonster.IsDead == false)
             {
-                Attack(player, selectMonster);
+                Attack(player, selectMonster, player);
             }
 
-            Console.WriteLine("0. ?§Ïùå\n");
+            Console.WriteLine("0. ¥Ÿ¿Ω\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -204,7 +204,7 @@ namespace Spartadungeon
                     continue;
                 }
 
-                Attack(monster, player);
+                Attack(monster, player, player);
 
                 Console.WriteLine($"Lv {player.Lv} {player.Name}");
 
@@ -214,14 +214,14 @@ namespace Spartadungeon
                     Lose(player);
                 }
 
-                Console.WriteLine("0. ?§Ïùå\n");
+                Console.WriteLine("0. ¥Ÿ¿Ω\n");
                 ConsoleUtility.ChoiceMenu(0, 0);
             }
 
             PlayerTurn(player);
         }
 
-        public void Attack(Character attacker, Character target)
+        public void Attack(Character attacker, Character target, Player player)
         {
             Random avoid = new Random();
             Random critical = new Random();
@@ -234,11 +234,11 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
             Console.WriteLine();
 
-            Console.WriteLine($"Lv.{attacker.Lv} {attacker.Name} ??Í≥µÍ≤©!");
+            Console.WriteLine($"Lv.{attacker.Lv} {attacker.Name} ¿« ∞¯∞›!");
 
             if (avoid.Next(0, 100) <= 10)
             {
-                Console.WriteLine($"{target.Name} ??Î•? Í≥µÍ≤©?àÏ?Îß??ÑÎ¨¥?ºÎèÑ ?ºÏñ¥?òÏ? ?äÏïò?µÎãà??\n");
+                Console.WriteLine($"{target.Name} ¿ª(∏¶) ∞¯∞›«ﬂ¡ˆ∏∏ æ∆π´¿œµµ ¿œæÓ≥™¡ˆ æ æ“Ω¿¥œ¥Ÿ.\n");
 
                 return;
             }
@@ -263,7 +263,7 @@ namespace Spartadungeon
 
             int damagedHp = target.Hp - sumDamage;
 
-            Console.WriteLine($"{target.Name} ??Î•? ÎßûÏ∑Ñ?µÎãà?? [?∞Î?ÏßÄ : {sumDamage}]\n");
+            Console.WriteLine($"{target.Name} ¿ª(∏¶) ∏¬√ËΩ¿¥œ¥Ÿ. [µ•πÃ¡ˆ : {sumDamage}]\n");
 
 
             if (isCritical == false)
@@ -271,6 +271,16 @@ namespace Spartadungeon
                 if (damagedHp < 0)
                 {
                     Console.WriteLine($"HP {target.Hp} -> Dead");
+                    // ΩΩ∂Û¿”
+                    if (target.Id == 1000)
+                    {
+                        QuestManager.questList[0].UpdateQuestProgress(player);
+                    }
+                    // ∞Ì∫Ì∏∞
+                    if (target.Id == 1001)
+                    {
+                        QuestManager.questList[1].UpdateQuestProgress(player);
+                    }
                 }
 
                 else
@@ -284,11 +294,21 @@ namespace Spartadungeon
                 if (damagedHp < 0)
                 {
                     Console.WriteLine($"HP {target.Hp} -> Dead");
+                    // ΩΩ∂Û¿”
+                    if (target.Id == 1000)
+                    {
+                        QuestManager.questList[0].UpdateQuestProgress(player);
+                    }
+                    // ∞Ì∫Ì∏∞
+                    if (target.Id == 1001)
+                    {
+                        QuestManager.questList[1].UpdateQuestProgress(player);
+                    }
                 }
 
                 else
                 {
-                    Console.WriteLine($"HP {target.Hp} -> {damagedHp} - ÏπòÎ™Ö?Ä Í≥µÍ≤©!!\n");
+                    Console.WriteLine($"HP {target.Hp} -> {damagedHp} - ƒ°∏Ì≈∏ ∞¯∞›!!\n");
                 }
 
                 isCritical = false;
@@ -305,12 +325,12 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Green, "Victory\n");
             Console.WriteLine();
 
-            Console.WriteLine($"?òÏ†Ñ?êÏÑú Î™¨Ïä§??{spawnList.Count}ÎßàÎ¶¨Î•??°Ïïò?µÎãà??");
+            Console.WriteLine($"¥¯¿¸ø°º≠ ∏ÛΩ∫≈Õ {spawnList.Count}∏∂∏Æ∏¶ ¿‚æ“Ω¿¥œ¥Ÿ.");
 
             Console.WriteLine($"Lv {player.Lv} {player.Name}");
             Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
 
-            Console.WriteLine("[?çÎìù ?ÑÏù¥??");
+            Console.WriteLine("[»πµÊ æ∆¿Ã≈€]");
             int totalGold = 0;
 
             foreach(Monster monster in spawnList)
@@ -324,7 +344,7 @@ namespace Spartadungeon
             Random potionDrop = new Random();
 
 
-            Console.WriteLine("0. ?§Ïùå\n");
+            Console.WriteLine("0. ¥Ÿ¿Ω\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -344,7 +364,7 @@ namespace Spartadungeon
             Console.WriteLine($"Lv {player.Lv} {player.Name}");
             Console.WriteLine($"HP {player.MaxHp} -> {player.Hp}\n");
 
-            Console.WriteLine("0. ?§Ïùå\n");
+            Console.WriteLine("0. ¥Ÿ¿Ω\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 

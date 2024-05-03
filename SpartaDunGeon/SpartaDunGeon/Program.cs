@@ -69,8 +69,8 @@ public class GameManager
             {
                 Console.Clear();
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
-                player = new Player(name, "전사", 1, 0, 20, 10, 7, 70, 20, 70, 20, 700) ;
-                Thread.Sleep(2000);
+                player = new Player(name, "전사", 1, 0, 20, 10000, 7, 7000, 1, 20, 70, 20, 700) ;
+                //Thread.Sleep(2000);
                 MainMenu(player);
                 break;
             }
@@ -78,7 +78,7 @@ public class GameManager
             {
                 Console.Clear();
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Blue, "당신은 현명한 ", "마법사", "를 선택하셨습니다.");
-                player = new Player(name, "마법사", 1, 0, 20, 5, 5, 50, 70, 50, 70, 500);
+                player = new Player(name, "마법사", 1, 0, 20, 5, 5, 50, 1, 70, 50, 70, 500);
                 Thread.Sleep(1500);
                 MainMenu(player);
                 break;
@@ -93,7 +93,7 @@ public class GameManager
     //게임 시작
     public void StartGame()
     {
-        MainMenu(player);
+        NameChoise();
     }
 
     //메인 메뉴
@@ -111,7 +111,8 @@ public class GameManager
         Console.WriteLine("2. 장비창");
         Console.WriteLine("3. 상점");
         Console.WriteLine("4. 전투 시작");
-        Console.WriteLine("5. 회복 아이템\n");
+        Console.WriteLine("5. 회복 아이템");
+        Console.WriteLine("7. 퀘스트\n");
 
         //선택지 검증
         int Choise = ConsoleUtility.ChoiceMenu(1, 7);
@@ -222,7 +223,8 @@ internal class Program
         ConsoleUtility.PrintColoredText(ConsoleColor.Red, "");
 
         GameManager gameManager = new GameManager();
-        QuestManager questManager = new QuestManager();        
+        QuestManager questManager = QuestManager.Instance();
+               
         gameManager.StartGame();
     }
 }
