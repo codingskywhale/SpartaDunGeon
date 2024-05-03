@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using SpartaDunGeon;
+using static System.Net.Mime.MediaTypeNames;
 
 public class ConsoleUtility
 {
@@ -18,22 +19,22 @@ public class ConsoleUtility
         }
     }
 
-    // 텍스트 전체 색상 변경(줄바꿈X)
+    // 텍스트 전체 색상 변경(줄바꿈 없음)
     public static void PrintColoredText(ConsoleColor color, string text)
     {
         Console.ForegroundColor = (ConsoleColor)color;
-        Console.WriteLine(text);
-        Console.ResetColor();       
+        Console.Write(text);
+        Console.ResetColor();
     }
 
-    // 텍스트 색상 변경(하이라이트, 줄바꿈O)
+    // 텍스트 색상 일부만 변경(하이라이트, 줄바꿈 없음)
     public static void PrintTextHighlight(ConsoleColor color, string str1, string str2, string str3 = "")
     {
         Console.Write(str1);
         Console.ForegroundColor = (ConsoleColor)color;
         Console.Write(str2);
         Console.ResetColor();
-        Console.WriteLine(str3);       
+        Console.Write(str3);       
     }
 
     //문자열 길이 계산

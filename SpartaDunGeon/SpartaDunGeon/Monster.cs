@@ -6,11 +6,12 @@
 
     public bool IsDead { get; set; }
 
-    public Monster(string name, int idx, int lv, int exp, int atk, int def, int hp, int gold, bool isDead = false) : base(name, lv, exp, atk, def, hp)
+    public Monster(string name, int idx, int lv, int exp, int atk, int def, int hp, int gold, int id, bool isDead = false) : base(name, lv, exp, atk, def, hp, id)
     {
         Idx = idx;
         Gold = gold;
         IsDead = isDead;
+        Id = id;
     }
     /*
     public void monsterList()
