@@ -71,7 +71,7 @@ public class GameManager
             {
                 Console.Clear();
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Red, "당신은 용맹한 ", "전사", "를 선택하셨습니다.");
-                player = new Player(name, "전사", 1, 0, 20, 10000, 7, 7000, 1, 20, 70, 20, 700) ;
+                player = new Player(name, "전사", 1, 0, 20, 10, 7, 7000, 1, 20, 70, 20, 700) ;
                 //Thread.Sleep(2000);
                 MainMenu(player);
                 break;
