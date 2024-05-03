@@ -29,16 +29,16 @@ namespace Spartadungeon
         public void StageScene(Player player)
         {
             Console.Clear();
-            Console.WriteLine("스테이지를 선택해주세요\n");
-            Console.WriteLine("1. 스테이지 1");
+            Console.WriteLine("■ 스테이지를 선택해주세요 ■\n");
+            Console.WriteLine(" 1. 스테이지 1");
             if(stage == 2)
             {
-                Console.WriteLine("2. 스테이지 2");
+                Console.WriteLine(" 2. 스테이지 2");
             }
             
             else if(stage == 3)
             {
-                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "3. 스테이지 3 - BOSS");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, " 3. 스테이지 3 - BOSS");
             }
 
             Console.WriteLine();
@@ -69,7 +69,7 @@ namespace Spartadungeon
 
                 else
                 {
-                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name}  HP {monster.Hp}");
+                    Console.WriteLine($" Lv. {monster.Lv} {monster.Name} HP {monster.Hp}");
                 }
                 
             }
@@ -394,28 +394,24 @@ namespace Spartadungeon
                     maxMonster = 4;
                 }
 
-                if(stage == 1)
+                switch (randomNum.Next(minMonster, maxMonster))
                 {
-                    switch (randomNum.Next(minMonster, maxMonster))
-                    {
-                        case 0:
-                            spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5));
-                            break;
-                        case 1:
-                            spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
-                            break;
-                        case 2:
-                            spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
-                            break;
-                        case 3:
-                            spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
-                            break;
-                        case 4:
-                            spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
-                            break;
-                    }
+                    case 0:
+                        spawnList.Add(new Monster("슬라임", 0, 1, 1, 1, 3, 5));
+                        break;
+                    case 1:
+                        spawnList.Add(new Monster("고블린", 1, 2, 2, 1, 5, 10));
+                        break;
+                    case 2:
+                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 3, 10, 30));
+                        break;
+                    case 3:
+                        spawnList.Add(new Monster("오크", 3, 5, 10, 5, 20, 50));
+                        break;
+                    case 4:
+                        spawnList.Add(new Monster("드래곤", 4, 20, 20, 20, 100, 200));
+                        break;
                 }
-                
             }
 
             DungeonScene(player);
