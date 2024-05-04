@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace SpartaDunGeon
 {
     internal class Store
     {
-        public List<Item> storeInventory;
+        public static List<Item> storeInventory;
         public Store()
         {
             storeInventory = new List<Item>();
@@ -38,9 +39,10 @@ namespace SpartaDunGeon
             Console.WriteLine("");
             Console.WriteLine("1. 아이템 구매");
             Console.WriteLine("2. 아이템 판매");
+            Console.WriteLine("3. 아이템 일괄 판매 - 장착하지 않은 아이템 모두 판매");
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
-            switch (ConsoleUtility.ChoiceMenu(0, 2))
+            switch (ConsoleUtility.ChoiceMenu(0, 3))
             {
                 case 0:
                     GameManager.MainMenu(player);
@@ -50,6 +52,9 @@ namespace SpartaDunGeon
                     break;
                 case 2:
                     SellMenu(player);
+                    break;
+                case 3:
+                    BulkSalesMenu(player);
                     break;
             }
         }
@@ -118,7 +123,12 @@ namespace SpartaDunGeon
             Console.WriteLine("[보유골드]");
             Console.WriteLine($"{player.Gold} G");
             Console.WriteLine("");
-            Console.WriteLine("[아이템 목록]");
+            Console.Write("[아이템 목록]  ");
+            if (Inventory.inventory.Count >= 10)
+            {
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, $"{Inventory.inventory.Count} / 10\n");
+            }
+            else Console.WriteLine($"{Inventory.inventory.Count} / 10");
             for (int i = 0; i < Inventory.inventory.Count; i++)
             {
                 Item.StoreItemSellList(Inventory.inventory[i], true, i + 1);
@@ -139,12 +149,68 @@ namespace SpartaDunGeon
                         if (Inventory.inventory[keyInput - 1].Atk != 0) player.BonusAtk -= Inventory.inventory[keyInput - 1].Atk;
                         if (Inventory.inventory[keyInput - 1].Def != 0) player.BonusDef -= Inventory.inventory[keyInput - 1].Def;
                     }
+                    foreach (Item item in Store.storeInventory)
+                    {
+                        if (item.Name == Inventory.inventory[keyInput - 1].Name)
+                        {
+                            Item.Sell(item);
+                        }
+                    }
                     Item.Sell(Inventory.inventory[keyInput - 1]);
                     player.Gold += (int)Math.Round(Inventory.inventory[keyInput - 1].Price * 0.85);
-                    //Item Sell = Inventory.inventory[keyInput - 1];
                     Item Sell = Inventory.inventory[keyInput - 1];
                     Inventory.inventory.Remove(Sell);
                     SellMenu(player);
+                    break;
+            }
+        }
+        // 아이템 일괄 판매
+        private void BulkSalesMenu(Player player)
+        {
+            Console.Clear();
+
+            Console.WriteLine("상점 - 일괄 판매");
+            Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
+            Console.WriteLine("");
+            Console.WriteLine("[보유골드]");
+            Console.WriteLine($"{player.Gold} G");
+            Console.WriteLine("");
+            Console.Write("[아이템 목록]  ");
+            if (Inventory.inventory.Count >= 10)
+            {
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, $"{Inventory.inventory.Count} / 10\n");
+            }
+            else Console.WriteLine($"{Inventory.inventory.Count} / 10");
+            for (int i = 0; i < Inventory.inventory.Count; i++)
+            {
+                Item.StoreItemSellList(Inventory.inventory[i], true, i + 1);
+            }
+            Console.WriteLine("");
+            foreach (Item item in Inventory.inventory)
+            {
+                if (!item.IsEquipped)
+                {
+                    foreach (Item _item in Store.storeInventory)
+                    {
+                        if (_item.Name == item.Name)
+                        {
+                            Item.Sell(_item);
+                        }
+                    }
+                    Console.WriteLine("판매중...");
+                    Thread.Sleep(500);
+                    Item.Sell(item);
+                    player.Gold += (int)Math.Round(item.Price * 0.85);
+                    Inventory.inventory.Remove(item);
+                    BulkSalesMenu(player);
+                }
+            }
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
+
+            switch (ConsoleUtility.ChoiceMenu(0, 0))
+            {
+                case 0:
+                    StoreMenu(player);
                     break;
             }
         }
