@@ -9,16 +9,29 @@ namespace SpartaDunGeon
     internal class Inventory
     {
         public static List<Item> inventory;
-        public Inventory()
+        public static List<Item> potionInventory;
+        public Inventory(bool potion = false)
         {
-            inventory = new List<Item>();
+            if (potion)
+            {
+                potionInventory = new List<Item>();
+                potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+                potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+                potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+            }
+            else inventory = new List<Item>();
         }
         public void InventoryMenu(Player player)
         {
             Console.Clear();
             Console.WriteLine("인벤토리");
             Console.WriteLine("");
-            Console.WriteLine("[아이템 목록]");
+            Console.Write("[아이템 목록]  ");
+            if(inventory.Count >= 10)
+            {
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, $"{inventory.Count} / 10\n");
+            }
+            else Console.WriteLine($"{inventory.Count} / 10");
             for (int i = 0; i < inventory.Count; i++)
             {
                 Item.InventoryItemList(inventory[i]);
@@ -46,6 +59,11 @@ namespace SpartaDunGeon
             Console.WriteLine("인벤토리 - 장착관리");
             Console.WriteLine("");
             Console.WriteLine("[아이템 목록]");
+            if (inventory.Count >= 10)
+            {
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, $"{inventory.Count} / 10\n");
+            }
+            else Console.WriteLine($"{inventory.Count} / 10");
             for (int i = 0; i < inventory.Count; i++)
             {
                 Item.InventoryItemList(inventory[i], true, i + 1);
