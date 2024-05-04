@@ -250,7 +250,7 @@ static void Main(string[] args)
         Console.Clear();
         ConsoleUtility.PrintGameHeader();
         Console.WriteLine("1. 시작");
-        Console.WriteLine("2. 불러오기");
+        Console.WriteLine("2. 불러오기\n");
 
         int choice = ConsoleUtility.ChoiceMenu(1, 2);
         switch (choice)
