@@ -192,7 +192,7 @@ namespace SpartaDunGeon
                 {
                     foreach (Item _item in Store.storeInventory)
                     {
-                        if (_item.Name == item.Name)
+                        if (_item == item)
                         {
                             Item.Sell(_item);
                         }
