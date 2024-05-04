@@ -5,26 +5,37 @@ using System.Xml.Linq;
 
 public class GameManager
 {
-    public Player player;
-    public static List<Item> potionInventory { get; private set; }
+    public static Player player;
+    private static Inventory potionInventory;
     private static Inventory inventory;
     private static Store store;
     public static Dungeon dungeon;
+    private DataManager dataManager;
+    private static QuestManager questManager;
 
-    public GameManager()//생성자 없어서 추가했습니다.
+    public GameManager(bool data = false)//생성자 없어서 추가했습니다.
     {
-        InitializeGame();
+        InitializeGame(data);
     }
 
-    public void InitializeGame()
+    public void InitializeGame(bool data = false)
     {
+        if (data)
+        {
+            questManager = new QuestManager();
+            dungeon = new Dungeon();
+            dataManager = new DataManager();
+            inventory = new Inventory();
+            potionInventory = new Inventory(true);
+            store = new Store();
+            player = new Player("", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        }
+        questManager = new QuestManager();
         dungeon = new Dungeon();
+        dataManager = new DataManager();
         inventory = new Inventory();
+        potionInventory = new Inventory(true);
         store = new Store();
-        potionInventory = new List<Item>();
-        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
-        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
-        potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
     }
 
 
@@ -98,6 +109,11 @@ public class GameManager
     {
         NameChoise();
     }
+    //불러오기 시작
+    public void ReStart()
+    {
+        MainMenu(player);
+    }
 
     //메인 메뉴
     public static void MainMenu(Player player)
@@ -112,10 +128,11 @@ public class GameManager
         Console.WriteLine("3. 상점");
         Console.WriteLine("4. 전투 시작");
         Console.WriteLine("5. 회복 아이템");
-        Console.WriteLine("7. 퀘스트\n");
+        Console.WriteLine("6. 퀘스트");
+        Console.WriteLine("7. 저장하기");
 
         //선택지 검증
-        int Choise = ConsoleUtility.ChoiceMenu(1, 6);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 7);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -130,6 +147,13 @@ public class GameManager
                 store.StoreMenu(player);
                 break;
             case 4:
+                if (Inventory.inventory.Count >= 10)
+                {
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "인벤토리에 공간이 부족합니다.");
+                    Thread.Sleep(500);
+                    MainMenu(player);
+                    break;
+                }
                 dungeon.StageScene(player);
                 break;
             case 5:
@@ -137,6 +161,12 @@ public class GameManager
                 break;
             case 6:
                 QuestManager.PrintQuestList(player);
+                break;
+            case 7:
+                DataManager.Data("Save");
+                Console.WriteLine("저장 완료.");
+                Thread.Sleep(500);
+                MainMenu(player);
                 break;
         }
     }
@@ -174,11 +204,11 @@ switch (Choise)
 }
 
 //회복 아이템
-private static void PotionMenu(Player player)
+public static void PotionMenu(Player player, bool dungeon = false)
 {
 Console.Clear();
 Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
-Console.WriteLine($" (남은 포션 : {potionInventory.Count} )\n");
+Console.WriteLine($" (남은 포션 : {Inventory.potionInventory.Count} )\n");
 Console.WriteLine("[현재 체력]");
 Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
 Console.WriteLine("1. 사용하기");
@@ -187,18 +217,19 @@ int choice = ConsoleUtility.ChoiceMenu(0, 1);
 switch (choice)
 {
     case 0:
+                if (dungeon) Dungeon.DungeonScene(player);
         MainMenu(player);
         break;
     case 1:
-        if (potionInventory.Count == 0)
+        if (Inventory.potionInventory.Count == 0)
         {
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
             Thread.Sleep(500);
-            PotionMenu(player);
+            PotionMenu(player, dungeon);
             break;
         }
-        Item Use = potionInventory[choice - 1];
-        potionInventory.Remove(Use);
+        Item Use = Inventory.potionInventory[choice - 1];
+                Inventory.potionInventory.Remove(Use);
         player.Hp += 30;
         if (player.Hp >= player.MaxHp)
         {
@@ -206,7 +237,7 @@ switch (choice)
         }
         ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
         Thread.Sleep(500);
-        PotionMenu(player);
+        PotionMenu(player, dungeon);
         break;
 }
 }
@@ -215,12 +246,30 @@ switch (choice)
 internal class Program
 {
 static void Main(string[] args)
-{
-ConsoleUtility.PrintColoredText(ConsoleColor.Red, "");
+    {
+        Console.Clear();
+        ConsoleUtility.PrintGameHeader();
+        Console.WriteLine("1. 시작");
+        Console.WriteLine("2. 불러오기");
 
-GameManager gameManager = new GameManager();
-QuestManager questManager = QuestManager.Instance();
-
-gameManager.StartGame();
-}
+        int choice = ConsoleUtility.ChoiceMenu(1, 2);
+        switch (choice)
+        {
+            case 1:
+                GameManager gameManager = new GameManager();
+                QuestManager questManager = QuestManager.Instance();
+                gameManager.StartGame();
+                break;
+            case 2:
+                gameManager = new GameManager(true);
+                questManager = QuestManager.Instance();
+                bool data = DataManager.Data("Load");
+                if (data)
+                {
+                    gameManager.ReStart();
+                }
+                else Main(args);
+                break;
+        }
+    }
 }
