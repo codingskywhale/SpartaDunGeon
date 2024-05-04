@@ -16,13 +16,14 @@ namespace Spartadungeon
 {
     public class Dungeon
     {
-        public int stage = 1;
-        public int stageSelect;
+        public static StageData stage;
+        public static int stageSelect;
 
-        private List<Monster> spawnList;
+        public static List<Monster> spawnList;
 
         public Dungeon()
-        {            
+        {
+            stage = new StageData(1);
             spawnList = new List<Monster>();
         }
 
@@ -32,13 +33,13 @@ namespace Spartadungeon
             Console.WriteLine("■ 스테이지를 선택해주세요 ■\n");
             ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 1. ", "스테이지 1");
             Console.WriteLine();
-            if(stage >= 2)
+            if(stage.num >= 2)
             {
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 2. ", "스테이지 2");
                 Console.WriteLine();
             }
             
-            if(stage >= 3)
+            if(stage.num >= 3)
             {
                 ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " 3. ");
                 ConsoleUtility.PrintColoredText(ConsoleColor.Red, "스테이지 3 - BOSS");
@@ -57,7 +58,7 @@ namespace Spartadungeon
             MonsterSpawn(player, stageSelect);
         }
 
-        public void DungeonScene(Player player)
+        public static void DungeonScene(Player player)
         {
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
@@ -86,16 +87,20 @@ namespace Spartadungeon
             Console.WriteLine();
 
             Console.WriteLine("1. 공격");
-            Console.WriteLine("2. 스킬 사용\n");
+            Console.WriteLine("2. 스킬 사용");
+            Console.WriteLine("3. 회복 아이템\n");
 
-            int input = ConsoleUtility.ChoiceMenu(1, 2);
+            int input = ConsoleUtility.ChoiceMenu(1, 3);
             switch(input)
             {
                 case 1:
                     PlayerTurn(player);
                     break;
                 case 2:
-                    player.SkillUse();
+                    Player.SkillUse(player);
+                    break;
+                case 3:
+                    GameManager.PotionMenu(player, true);
                     break;
             }
         }
@@ -139,7 +144,7 @@ namespace Spartadungeon
             DungeonScene(player);
         }
 
-        public void PlayerTurn(Player player)
+        public static void PlayerTurn(Player player)
         {
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!!\n");
@@ -197,7 +202,7 @@ namespace Spartadungeon
             Enemyturn(player);
         }
 
-        public void Enemyturn(Player player)
+        public static void Enemyturn(Player player)
         {
             bool allMonsterDead = true;
 
@@ -253,7 +258,7 @@ namespace Spartadungeon
             DungeonScene(player);
         }
 
-        public void Attack(Character attacker, Character target, Player player)
+        public static void Attack(Character attacker, Character target, Player player)
         {
             Random avoid = new Random();
             Random critical = new Random();
@@ -366,7 +371,7 @@ namespace Spartadungeon
             target.Hp -= sumDamage;
         }
 
-        public void Win(Player player)
+        public static void Win(Player player)
         {
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
@@ -400,20 +405,20 @@ namespace Spartadungeon
             ItemDrop();
             spawnList.Clear();
 
-            if(stage == 1 && stageSelect == 1)
+            if(stage.num == 1 && stageSelect == 1)
             {
-                stage = 2;
+                stage.num = 2;
             }
 
-            else if(stage == 2 && stageSelect == 2)
+            else if(stage.num == 2 && stageSelect == 2)
             {
-                stage = 3;
+                stage.num = 3;
             }
             
 
-            if(stage > 3)
+            if(stage.num > 3)
             {
-                stage = 3;
+                stage.num = 3;
             }
 
             Console.WriteLine("0. 다음\n");
@@ -424,7 +429,7 @@ namespace Spartadungeon
             GameManager.MainMenu(player);
         }
 
-        public void Lose(Player player)
+        public static void Lose(Player player)
         {
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "Battle!! - Result\n");
@@ -445,7 +450,7 @@ namespace Spartadungeon
             GameManager.MainMenu(player);
         }
 
-        public void MonsterSpawn(Player player, int StageSelect)
+        public static void MonsterSpawn(Player player, int StageSelect)
         {
             Random randomNum = new Random();
             Random randomSpawn = new Random();
@@ -457,19 +462,19 @@ namespace Spartadungeon
                 int minMonster = 0;
                 int maxMonster = 0;
 
-                if (stage == 1 && StageSelect == 1)
+                if (stage.num == 1 && StageSelect == 1)
                 {
                     minMonster = 0;
                     maxMonster = 2;
                 }
 
-                else if ( stage == 2 && stageSelect == 2)
+                else if ( stage.num == 2 && stageSelect == 2)
                 {
                     minMonster = 1;
                     maxMonster = 3;
                 }
 
-                else if (stage == 3 && stageSelect == 3)
+                else if (stage.num == 3 && stageSelect == 3)
                 {
                     spawnConunt = 1;
                     minMonster = 4;
@@ -499,12 +504,12 @@ namespace Spartadungeon
             DungeonScene(player);
         }
 
-        public void ItemDrop()
+        public static void ItemDrop()
         {
             Random potionDrop = new Random();
             if (potionDrop.Next(0, 100) <= 90)
             {
-                GameManager.potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
+                Inventory.potionInventory.Add(new Item("포션", "포션을 사용하면 체력을 30 회복 할 수 있습니다.", ItemType.POTION, 0, 0, 30, 300));
                 Console.WriteLine("포션 - 1");
             }
 
@@ -547,14 +552,14 @@ namespace Spartadungeon
             }
         }
 
-        private void PrintPlayerInfo(Player player)
+        public static void PrintPlayerInfo(Player player)
         {
             ConsoleUtility.PrintTextHighlight(ConsoleColor.Magenta, "Lv.", $"{player.Lv}  ", $"{player.Name} ({player.Job})\n");
             PrintHpInfo(player);
             PrintMpInfo(player);
         }
 
-        private void PrintHpInfo(Player player)
+        public static void PrintHpInfo(Player player)
         {
             Console.Write("Hp ");
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Hp}");
@@ -562,7 +567,7 @@ namespace Spartadungeon
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.MaxHp}\n");
         }
 
-        private void PrintMpInfo(Player player)
+        public static void PrintMpInfo(Player player)
         {
             Console.Write("Mp ");
             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, $"{player.Mp}");
