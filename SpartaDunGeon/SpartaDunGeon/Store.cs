@@ -87,6 +87,12 @@ namespace SpartaDunGeon
                     StoreMenu(player);
                     break;
                 default:
+                    if(Inventory.inventory.Count >= 10)
+                    {
+                        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "인벤토리에 공간이 부족합니다.");
+                        Thread.Sleep(500);
+                        BuyMenu(player);
+                    }
                     if (storeInventory[keyInput - 1].IsPurchased)
                     {
                         ConsoleUtility.PrintColoredText(ConsoleColor.Red, "이미 구매한 아이템입니다.");
