@@ -1,6 +1,7 @@
 ﻿using Spartadungeon;
 using SpartaDunGeon;
 using System.Drawing;
+using System.IO;
 using System.Xml.Linq;
 
 public class GameManager
@@ -126,7 +127,7 @@ public class GameManager
         Console.WriteLine("1. 상태창");
         Console.WriteLine("2. 장비창");
         Console.WriteLine("3. 상점");
-        Console.WriteLine("4. 전투 시작");
+        Console.WriteLine("4. 던전입장");
         Console.WriteLine("5. 회복 아이템");
         Console.WriteLine("6. 퀘스트");
         Console.WriteLine("7. 저장하기");
@@ -164,7 +165,7 @@ public class GameManager
                 break;
             case 7:
                 DataManager.Data("Save");
-                Console.WriteLine("저장 완료.");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Blue, "저장 완료.");
                 Thread.Sleep(500);
                 MainMenu(player);
                 break;
@@ -176,7 +177,7 @@ public class GameManager
 {
 Console.Clear();
 
-ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"# 상태 보기 #\n");
+ConsoleUtility.PrintColoredText(ConsoleColor.Yellow,"상태 보기\n");
 Console.WriteLine("캐릭터의 정보가 표기됩니다.\n");
 
 Console.WriteLine($"{player.Name} ({player.Job})");
@@ -191,7 +192,7 @@ Console.WriteLine($"마  력 : {player.Mp}/{player.MaxMp}");
 
 Console.WriteLine($"Gold : {player.Gold}");
 
-Console.WriteLine("\n0. 나가기\n");
+ConsoleUtility.PrintColoredText(ConsoleColor.Red, "\n0. 나가기\n\n");
 
 int Choise = ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -207,50 +208,56 @@ switch (Choise)
 public static void PotionMenu(Player player, bool dungeon = false)
 {
 Console.Clear();
-Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
-Console.WriteLine($" (남은 포션 : {Inventory.potionInventory.Count} )\n");
-Console.WriteLine("[현재 체력]");
-Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
-Console.WriteLine("1. 사용하기");
-ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
-int choice = ConsoleUtility.ChoiceMenu(0, 1);
-switch (choice)
-{
-    case 0:
-                if (dungeon) Dungeon.DungeonScene(player);
-        MainMenu(player);
-        break;
-    case 1:
-        if (Inventory.potionInventory.Count == 0)
+        ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "회복 아이템\n");
+        Console.Write("포션을 사용하면 체력을 30 회복 할 수 있습니다.");
+        Console.WriteLine($" (남은 포션 : {Inventory.potionInventory.Count} )\n");
+        Console.WriteLine("[현재 체력]");
+        Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
+        Console.WriteLine("1. 사용하기");
+        ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
+        int choice = ConsoleUtility.ChoiceMenu(0, 1);
+        switch (choice)
         {
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
-            Thread.Sleep(500);
-            PotionMenu(player, dungeon);
-            break;
+                case 0:
+                        if (dungeon) Dungeon.DungeonScene(player);
+            MainMenu(player);
+                break;
+            case 1:
+                if (Inventory.potionInventory.Count == 0)
+                {
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "포션이 부족합니다.");
+                    Thread.Sleep(500);
+                    PotionMenu(player, dungeon);
+                    break;
+                }
+                Item Use = Inventory.potionInventory[choice - 1];
+                        Inventory.potionInventory.Remove(Use);
+                player.Hp += 30;
+                if (player.Hp >= player.MaxHp)
+                {
+                    player.Hp = player.MaxHp;
+                }
+                ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
+                Thread.Sleep(500);
+                PotionMenu(player, dungeon);
+                break;
+            }
         }
-        Item Use = Inventory.potionInventory[choice - 1];
-                Inventory.potionInventory.Remove(Use);
-        player.Hp += 30;
-        if (player.Hp >= player.MaxHp)
-        {
-            player.Hp = player.MaxHp;
-        }
-        ConsoleUtility.PrintColoredText(ConsoleColor.Green, "회복을 완료했습니다.");
-        Thread.Sleep(500);
-        PotionMenu(player, dungeon);
-        break;
-}
-}
 }
 
 internal class Program
 {
 static void Main(string[] args)
     {
+        string path = Path.GetFullPath("./SaveData.json");
         Console.Clear();
         ConsoleUtility.PrintGameHeader();
         Console.WriteLine("1. 시작");
-        Console.WriteLine("2. 불러오기\n");
+        if (!File.Exists(path))
+        {
+            ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, "2. 불러오기\n\n");
+        }
+        else Console.WriteLine("2. 불러오기\n");
 
         int choice = ConsoleUtility.ChoiceMenu(1, 2);
         switch (choice)

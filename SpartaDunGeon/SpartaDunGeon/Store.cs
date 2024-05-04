@@ -25,7 +25,7 @@ namespace SpartaDunGeon
         {
             Console.Clear();
 
-            Console.WriteLine("상점");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "상점\n");
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
             Console.WriteLine("");
             Console.WriteLine("[보유골드]");
@@ -64,7 +64,7 @@ namespace SpartaDunGeon
         {
             Console.Clear();
 
-            Console.WriteLine("상점 - 구매");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "상점 - 구매\n");
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
             Console.WriteLine("");
             Console.WriteLine("[보유골드]");
@@ -117,7 +117,7 @@ namespace SpartaDunGeon
         {
             Console.Clear();
 
-            Console.WriteLine("상점 - 판매");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "상점 - 판매\n");
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
             Console.WriteLine("");
             Console.WriteLine("[보유골드]");
@@ -169,7 +169,7 @@ namespace SpartaDunGeon
         {
             Console.Clear();
 
-            Console.WriteLine("상점 - 일괄 판매");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "상점 - 일괄 판매\n");
             Console.WriteLine("필요한 아이템을 얻을 수 있는 상점입니다.");
             Console.WriteLine("");
             Console.WriteLine("[보유골드]");

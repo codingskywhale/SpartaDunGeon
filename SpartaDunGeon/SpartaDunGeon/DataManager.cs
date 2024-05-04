@@ -42,7 +42,7 @@ namespace SpartaDunGeon
             {
                 if (!File.Exists(path))
                 {
-                    Console.WriteLine("저장된 데이터가 없습니다.");
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "저장된 데이터가 없습니다.");
                     Thread.Sleep(500);
                     return false;
                 }

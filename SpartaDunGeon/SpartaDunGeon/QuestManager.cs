@@ -36,7 +36,9 @@ namespace SpartaDunGeon
         {
             Console.Clear();
             
-            ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[퀘스트 목록]\n\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "퀘스트\n");
+            Console.WriteLine("퀘스트를 관리할 수 있습니다.\n");
+            Console.WriteLine("[퀘스트 목록]");
             for (int i = 0; i < questList.Count; i++)
             {
                 if (!questList[i].IsCompleted)
@@ -62,7 +64,7 @@ namespace SpartaDunGeon
                 Console.WriteLine();
             }
             
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "\n", $"0", ". 나가기\n\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "\n0. 나가기\n\n");
 
             int number = ConsoleUtility.ChoiceMenu(0, questList.Count);
             switch (number)

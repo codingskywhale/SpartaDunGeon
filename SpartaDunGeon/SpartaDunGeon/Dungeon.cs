@@ -30,23 +30,25 @@ namespace Spartadungeon
         public void StageScene(Player player)
         {
             Console.Clear();
-            Console.WriteLine("■ 스테이지를 선택해주세요 ■\n");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 1. ", "스테이지 1");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "던전입장\n");
+            Console.WriteLine("던전에 입장할 수 있습니다.\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1 ", "Stage 1");
             Console.WriteLine();
             if(stage.num >= 2)
             {
-                ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "", " 2. ", "스테이지 2");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2 ", "Stage 2");
                 Console.WriteLine();
             }
             
             if(stage.num >= 3)
             {
-                ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, " 3. ");
-                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "스테이지 3 - BOSS");
+                ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "3 ");
+                ConsoleUtility.PrintColoredText(ConsoleColor.Red, "BOSS Stage");
+                Console.WriteLine();
             }
 
             Console.WriteLine();
-            Console.WriteLine("0. 이전\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
             stageSelect = ConsoleUtility.ChoiceMenu(0, 3);
 

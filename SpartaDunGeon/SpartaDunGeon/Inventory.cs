@@ -24,7 +24,8 @@ namespace SpartaDunGeon
         public void InventoryMenu(Player player)
         {
             Console.Clear();
-            Console.WriteLine("인벤토리");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "인벤토리\n");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine("");
             Console.Write("[아이템 목록]  ");
             if(inventory.Count >= 10)
@@ -56,9 +57,10 @@ namespace SpartaDunGeon
         {
             Console.Clear();
 
-            Console.WriteLine("인벤토리 - 장착관리");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "인벤토리 - 장착관리\n");
+            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.");
             Console.WriteLine("");
-            Console.WriteLine("[아이템 목록]");
+            Console.Write("[아이템 목록]  ");
             if (inventory.Count >= 10)
             {
                 ConsoleUtility.PrintColoredText(ConsoleColor.Red, $"{inventory.Count} / 10\n");
