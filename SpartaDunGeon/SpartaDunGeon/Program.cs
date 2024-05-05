@@ -269,7 +269,7 @@ static void Main(string[] args)
                 break;
             case 2:
                 gameManager = new GameManager(true);
-                questManager = QuestManager.Instance();
+                //questManager = QuestManager.Instance();
                 bool data = DataManager.Data("Load");
                 if (data)
                 {

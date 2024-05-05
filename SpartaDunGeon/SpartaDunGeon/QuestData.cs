@@ -12,8 +12,7 @@ namespace SpartaDunGeon
         public string QuestName { get; set; }
         public string Description { get; set; }
         public int QuestId { get; set; }
-        public int RewardGold { get; set; }
-        //public Item RewardItem;        
+        public int RewardGold { get; set; }       
         public bool IsCompleted { get; set; }
         public bool IsProceeding { get; set; }
         public bool CanCompleted { get; set; }
@@ -23,6 +22,12 @@ namespace SpartaDunGeon
             QuestId = id;
             QuestName = name;
             Description = description;            
+        }
+
+        public void PrintGoal2(Player player)
+        {
+            Console.Write("\n 고블린 처치 ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"(3 / 5)\n");
         }
 
         // 퀘스트 진행 상황 체크 및 업데이트
@@ -72,6 +77,11 @@ namespace SpartaDunGeon
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");
         }
 
+        public void PrintGoa3(Player player)
+        {
+            Console.Write("\n 슬라고블린 처치 ");
+        }
+
         public override void PrintRewards()
         {
             Console.WriteLine();
@@ -116,7 +126,7 @@ namespace SpartaDunGeon
             Console.Write("\n 고블린 처치 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");            
         }
-
+        
         public override void PrintRewards()
         {
             Console.WriteLine();

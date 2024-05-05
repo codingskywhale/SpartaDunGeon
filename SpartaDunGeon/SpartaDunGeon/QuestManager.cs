@@ -152,6 +152,9 @@ namespace SpartaDunGeon
             // 완료 조건 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[퀘스트 임무]\n");
             questList[index - 1].PrintGoal(player);
+            questList[index - 1].PrintGoal2(player);
+            questList[index - 1].PrintGoal3(player);
+            Console.WriteLine(questList[index - 1].QuestName);
             Console.WriteLine(); // + 완료 조건 출력
 
             // 보상 출력
@@ -171,8 +174,8 @@ namespace SpartaDunGeon
 
                 switch (ConsoleUtility.ChoiceMenu(0, 1))
                 {                    
-                    case 0: 
-                        GameManager.MainMenu(player);
+                    case 0:
+                        QuestManager.PrintQuestList(player);
                         break;
                     case 1:
                         questList[index - 1].GetQuestRewards(player);
@@ -209,11 +212,11 @@ namespace SpartaDunGeon
             
             // 완료 조건 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[퀘스트 임무]\n");
-            Console.WriteLine(); // + 완료 조건 출력
+            Console.WriteLine(); //
 
             // 보상 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[보상]\n");
-            Console.WriteLine(); // + 보상 출력
+            Console.WriteLine(); //
 
             ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "보상 받기\n");
             ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "돌아가기\n\n");
