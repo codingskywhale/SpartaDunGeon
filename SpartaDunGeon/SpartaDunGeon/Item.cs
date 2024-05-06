@@ -123,7 +123,7 @@
                 Console.ResetColor();
                 Console.Write("]");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(ConsoleUtility.PadRight(item.Name, 17));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 18));
             }
             else Console.Write(ConsoleUtility.PadRight(item.Name, 21));
             Console.Write(" | ");
