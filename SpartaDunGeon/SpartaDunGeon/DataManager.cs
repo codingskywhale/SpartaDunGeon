@@ -17,9 +17,8 @@ namespace SpartaDunGeon
         public List<Item> InventoryData { get; set; }
         public List<Item> StoreData { get; set; }
         public List<Item> PotionData { get; set; }
-        public List<Quest> QuestListData { get; set; }
         public StageData StageData { get; set; }
-
+        public List<QuestSaveData> QuestSaveData { get; set; }
         public static bool Data(string SoL)
         {
             string path = Path.GetFullPath("./SaveData.json");
@@ -31,8 +30,8 @@ namespace SpartaDunGeon
                     InventoryData = Inventory.inventory,
                     StoreData = Store.storeInventory,
                     PotionData = Inventory.potionInventory,
-                    QuestListData = QuestManager.questList,
-                    StageData = Dungeon.stage
+                    StageData = GameManager.stage,
+                    QuestSaveData = QuestManager.questSaveList
                 };
                 string saveData = JsonConvert.SerializeObject(_player, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(path, saveData);
@@ -52,8 +51,8 @@ namespace SpartaDunGeon
                 Inventory.inventory = _player.InventoryData;
                 Store.storeInventory = _player.StoreData;
                 Inventory.potionInventory = _player.PotionData;
-                QuestManager.questList = _player.QuestListData;
-                Dungeon.stage = _player.StageData;
+                GameManager.stage = _player.StageData;
+                QuestManager.questSaveList = _player.QuestSaveData;
                 return true;
             }
             return false;

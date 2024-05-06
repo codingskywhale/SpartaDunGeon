@@ -98,9 +98,9 @@ namespace SpartaDunGeon
                         if (inventory[keyInput - 1].Def != 0) player.BonusDef += inventory[keyInput - 1].Def;
 
                         // 장비 장착 퀘스트
-                        if (QuestManager.questList[2].IsProceeding)
+                        if (QuestManager.questSaveList[2].IsProceeding)
                         {
-                            QuestManager.questList[2].UpdateQuestProgress(player);
+                            QuestManager.questList[2].UpdateQuestProgress(player, 2);
                         }
 
                     }
