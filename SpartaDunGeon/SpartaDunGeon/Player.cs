@@ -41,9 +41,9 @@ public class Player : Character
             MaxExp += Lv * 20;
 
             // 레벨업 퀘스트
-            if (QuestManager.questList[3].IsProceeding)
+            if (QuestManager.questSaveList[3].IsProceeding)
             {
-                QuestManager.questList[3].UpdateQuestProgress(this);
+                QuestManager.questList[3].UpdateQuestProgress(this, 3);
             }
 
             if(Job == "전사")

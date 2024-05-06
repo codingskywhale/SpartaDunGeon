@@ -21,12 +21,18 @@ namespace SpartaDunGeon
         }
 
         public static List<Quest> questList;
+        public static List<QuestSaveData> questSaveList;
 
         public QuestManager()
         {            
+            questSaveList = new List<QuestSaveData>();
+            questSaveList.Add(new QuestSaveData(1));
+            questSaveList.Add(new QuestSaveData(2));
+            questSaveList.Add(new QuestSaveData(3));
+            questSaveList.Add(new QuestSaveData(4));
             questList = new List<Quest>();
-            questList.Add(new Quest1(1, "초보 모험가를 위한 슬라임 처치", " 이봐! 마을 근처에 슬라임들이 너무 많아졌다고 생각하지 않나?\n 마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\n 모험가인 자네가 좀 처치해주게!", 1));
-            questList.Add(new Quest2(2, "마을을 위협하는 고블린 무리 소탕", " 최근 고블린들의 행동이 심상치 않네!\n 무리를 지어 마을을 습격해 피해가 이만저만이 아니지... \n 고블린 소굴을 찾아 전부 소탕해주겠나? ", 2));
+            questList.Add(new Quest1(1, "초보 모험가를 위한 슬라임 처치", " 이봐! 마을 근처에 슬라임들이 너무 많아졌다고 생각하지 않나?\n 마을주민들의 안전을 위해서라도 저것들 수를 좀 줄여야 한다고!\n 모험가인 자네가 좀 처치해주게!"));
+            questList.Add(new Quest2(2, "마을을 위협하는 고블린 무리 소탕", " 최근 고블린들의 행동이 심상치 않네!\n 무리를 지어 마을을 습격해 피해가 이만저만이 아니지... \n 고블린 소굴을 찾아 전부 소탕해주겠나? "));
             questList.Add(new Quest3(3, "강력한 장비를 장착해보자", " 새로운 장비를 얻었다면 장착해보게나.\n 장비를 장착하면 여러 가지 능력을 추가로 얻을 수 있다네! "));
             questList.Add(new Quest4(4, "더욱 더 강해지기!", " 레벨은 곧 국력이지!\n 몬스터를 쓰러뜨려 경험치를 얻고 레벨을 올려보게나.\n 5레벨을 달성하면 자네에게 어울리는 선물을 주겠네."));
         }
@@ -41,13 +47,13 @@ namespace SpartaDunGeon
             Console.WriteLine("[퀘스트 목록]");
             for (int i = 0; i < questList.Count; i++)
             {
-                if (!questList[i].IsCompleted)
+                if (!questSaveList[i].IsCompleted)
                 {
                     ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", $"{i + 1}. ", questList[i].QuestName);
 
-                    if (questList[i].IsProceeding)
+                    if (questSaveList[i].IsProceeding)
                     {
-                        if (questList[i].CanCompleted)
+                        if (questSaveList[i].CanCompleted)
                         {
                             ConsoleUtility.PrintColoredText(ConsoleColor.Magenta, " [완료 가능]");
                         }
@@ -73,7 +79,7 @@ namespace SpartaDunGeon
                     GameManager.MainMenu(player);
                     break;
                 case 1:
-                    if (questList[number - 1].IsCompleted)
+                    if (questSaveList[number - 1].IsCompleted)
                     {
                         Console.WriteLine("해당 퀘스트는 더 이상 진행할 수 없습니다.");
                         Thread.Sleep(100);
@@ -86,7 +92,7 @@ namespace SpartaDunGeon
                         break;
                     }
                 case 2:
-                    if (questList[number - 1].IsCompleted)
+                    if (questSaveList[number - 1].IsCompleted)
                     {
                         Console.WriteLine("해당 퀘스트는 더 이상 진행할 수 없습니다.");
                         Thread.Sleep(100);
@@ -99,7 +105,7 @@ namespace SpartaDunGeon
                         break;
                     }
                 case 3:
-                    if (questList[number - 1].IsCompleted)
+                    if (questSaveList[number - 1].IsCompleted)
                     {
                         Console.WriteLine("해당 퀘스트는 더 이상 진행할 수 없습니다.");
                         Thread.Sleep(100);
@@ -112,7 +118,7 @@ namespace SpartaDunGeon
                         break;
                     }
                 case 4:
-                    if (questList[number - 1].IsCompleted)
+                    if (questSaveList[number - 1].IsCompleted)
                     {
                         Console.WriteLine("해당 퀘스트는 더 이상 진행할 수 없습니다.");
                         Thread.Sleep(100);
@@ -125,7 +131,7 @@ namespace SpartaDunGeon
                         break;
                     }
                 case 5:
-                    if (questList[number - 1].IsCompleted)
+                    if (questSaveList[number - 1].IsCompleted)
                     {
                         Console.WriteLine("해당 퀘스트는 더 이상 진행할 수 없습니다.");
                         Thread.Sleep(100);
@@ -151,7 +157,7 @@ namespace SpartaDunGeon
 
             // 완료 조건 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[퀘스트 임무]\n");
-            questList[index - 1].PrintGoal(player);
+            questList[index - 1].PrintGoal(player, questSaveList[index - 1]);
             Console.WriteLine(); // + 완료 조건 출력
 
             // 보상 출력
@@ -161,9 +167,9 @@ namespace SpartaDunGeon
             Console.WriteLine(); // + 보상 출력
 
             // 퀘스트를 수행 중일 때
-            if(questList[index - 1].IsProceeding)
+            if(questSaveList[index - 1].IsProceeding)
             {
-                if (questList[index - 1].CanCompleted)
+                if (questSaveList[index - 1].CanCompleted)
                 {
                     ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "보상 받기\n");
                 }                
@@ -175,7 +181,7 @@ namespace SpartaDunGeon
                         GameManager.MainMenu(player);
                         break;
                     case 1:
-                        questList[index - 1].GetQuestRewards(player);
+                        questList[index - 1].GetQuestRewards(player, questSaveList[index - 1]);
                         break;
                 }
             }
@@ -188,7 +194,7 @@ namespace SpartaDunGeon
                 switch (ConsoleUtility.ChoiceMenu(1, 2))
                 {
                     case 1: // 수락
-                        questList[index - 1].IsProceeding = true;
+                        questSaveList[index - 1].IsProceeding = true;
                         QuestManager.PrintQuestList(player);
                         break;
                     case 2: // 거절
@@ -222,7 +228,7 @@ namespace SpartaDunGeon
             switch (keyInput)
             {
                 case 1: // 보상 받기
-                    questList[index - 1].GetQuestRewards(player);
+                    questList[index - 1].GetQuestRewards(player, questSaveList[index - 1]);
                     break;
                 case 2: // 돌아가기
                     GameManager.MainMenu(player);

@@ -319,12 +319,12 @@ namespace Spartadungeon
                     // 슬라임
                     if (target.Id == 1000)
                     {
-                        QuestManager.questList[0].UpdateQuestProgress(player);
+                        QuestManager.questList[0].UpdateQuestProgress(player, 0);
                     }
                     // 고블린
                     if (target.Id == 1001)
                     {
-                        QuestManager.questList[1].UpdateQuestProgress(player);
+                        QuestManager.questList[1].UpdateQuestProgress(player, 1);
                     }
                 }
 
@@ -350,12 +350,12 @@ namespace Spartadungeon
                     // 슬라임
                     if (target.Id == 1000)
                     {
-                        QuestManager.questList[0].UpdateQuestProgress(player);
+                        QuestManager.questList[0].UpdateQuestProgress(player, 0);
                     }
                     // 고블린
                     if (target.Id == 1001)
                     {
-                        QuestManager.questList[1].UpdateQuestProgress(player);
+                        QuestManager.questList[1].UpdateQuestProgress(player, 1);
                     }
                 }
 
