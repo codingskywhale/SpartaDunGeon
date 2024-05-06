@@ -26,7 +26,7 @@
 - __손민욱__
   - 아이템 및 상점 기능 구현
   - 회복 아이템 기능 구현
-  - 저장 및 불러오기 기능 구현
+  - [저장 및 불러오기 기능 구현](https://github.com/codingskywhale/SpartaDunGeon/wiki/%EC%A0%80%EC%9E%A5-%EB%B6%88%EB%9F%AC%EC%98%A4%EA%B8%B0)
 
 ## 주요 기능
 - 캐릭터 생성
