@@ -105,45 +105,6 @@ namespace Spartadungeon
             }
         }
 
-        public void MonsterSpawn(Player player)
-        {
-            Random randomNum = new Random();
-            Random randomSpawn = new Random();
-
-            int spawnConunt = randomSpawn.Next(1, 5);
-
-            for (int i = 0; i < spawnConunt; i++)
-            {
-                /*
-                int randomIndex = randomNum.Next(0, monster.monsters.Count);
-
-                Monster randomMonster = monster.monsters[randomIndex];
-                spawnList.Add(new Monster(randomMonster.Name, randomMonster.Idx, randomMonster.Lv, randomMonster.Atk, randomMonster.Def, randomMonster.Hp, randomMonster.Gold));
-                */
-                
-                switch (randomNum.Next(0, 5))
-                {
-                    case 0:
-                        spawnList.Add(new Monster("슬라임",0 , 1, 3, 1, 1, 3, 5, 1000));
-                        break;
-                    case 1:
-                        spawnList.Add(new Monster("고블린", 1, 2, 5, 2, 1, 5, 10, 1001));
-                        break;
-                    case 2:
-                        spawnList.Add(new Monster("코볼트", 2, 3, 7, 7, 3, 10, 30, 1002));
-                        break;
-                    case 3:
-                        spawnList.Add(new Monster("오크", 3, 5, 10, 10, 5, 20, 50, 1003));
-                        break;
-                    case 4:
-                        spawnList.Add(new Monster("드래곤", 4, 20, 40, 20, 20, 100, 200, 1004));
-                        break;
-                }
-            }
-
-            DungeonScene(player);
-        }
-
         public static void PlayerTurn(Player player)
         {
             Console.Clear();
@@ -462,19 +423,19 @@ namespace Spartadungeon
                 int minMonster = 0;
                 int maxMonster = 0;
 
-                if (GameManager.stage.num == 1 && StageSelect == 1)
+                if (GameManager.stage.num >= 1 && StageSelect == 1)
                 {
                     minMonster = 0;
-                    maxMonster = 2;
-                }
-
-                else if (GameManager.stage.num == 2 && stageSelect == 2)
-                {
-                    minMonster = 1;
                     maxMonster = 3;
                 }
 
-                else if (GameManager.stage.num == 3 && stageSelect == 3)
+                else if (GameManager.stage.num >= 2 && stageSelect == 2)
+                {
+                    minMonster = 1;
+                    maxMonster = 4;
+                }
+
+                else if (GameManager.stage.num >= 3 && stageSelect == 3)
                 {
                     spawnConunt = 1;
                     minMonster = 4;
