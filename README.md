@@ -32,7 +32,7 @@
 - 캐릭터 생성
 - 상점 및 인벤토리
 - 던전 및 전투
-- 퀘스트
+- [퀘스트](https://github.com/codingskywhale/SpartaDunGeon/wiki/%ED%80%98%EC%8A%A4%ED%8A%B8)
 - 저장 및 불러오기
   
 ## 순서도
