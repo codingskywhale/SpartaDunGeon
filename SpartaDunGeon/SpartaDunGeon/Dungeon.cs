@@ -48,8 +48,21 @@ namespace Spartadungeon
             Console.WriteLine();
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
-            stageSelect = ConsoleUtility.ChoiceMenu(0, 3);
+            if(GameManager.stage.num <= 1)
+            {
+                stageSelect = ConsoleUtility.ChoiceMenu(0, 1);
+            }
 
+            else if (GameManager.stage.num <= 2)
+            {
+                stageSelect = ConsoleUtility.ChoiceMenu(0, 2);
+            }
+
+            else
+            {
+                stageSelect = ConsoleUtility.ChoiceMenu(0, 3);
+            }
+            
             if(stageSelect == 0)
             {
                 GameManager.MainMenu(player);
