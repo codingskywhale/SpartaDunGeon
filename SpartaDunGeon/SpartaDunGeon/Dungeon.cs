@@ -167,6 +167,11 @@ namespace Spartadungeon
                 Attack(player, selectMonster, player);
             }
 
+            if (player.Mp < player.MaxMp)
+            {
+                player.Mp += 5;
+            }
+
             player.ResetSkill();
 
             Console.WriteLine("0. 다음\n");

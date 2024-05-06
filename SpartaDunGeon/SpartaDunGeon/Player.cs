@@ -50,8 +50,8 @@ public class Player : Character
             {
                 MaxHp += 5;
                 MaxMp += 2;
-                Hp += 5;
-                Mp += 2;
+                Hp = MaxHp;
+                Mp = MaxMp;
                 Atk += 1;
                 Def += 1;
             }
@@ -59,8 +59,8 @@ public class Player : Character
             {
                 MaxHp += 2;
                 MaxMp += 5;
-                Hp += 2;
-                Mp += 5;
+                Hp = MaxHp;
+                Mp = MaxMp;
                 Atk += 1;
                 Def += 1;
             }
@@ -84,7 +84,7 @@ public class Player : Character
     {
         Console.WriteLine("사용할 스킬을 선택하세요.\n");
 
-        Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n3. 급소공격\t4. 하늘가르기");
+        Console.WriteLine("1. 힘껏치기\t2. 휴식하기\n3. 급소공격\t4. 하늘가르기\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 

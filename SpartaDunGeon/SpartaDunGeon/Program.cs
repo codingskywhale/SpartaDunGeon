@@ -53,7 +53,7 @@ public class GameManager
 
         Console.Clear();
 
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "입력하신 이름은 '", name, "' 입니다.\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "입력하신 이름은 '", name, "' 입니다.\n\n");
         Console.WriteLine("1. 예");
         Console.WriteLine("2. 아니오\n");
 
