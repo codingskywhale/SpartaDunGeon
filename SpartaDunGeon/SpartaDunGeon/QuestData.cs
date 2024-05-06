@@ -25,6 +25,12 @@ namespace SpartaDunGeon
             Description = description;            
         }
 
+        public void PrintGoal2(Player player)
+        {
+            Console.Write("\n 고블린 처치 ");
+            ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"(3 / 5)\n");
+        }
+
         // 퀘스트 진행 상황 체크 및 업데이트
         public virtual void UpdateQuestProgress(Player player, int id) { }
         
@@ -68,6 +74,11 @@ namespace SpartaDunGeon
         {
             Console.Write("\n 슬라임 처치 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({SaveData.TmpKill} / {goal})\n");
+        }
+
+        public void PrintGoa3(Player player)
+        {
+            Console.Write("\n 슬라고블린 처치 ");
         }
 
         public override void PrintRewards()
@@ -114,7 +125,7 @@ namespace SpartaDunGeon
             Console.Write("\n 고블린 처치 ");
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({SaveData.TmpKill} / {goal})\n");            
         }
-
+        
         public override void PrintRewards()
         {
             Console.WriteLine();
@@ -153,21 +164,18 @@ namespace SpartaDunGeon
 
         public override void PrintGoal(Player player, QuestSaveData SaveData)
         {
-            Console.Write("\n 새로운 장비를 장착해보기\n");
-            //ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");
+            Console.Write("\n 새로운 장비를 장착해보기\n");            
         }
 
         public override void PrintRewards()
         {
-            Console.WriteLine();
-            //ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 낡은 검 x ", "1", "\n");
+            Console.WriteLine();            
             Console.WriteLine($" {RewardGold} Gold");
         }
 
         public override void GetQuestRewards(Player player, QuestSaveData SaveData)
         {
-            player.Gold += RewardGold;
-            //Inventory.inventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
+            player.Gold += RewardGold;            
             SaveData.IsCompleted = true;
 
             QuestManager.PrintQuestList(player);
@@ -179,7 +187,7 @@ namespace SpartaDunGeon
     {
         int targetLevel = 5;
         
-        public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 200/*, bool isProceeding = false, bool canCompleted = false*/) : base(id, name, description)
+        public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 500) : base(id, name, description)
         {
             QuestId = id;
             QuestName = name;
@@ -207,14 +215,14 @@ namespace SpartaDunGeon
         public override void PrintRewards()
         {
             Console.WriteLine();
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, "레벨업 테스트 x ", "1", "\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 스파르타의 창 x ", "1", "\n");
             Console.WriteLine($" {RewardGold} Gold");
         }
 
         public override void GetQuestRewards(Player player, QuestSaveData SaveData)
         {
-            player.Gold += RewardGold;
-            Inventory.inventory.Add(new Item("레벨업 테스트", "테스트", ItemType.WEAPON, 2, 0, 0, 100));
+            player.Gold += RewardGold;            
+            Inventory.inventory.Add(new Item("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", ItemType.WEAPON, 7, 0, 0, 3000));
             SaveData.IsCompleted = true;
 
             QuestManager.PrintQuestList(player);

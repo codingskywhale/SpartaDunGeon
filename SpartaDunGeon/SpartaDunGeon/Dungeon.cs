@@ -30,11 +30,11 @@ namespace Spartadungeon
             Console.Clear();
             ConsoleUtility.PrintColoredText(ConsoleColor.Yellow, "던전입장\n");
             Console.WriteLine("던전에 입장할 수 있습니다.\n");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1 ", "Stage 1");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "Stage 1");
             Console.WriteLine();
             if(GameManager.stage.num >= 2)
             {
-                ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2 ", "Stage 2");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "Stage 2");
                 Console.WriteLine();
             }
             
@@ -98,10 +98,9 @@ namespace Spartadungeon
             Console.WriteLine("[내정보]");
             PrintPlayerInfo(player);
             Console.WriteLine();
-
-            Console.WriteLine("1. 공격");
-            Console.WriteLine("2. 스킬 사용");
-            Console.WriteLine("3. 회복 아이템\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "공격\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "스킬 사용\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "3. ", "회복 아이템\n\n");
 
             int input = ConsoleUtility.ChoiceMenu(1, 3);
             switch(input)
@@ -174,7 +173,7 @@ namespace Spartadungeon
 
             player.ResetSkill();
 
-            Console.WriteLine("0. 다음\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "0. ", "다음\n\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -230,7 +229,7 @@ namespace Spartadungeon
                     Lose(player);
                 }
 
-                Console.WriteLine("0. 다음\n");
+                ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "0. ", "다음\n\n");
                 ConsoleUtility.ChoiceMenu(0, 0);
             }
 
@@ -400,7 +399,8 @@ namespace Spartadungeon
                 GameManager.stage.num = 3;
             }
 
-            Console.WriteLine("0. 다음\n");
+            Console.WriteLine();
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
@@ -422,7 +422,8 @@ namespace Spartadungeon
 
             spawnList.Clear();
 
-            Console.WriteLine("0. 다음\n");
+            Console.WriteLine();
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
 
             ConsoleUtility.ChoiceMenu(0, 0);
 
