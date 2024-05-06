@@ -53,7 +53,7 @@ namespace SpartaDunGeon
         int goal = 3; // 퀘스트 목표
         //int tmpKill; // 진행도 카운트
         
-        public Quest1(int id, string name, string description, /*int targetIndex,*/ int rewardGold = 100/*, bool isProceeding = false, bool canCompleted = false*/) : base(id, name, description)
+        public Quest1(int id, string name, string description, int rewardGold = 100) : base(id, name, description)
         {
             QuestId = id;
             QuestName = name;
@@ -76,11 +76,6 @@ namespace SpartaDunGeon
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({SaveData.TmpKill} / {goal})\n");
         }
 
-        public void PrintGoa3(Player player)
-        {
-            Console.Write("\n 슬라고블린 처치 ");
-        }
-
         public override void PrintRewards()
         {
             Console.WriteLine();
@@ -98,17 +93,14 @@ namespace SpartaDunGeon
     // 고블린 처치 퀘스트
     public class Quest2 : Quest
     {
-        int goal = 1;
-        //int tmpKill;
+        int goal = 5;        
 
-        public Quest2(int id, string name, string description, /*int targetIndex,*/ int rewardGold = 200/*, bool isProceeding = false, bool canCompleted = false*/) : base(id, name, description)
+        public Quest2(int id, string name, string description, int rewardGold = 200) : base(id, name, description)
         {
             QuestId = id;
             QuestName = name;
             Description = description;
-            RewardGold = rewardGold;
-            //IsProceeding = isProceeding;
-            //CanCompleted = canCompleted;
+            RewardGold = rewardGold;            
         }
 
         public override void UpdateQuestProgress(Player player, int id)
@@ -147,7 +139,7 @@ namespace SpartaDunGeon
     {
         bool isEquipped;
 
-        public Quest3(int id, string name, string description, bool isEquipped = false, int rewardGold = 150/*, bool isProceeding = false, bool canCompleted = false*/) : base(id, name, description)
+        public Quest3(int id, string name, string description, bool isEquipped = false, int rewardGold = 150) : base(id, name, description)
         {
 
             QuestId = id;
