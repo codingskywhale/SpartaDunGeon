@@ -261,7 +261,7 @@ static void Main(string[] args)
         {
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, "2. 불러오기\n\n");
         }
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "불러오기\n\n");
+        else ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "불러오기\n\n");
 
         int choice = ConsoleUtility.ChoiceMenu(1, 2);
         switch (choice)
