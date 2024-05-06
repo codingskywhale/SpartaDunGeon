@@ -36,7 +36,7 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
             }
             if (item.IsEquipped)
@@ -69,7 +69,7 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
                 if (item.IsPurchased)
                 {
@@ -112,7 +112,7 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
             }
             if (item.IsEquipped)

@@ -164,21 +164,18 @@ namespace SpartaDunGeon
 
         public override void PrintGoal(Player player, QuestSaveData SaveData)
         {
-            Console.Write("\n 새로운 장비를 장착해보기\n");
-            //ConsoleUtility.PrintColoredText(ConsoleColor.DarkRed, $"({tmpKill} / {goal})\n");
+            Console.Write("\n 새로운 장비를 장착해보기\n");            
         }
 
         public override void PrintRewards()
         {
-            Console.WriteLine();
-            //ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 낡은 검 x ", "1", "\n");
+            Console.WriteLine();            
             Console.WriteLine($" {RewardGold} Gold");
         }
 
         public override void GetQuestRewards(Player player, QuestSaveData SaveData)
         {
-            player.Gold += RewardGold;
-            //Inventory.inventory.Add(new Item("낡은 검", "쉽게 볼 수 있는 낡은 검 입니다.", ItemType.WEAPON, 2, 0, 0, 100));
+            player.Gold += RewardGold;            
             SaveData.IsCompleted = true;
 
             QuestManager.PrintQuestList(player);
@@ -190,7 +187,7 @@ namespace SpartaDunGeon
     {
         int targetLevel = 5;
         
-        public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 200/*, bool isProceeding = false, bool canCompleted = false*/) : base(id, name, description)
+        public Quest4(int id, string name, string description, bool isEquipped = false, int rewardGold = 500) : base(id, name, description)
         {
             QuestId = id;
             QuestName = name;
@@ -218,14 +215,14 @@ namespace SpartaDunGeon
         public override void PrintRewards()
         {
             Console.WriteLine();
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, "레벨업 테스트 x ", "1", "\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkRed, " 스파르타의 창 x ", "1", "\n");
             Console.WriteLine($" {RewardGold} Gold");
         }
 
         public override void GetQuestRewards(Player player, QuestSaveData SaveData)
         {
-            player.Gold += RewardGold;
-            Inventory.inventory.Add(new Item("레벨업 테스트", "테스트", ItemType.WEAPON, 2, 0, 0, 100));
+            player.Gold += RewardGold;            
+            Inventory.inventory.Add(new Item("스파르타의 창", "스파르타의 전사들이 사용했다는 전설의 창입니다.", ItemType.WEAPON, 7, 0, 0, 3000));
             SaveData.IsCompleted = true;
 
             QuestManager.PrintQuestList(player);
