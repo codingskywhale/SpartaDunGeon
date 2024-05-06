@@ -6,6 +6,7 @@ using System.Xml.Linq;
 
 public class GameManager
 {
+    public static StageData stage;
     public static Player player;
     private static Inventory potionInventory;
     private static Inventory inventory;
@@ -23,6 +24,7 @@ public class GameManager
     {
         if (data)
         {
+            stage = new StageData(1);
             questManager = new QuestManager();
             dungeon = new Dungeon();
             dataManager = new DataManager();
@@ -31,6 +33,7 @@ public class GameManager
             store = new Store();
             player = new Player("", "", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         }
+        stage = new StageData(1);
         questManager = new QuestManager();
         dungeon = new Dungeon();
         dataManager = new DataManager();

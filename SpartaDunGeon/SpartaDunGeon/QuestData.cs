@@ -13,7 +13,7 @@ namespace SpartaDunGeon
         public string Description { get; set; }
         public int QuestId { get; set; }
         public int RewardGold { get; set; }
-        //public Item RewardItem;        
+        public Item RewardItem;        
         //public bool IsCompleted { get; set; }
         //public bool IsProceeding { get; set; }
         //public bool CanCompleted { get; set; }

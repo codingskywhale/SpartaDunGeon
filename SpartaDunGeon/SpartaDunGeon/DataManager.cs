@@ -30,7 +30,7 @@ namespace SpartaDunGeon
                     InventoryData = Inventory.inventory,
                     StoreData = Store.storeInventory,
                     PotionData = Inventory.potionInventory,
-                    StageData = Dungeon.stage,
+                    StageData = GameManager.stage,
                     QuestSaveData = QuestManager.questSaveList
                 };
                 string saveData = JsonConvert.SerializeObject(_player, Newtonsoft.Json.Formatting.Indented);
@@ -51,7 +51,7 @@ namespace SpartaDunGeon
                 Inventory.inventory = _player.InventoryData;
                 Store.storeInventory = _player.StoreData;
                 Inventory.potionInventory = _player.PotionData;
-                Dungeon.stage = _player.StageData;
+                GameManager.stage = _player.StageData;
                 QuestManager.questSaveList = _player.QuestSaveData;
                 return true;
             }

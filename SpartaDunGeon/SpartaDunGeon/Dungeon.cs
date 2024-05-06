@@ -16,14 +16,12 @@ namespace Spartadungeon
 {
     public class Dungeon
     {
-        public static StageData stage;
         public static int stageSelect;
 
         public static List<Monster> spawnList;
 
         public Dungeon()
         {
-            stage = new StageData(1);
             spawnList = new List<Monster>();
         }
 
@@ -34,13 +32,13 @@ namespace Spartadungeon
             Console.WriteLine("던전에 입장할 수 있습니다.\n");
             ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1 ", "Stage 1");
             Console.WriteLine();
-            if(stage.num >= 2)
+            if(GameManager.stage.num >= 2)
             {
                 ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2 ", "Stage 2");
                 Console.WriteLine();
             }
             
-            if(stage.num >= 3)
+            if(GameManager.stage.num >= 3)
             {
                 ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "3 ");
                 ConsoleUtility.PrintColoredText(ConsoleColor.Red, "BOSS Stage");
@@ -407,20 +405,20 @@ namespace Spartadungeon
             ItemDrop();
             spawnList.Clear();
 
-            if(stage.num == 1 && stageSelect == 1)
+            if(GameManager.stage.num == 1 && stageSelect == 1)
             {
-                stage.num = 2;
+                GameManager.stage.num = 2;
             }
 
-            else if(stage.num == 2 && stageSelect == 2)
+            else if(GameManager.stage.num == 2 && stageSelect == 2)
             {
-                stage.num = 3;
+                GameManager.stage.num = 3;
             }
             
 
-            if(stage.num > 3)
+            if(GameManager.stage.num > 3)
             {
-                stage.num = 3;
+                GameManager.stage.num = 3;
             }
 
             Console.WriteLine("0. 다음\n");
@@ -464,19 +462,19 @@ namespace Spartadungeon
                 int minMonster = 0;
                 int maxMonster = 0;
 
-                if (stage.num == 1 && StageSelect == 1)
+                if (GameManager.stage.num == 1 && StageSelect == 1)
                 {
                     minMonster = 0;
                     maxMonster = 2;
                 }
 
-                else if ( stage.num == 2 && stageSelect == 2)
+                else if (GameManager.stage.num == 2 && stageSelect == 2)
                 {
                     minMonster = 1;
                     maxMonster = 3;
                 }
 
-                else if (stage.num == 3 && stageSelect == 3)
+                else if (GameManager.stage.num == 3 && stageSelect == 3)
                 {
                     spawnConunt = 1;
                     minMonster = 4;
