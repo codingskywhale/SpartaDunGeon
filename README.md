@@ -29,7 +29,7 @@
   - 저장 및 불러오기 기능 구현
 
 ## 주요 기능
-- 캐릭터 생성
+- [캐릭터 생성](https://github.com/codingskywhale/SpartaDunGeon/wiki/%EC%BA%90%EB%A6%AD%ED%84%B0-%EC%83%9D%EC%84%B1)
 - [인벤토리 및 상점](https://github.com/codingskywhale/SpartaDunGeon/wiki/%EC%9D%B8%EB%B2%A4%ED%86%A0%EB%A6%AC-%EB%B0%8F-%EC%83%81%EC%A0%90)
 - [회복 아이템](https://github.com/codingskywhale/SpartaDunGeon/wiki/%ED%9A%8C%EB%B3%B5-%EC%95%84%EC%9D%B4%ED%85%9C)
 - 던전 및 전투
