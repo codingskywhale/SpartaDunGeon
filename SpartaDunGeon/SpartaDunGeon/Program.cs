@@ -134,10 +134,11 @@ public class GameManager
         ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "4. ", "던전 입장\n");
         ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "5. ", "회복 아이템\n");
         ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "6. ", "퀘스트\n");
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "7. ", "저장하기\n\n");        
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "7. ", "저장하기\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "8. ", "게임종료\n\n");
 
         //선택지 검증
-        int Choise = ConsoleUtility.ChoiceMenu(1, 7);
+        int Choise = ConsoleUtility.ChoiceMenu(1, 8);
 
         //메뉴 중에서 선택
         switch (Choise)
@@ -172,6 +173,9 @@ public class GameManager
                 ConsoleUtility.PrintColoredText(ConsoleColor.Blue, "저장 완료.");
                 Thread.Sleep(500);
                 MainMenu(player);
+                break;
+            case 8:
+                Environment.Exit(0);
                 break;
         }
     }
