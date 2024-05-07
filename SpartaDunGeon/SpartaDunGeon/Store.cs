@@ -37,9 +37,9 @@ namespace SpartaDunGeon
                 Item.StoreItemList(storeInventory[i]);
             }
             Console.WriteLine("");
-            Console.WriteLine("1. 아이템 구매");
-            Console.WriteLine("2. 아이템 판매");
-            Console.WriteLine("3. 아이템 일괄 판매 - 장착하지 않은 아이템 모두 판매");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "아이템 구매\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "아이템 판매\n");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "3. ", "아이템 일괄 판매 - 장착하지 않은 아이템 모두 판매\n");            
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
             switch (ConsoleUtility.ChoiceMenu(0, 3))

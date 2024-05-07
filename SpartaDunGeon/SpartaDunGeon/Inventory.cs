@@ -38,7 +38,7 @@ namespace SpartaDunGeon
                 Item.InventoryItemList(inventory[i]);
             }
             Console.WriteLine("");
-            Console.WriteLine("1. 장착관리");
+            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "장착 관리\n");
             ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
             Console.WriteLine("");
             switch (ConsoleUtility.ChoiceMenu(0, 1))

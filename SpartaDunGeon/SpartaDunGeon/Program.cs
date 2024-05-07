@@ -53,9 +53,9 @@ public class GameManager
 
         Console.Clear();
 
-        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "입력하신 이름은 '", name, "' 입니다.\n\n");
-        Console.WriteLine("1. 예");
-        Console.WriteLine("2. 아니오\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.Yellow, "'", name, "'로 하시겠습니까?\n\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "예\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "아니오\n\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(1, 2);
 
@@ -76,9 +76,10 @@ public class GameManager
         Console.Clear();
 
         Console.WriteLine("직업을 선택해 주세요.\n");
-        Console.WriteLine("1. 전사");
-        Console.WriteLine("2. 마법사");
-        Console.Write("\n>>");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "전사\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "마법사\n");
+        Console.WriteLine();
+        ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, ">> ");
 
         while (true)
         {
@@ -103,7 +104,7 @@ public class GameManager
             }
             else
             {
-                Console.Write("선택지에서 골라주세요.\n>>");
+                Console.Write("선택지에서 골라주세요.\n>> ");
             }
         }
     }
@@ -126,14 +127,14 @@ public class GameManager
         //인트로       
         ConsoleUtility.PrintGameHeader();
 
-        //선택지
-        Console.WriteLine("1. 상태창");
-        Console.WriteLine("2. 장비창");
-        Console.WriteLine("3. 상점");
-        Console.WriteLine("4. 던전입장");
-        Console.WriteLine("5. 회복 아이템");
-        Console.WriteLine("6. 퀘스트");
-        Console.WriteLine("7. 저장하기\n");
+        //선택지        
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "상태창\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "장비창\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "3. ", "상점\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "4. ", "던전 입장\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "5. ", "회복 아이템\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "6. ", "퀘스트\n");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "7. ", "저장하기\n\n");        
 
         //선택지 검증
         int Choise = ConsoleUtility.ChoiceMenu(1, 7);
@@ -216,7 +217,7 @@ Console.Clear();
         Console.WriteLine($" (남은 포션 : {Inventory.potionInventory.Count} )\n");
         Console.WriteLine("[현재 체력]");
         Console.WriteLine($"{player.Hp}/{player.MaxHp}\n");
-        Console.WriteLine("1. 사용하기");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "사용하기\n");
         ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
         int choice = ConsoleUtility.ChoiceMenu(0, 1);
         switch (choice)
@@ -255,12 +256,12 @@ static void Main(string[] args)
         string path = Path.GetFullPath("./SaveData.json");
         Console.Clear();
         ConsoleUtility.PrintGameHeader();
-        Console.WriteLine("1. 시작");
+        ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "새로 시작\n");
         if (!File.Exists(path))
         {
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkGray, "2. 불러오기\n\n");
         }
-        else Console.WriteLine("2. 불러오기\n");
+        else ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "불러오기\n\n");
 
         int choice = ConsoleUtility.ChoiceMenu(1, 2);
         switch (choice)
@@ -272,7 +273,7 @@ static void Main(string[] args)
                 break;
             case 2:
                 gameManager = new GameManager(true);
-                questManager = QuestManager.Instance();
+                //questManager = QuestManager.Instance();
                 bool data = DataManager.Data("Load");
                 if (data)
                 {

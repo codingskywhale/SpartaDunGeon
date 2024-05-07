@@ -172,18 +172,27 @@ namespace SpartaDunGeon
                 if (questSaveList[index - 1].CanCompleted)
                 {
                     ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "보상 받기\n");
-                }                
-                ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "0. ", "돌아가기\n\n");
-
-                switch (ConsoleUtility.ChoiceMenu(0, 1))
-                {                    
-                    case 0: 
-                        GameManager.MainMenu(player);
-                        break;
-                    case 1:
-                        questList[index - 1].GetQuestRewards(player, questSaveList[index - 1]);
-                        break;
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
+                    switch (ConsoleUtility.ChoiceMenu(0, 1))
+                    {
+                        case 0:
+                            QuestManager.PrintQuestList(player);
+                            break;
+                        case 1:
+                            questList[index - 1].GetQuestRewards(player, questSaveList[index - 1]);
+                            break;
+                    }
                 }
+                else
+                {
+                    ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
+                    switch (ConsoleUtility.ChoiceMenu(0, 0))
+                    {
+                        case 0:
+                            QuestManager.PrintQuestList(player);
+                            break;                 
+                    }
+                }                
             }
             // 퀘스트를 수행 중이지 않을 때
             else
@@ -215,14 +224,14 @@ namespace SpartaDunGeon
             
             // 완료 조건 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[퀘스트 임무]\n");
-            Console.WriteLine(); // + 완료 조건 출력
+            Console.WriteLine(); //
 
             // 보상 출력
             ConsoleUtility.PrintColoredText(ConsoleColor.DarkYellow, "[보상]\n");
-            Console.WriteLine(); // + 보상 출력
+            Console.WriteLine(); //
 
             ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "1. ", "보상 받기\n");
-            ConsoleUtility.PrintTextHighlight(ConsoleColor.DarkYellow, "", "2. ", "돌아가기\n\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
             int keyInput = ConsoleUtility.ChoiceMenu(1, 2);
             switch (keyInput)

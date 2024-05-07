@@ -36,7 +36,7 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
             }
             if (item.IsEquipped)
@@ -47,9 +47,9 @@
                 Console.ResetColor();
                 Console.Write("]");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(ConsoleUtility.PadRight(item.Name, 16));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 17));
             }
-            else Console.Write(ConsoleUtility.PadRight(item.Name, 19));
+            else Console.Write(ConsoleUtility.PadRight(item.Name, 20));
             Console.Write(" | ");
             if (item.Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(item.Atk >= 0 ? "+" : "")}{item.Atk} ", 11));
             if (item.Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(item.Def >= 0 ? "+" : "")}{item.Def} ", 11));
@@ -69,13 +69,13 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
                 if (item.IsPurchased)
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-                Console.Write(ConsoleUtility.PadRight(item.Name, 17));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 18));
             }
             else
             {
@@ -83,7 +83,7 @@
                 {
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                 }
-                Console.Write(ConsoleUtility.PadRight(item.Name, 19));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 21));
             }
 
             Console.Write(" | ");
@@ -112,7 +112,7 @@
             if (withNumber)
             {
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write($"{idx} ");
+                Console.Write($"{idx}. ");
                 Console.ResetColor();
             }
             if (item.IsEquipped)
@@ -123,9 +123,9 @@
                 Console.ResetColor();
                 Console.Write("]");
                 Console.ForegroundColor = ConsoleColor.Blue;
-                Console.Write(ConsoleUtility.PadRight(item.Name, 16));
+                Console.Write(ConsoleUtility.PadRight(item.Name, 18));
             }
-            else Console.Write(ConsoleUtility.PadRight(item.Name, 19));
+            else Console.Write(ConsoleUtility.PadRight(item.Name, 21));
             Console.Write(" | ");
             if (item.Atk != 0) Console.Write(ConsoleUtility.PadRight($"공격력 {(item.Atk >= 0 ? "+" : "")}{item.Atk} ", 11));
             if (item.Def != 0) Console.Write(ConsoleUtility.PadRight($"방어력 {(item.Def >= 0 ? "+" : "")}{item.Def} ", 11));
