@@ -140,7 +140,7 @@ namespace SpartaDunGeon
                 Item.StoreItemSellList(Inventory.inventory[i], true, i + 1);
             }
             Console.WriteLine("");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
             int keyInput = ConsoleUtility.ChoiceMenu(0, Inventory.inventory.Count);
 
@@ -211,7 +211,7 @@ namespace SpartaDunGeon
                     BulkSalesMenu(player);
                 }
             }
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
             switch (ConsoleUtility.ChoiceMenu(0, 0))
             {
