@@ -71,7 +71,7 @@ namespace SpartaDunGeon
                 Item.InventoryItemList(inventory[i], true, i + 1);
             }
             Console.WriteLine("");
-            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n");
+            ConsoleUtility.PrintColoredText(ConsoleColor.Red, "0. 나가기\n\n");
 
             int keyInput = ConsoleUtility.ChoiceMenu(0, inventory.Count);
 

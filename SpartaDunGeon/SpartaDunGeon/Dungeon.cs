@@ -168,7 +168,18 @@ namespace Spartadungeon
 
             if (player.Mp < player.MaxMp)
             {
-                player.Mp += 5;
+                if(player.Job == "전사")
+                {
+                    player.Mp += 2;
+                }
+                if(player.Job == "마법사")
+                {
+                    player.Mp += 5;
+                }
+            }
+            if(player.Mp > player.MaxMp)
+            {
+                player.Mp = player.MaxMp;
             }
 
             player.ResetSkill();

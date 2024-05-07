@@ -93,7 +93,7 @@ public class Player : Character
             
 
             case 1:
-                if (player.Mp >= 10)
+                if (player.Mp >= 20)
                 {
                     player.Mp -= 20;
                     player.BaseAtk *= 2;
@@ -162,7 +162,7 @@ public class Player : Character
     {
         Console.WriteLine("사용할 스킬을 선택하세요.\n");
 
-        Console.WriteLine("1. 파이어\t2. 힐\n3. 다크홀\n 4.빅뱅\n");
+        Console.WriteLine("1. 파이어\t2. 힐\n3. 다크홀\t4. 빅뱅\n");
 
         int Choise = ConsoleUtility.ChoiceMenu(1, 4);
 
