@@ -133,7 +133,7 @@ public class GameManager
         Console.WriteLine("4. 던전입장");
         Console.WriteLine("5. 회복 아이템");
         Console.WriteLine("6. 퀘스트");
-        Console.WriteLine("7. 저장하기");
+        Console.WriteLine("7. 저장하기\n");
 
         //선택지 검증
         int Choise = ConsoleUtility.ChoiceMenu(1, 7);
