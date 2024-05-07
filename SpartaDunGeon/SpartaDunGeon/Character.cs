@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+public class Character
+{
+    public string Name { get; set; }
+    public int Id { get; set; }
+    public int Lv { get; set; }
+    public int Exp { get; }
+    public int Atk { get; set; }
+    public int Def { get; set; }
+    public int Hp { get; set; }
+    public int BaseAtk { get; set; }
+
+    public Character(string name, int lv, int exp, int atk, int def, int hp, int id)
+    {
+        Name = name;
+        Lv = lv;
+        Atk = atk;
+        Def = def;
+        Hp = hp;
+        Exp = exp;
+        Id = id;
+        BaseAtk = atk;
+    }
+
+}
